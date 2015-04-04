@@ -1,0 +1,46 @@
+Using Dynamic DNS and DHCP
+==========================
+
+
+o What is DNS?
+  - Domain Name Service.
+  - Used to lookup IP's from names and vice versa.
+  - Basically a big distributed database.
+  - Servers are authorative over small areas with root nodes to tie
+    things together.
+  - Most common DNS server called BIND - Berkeley Internet Name
+    Daemon.
+
+o What is DHCP?
+  - Dynamic Host Configuration Protocol.
+  - Clients send out requests (with optional information)
+  - Server then assigns an IP and may or may not use the information.
+    in the request.
+  - Can only be one central server or chaos will result!
+  - Open source implementations - ISC (maintainers of BIND)
+				- WIDE (.ja possibly out of date)
+
+o What about dynamic DNS?
+  - As the name implies - dynamically change name records.
+  - Dynamic update protocol described in RFC 2136.
+  - Security important (secure key exchange etc).
+  - Updates can be done remotely in a standard manner. (nsupdate/GnuDIP)
+
+o Why bother?
+  - Good for roaming users.
+  - Convenient for the DNS admin.
+  - Once off implementation cost.
+  - Looks cool!
+  
+
+o How do they work together?
+  - Client sends request to server for IP.
+  - DHCP server checks if it is OK to grant an IP.
+  - DHCP send request to DNS server to change DNS records.
+  - DNS server propagates changes to secondaries.
+  - Note that the DHCP and DNS server share a private key.
+
+o Problems
+  - DDNS eats your nicely formatted zone files.
+  - I've crashed BIND 8 with DDNS.
+  - Fairly new code.

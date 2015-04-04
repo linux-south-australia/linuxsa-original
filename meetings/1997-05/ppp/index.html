@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<TITLE>Connecting to the Internet with PPP Under Linux</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>Connecting to the Internet with PPP Under Linux</H1>
+<H2 ALIGN=CENTER>LinuxSA - May 1997 Meeting<BR>
+Geoffrey D. Bennett</H2>
+
+<H1>Topics of Discussion</H1>
+
+<UL>
+<LI>Requirements
+<LI>Setting up
+<LI>Making a manual connection
+<LI>Automating PPP with chat and ppp-on/off scripts
+<LI>Red Hat's netconfig tool
+<LI>Available applications
+</UL>
+
+<H2>Requirements</H2>
+
+<UL>
+<LI>Computer, Modem, Phone Line, an ISP, etc :)
+<LI>A Linux Kernel with PPP support
+<LI>minicom, pppd, chat
+</UL>
+
+<H2>Setting up</H2>
+
+<UL>
+<LI><CODE>/dev/modem</CODE> link to the appropriate serial device
+  <UL>
+  <LI>Eg. <CODE>ln -s ttyS1 /dev/modem</CODE>
+  </UL>
+<LI><CODE>/etc/resolv.conf</CODE>
+  <UL>
+  <LI>Domain Suffix
+  <LI>DNS Server(s)
+  </UL>
+</UL>
+
+<H2>Making a manual connection</H2>
+
+<UL>
+<LI>Dialing in with minicom
+<LI>Noting down the connection procedure
+<LI>Starting PPP
+  <UL>
+  <LI><CODE>pppd /dev/modem defaultroute</CODE>
+  </UL>
+<LI>Checking the Connection
+  <UL>
+  <LI><CODE>/var/log/messages</CODE>
+  <LI><CODE>ping</CODE>
+  </UL>
+<LI>Stopping PPP
+</UL>
+
+<H2>Automating with chat and ppp-on/off scripts</H2>
+
+<UL>
+<LI><CODE>/usr/doc/ppp-*/scripts/</CODE>
+  <UL>
+  <LI><CODE>ppp-on</CODE>
+  <LI><CODE>ppp-on-dialer</CODE>
+  <LI><CODE>ppp-off</CODE>
+  </UL>
+</UL>
+
+<H2>Red Hat's netconfig tool (<CODE>netcfg</CODE>)</H2>
+
+<UL>
+<LI><CODE>/etc/sysconfig/network-scripts/</CODE>
+  <UL>
+  <LI><CODE>ifup</CODE> and <CODE>ifdown</CODE>
+  <LI><CODE>ifcfg-ppp0</CODE>
+  <LI><CODE>chat-ppp0</CODE>
+  </UL>
+</UL>
+
+<H2>Available applications</H2>
+
+<UL>
+<LI>Telnet
+<LI>FTP
+<LI>WWW
+  <UL>
+  <LI>Netscape
+  <LI>Mosaic
+  <LI>Grail
+  <LI>Red Baron
+  <LI>Lynx
+  </UL>
+<LI>Email
+  <UL>
+  <LI>EXMH
+  <LI>Pine
+  <LI>Elm
+  <LI>Netscape
+  </UL>
+<LI>News
+  <UL>
+  <LI>Slrn
+  <LI>Tin
+  <LI>trn
+  <LI>xrn
+  <LI>Pine
+  <LI>Netscape
+  </UL>
+</UL>
+
+<H2>Further Reading</H2>
+
+<UL>
+<LI>PPP-HOWTO
+<LI><CODE>/usr/doc/ppp-*/*</CODE>
+<LI><CODE>ppp(8)</CODE>
+<LI><CODE>chat(8)</CODE>
+<LI><A
+HREF="http://www.redhat.com/support/docs/rhl/Tips/PPP-Tips/PPP-Tips.html">Red
+Hat PPP Setup Tips</A>
+</UL>
+
+<HR>
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

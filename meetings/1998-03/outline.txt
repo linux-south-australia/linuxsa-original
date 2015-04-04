@@ -1,0 +1,166 @@
+
+Basic Linux Security
+by Matthew Tippett
+
+--------------------------------------------------------------------
+
+Time budget
+
+	Total time 90 minutes with 15 minute break.
+
+	Part I		15 min
+	Part II		30 min
+	Part III	35 min
+	Part IV		10 minutes 
+--------------------------------------------------------------------
+
+PART 0: Introduction
+
+Introduction
+	What is Computer Security?
+	How is Linux Used for Computer Security?
+	What can I do?
+	Where to go now?
+
+-------------------------------------------------------------------
+
+PART I: What is Security? (With a twist of Linux)
+
+Introduction
+	Goals
+	Solutions for fulfilling the goals.
+
+What is computer security?
+	
+Goals in Computer Security
+	Integrity
+		Level of trust
+		Modified data
+		Crackers editing, sending false email 
+		Virii and Trojans
+	Confidentiality
+		Accessibility to authorised users
+		Crackers view files
+	Availability
+		Resources available for authrorised users
+		Denial of Service Attacks	
+		Data availability - backups
+		Access to systems when needed
+		User data as a resource
+
+Aspects for Security
+	User Awareness
+		Security Policies
+	Physical Protection
+		Lock your server up
+		(Example NTFS access)
+	Access Control
+		Who can access what from where
+	Auditing
+		I've been hacked, what do I do
+	Cryptography
+		How to protect things
+		Digital Signatures
+
+Real World Computer Security Solutions
+	Permissive vs Restrictive Security
+	Defence in Depth - Firewalls
+	Intrusion Detection Systems
+		
+
+------------------------------------------------------------------
+
+PART II: Linux and Computer Security?
+	
+Introduction
+	Areas to watch for security
+	Examples of Linux and Computer Security
+	Popularity of Linux in the Hacker scene.
+
+Areas to watch on a Linux box
+	File permissions
+	Extra services
+	setuid permissions
+	poor encryption in areas
+	
+Linux as a target
+	Common Unix Problems
+		/etc/passwd (passwd encryption)
+	Remote attacks
+		DOS
+			land/teardrop
+			SYN flooding	**DEMO**
+		Buffer overflows
+			samba		**DEMO**
+	False information
+		SMTP			**DEMO**
+		NFS			**DEMO**
+	Local attacks
+		buffer overflows	**DEMO**
+		link following		**DEMO**
+		password hacking (/etc/passwd)
+		setuid use (XFree86)	**DEMO**
+
+Linux from a dial-up view
+	IRC means target
+		SPAM relaying
+	Are you live on the internet?
+		Telnet into a Linux machine
+
+------------------------------------------------------------------
+
+PART III: What can I do?
+
+Introduction
+	Security starts with the User.
+	System security only as strong as the weakest link.
+
+Look at your system from the inside
+	netstat -a
+	rpcinfo -p localhost
+	filesystem security
+	Keep up to date with all patches (eg RH5 errata)
+	Only install what you need, or install as needed.
+
+Loot at your system from the outside
+	portscan your system
+	lock down you system (passwords at every step)
+
+Defence in depth
+	Add firewalling (ipfw_admin)
+	protect sensitive files
+		shadow password
+	tcp_wrappers
+	Use encyption
+			
+Monitor your system
+	Watch you logs - messages and syslog
+	Watch your logins - last
+
+Educate the user
+	Security Policies
+	secure paths and secure locations  **DEMO**
+	
+	
+-----------------------------------------------------------------
+
+PART IV: Where to now?
+
+Security mailing lists
+	linux-security
+	Full disclosure - like BUGTRAQ
+	CERT/vendor announcements
+
+Archives
+	Exploit archives - rootshell
+
+Journals
+	Professional
+	'Hacker' - Phrack
+
+Link fests
+	Gene Spafford's hotlist	
+		
+--------------------------------------------------------------------------
+
+PART V: Questions

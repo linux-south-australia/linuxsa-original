@@ -1,0 +1,91 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Default Gateway Setting</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Default Gateway Setting</H1>
+<HR>
+
+<!-- Slide Image -->
+<IMG SRC="defgateway.jpg">
+<!-- Slide Image -->
+
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>What is a Gateway ?</H2>
+<P>
+A <STRONG>Gateway</STRONG> is a device which is used to forward IP packets to a remote destination. Another name for a Gateway is a <STRONG>Router</STRONG>.
+</P>
+<P>
+The definition of "remote" in this case, is a device that is not directly attached to the same network segment as the sending device (eg. the same ethernet segment).
+</P>
+<P>
+Because the source device can't send the IP packet directly to the destination device, it must ask another device on the network to help. The device that helps it send to remote destinations is the gateway, attached to multiple networks.
+</P>
+<P>
+The gateway, when it receives the packet to relay, determines the next closest hop on the path towards the ultimate destination, and relays the IP packet to that next hop. This next hop could either be the ultimate destination for the IP packet, or it could be another gateway closer towards the destination.
+</P>
+<P>
+This hop-by-hop process continues until the IP packet reaches its ultimate destination.
+</P>
+<H2>Some Examples</H2>
+<P>
+The following are some examples of how a machine on the 10.0.1.0 subnet in the above diagram will communcate with a node on the same subnet, on subnet 10.0.2.0, and finally, subnet 10.0.3.0. The subnet mask in the example network is <EM>255.255.255.0</EM>.
+</P>
+<UL>
+	<LI><P><STRONG>10.0.1.5 wants to communcate with 10.0.1.6</STRONG> - since 10.0.1.6 is on the same subnet as 10.0.1.5, 10.0.1.5 can directly send the IP packet to 10.0.1.6</P></LI>
+	<LI><P><STRONG>10.0.1.5 wants to communcate with 10.0.2.8</STRONG> - 10.0.2.8 is on a different subnet to 10.0.1.5, so 10.0.1.5 uses the gateway 10.0.1.1 to help it send the IP packet. 10.0.1.1 is also directly attached to the 10.0.2.0 subnet, so it can forward the IP packet directly to 10.0.2.8.</P></LI>
+	<LI><P><STRONG>10.0.1.5 wants to communcate with 10.0.3.9</STRONG> - 10.0.3.9 is on a different subnet to 10.0.1.5, so 10.0.1.5 uses the gateway 10.0.1.1 to help it send the IP packet. 10.0.1.1 is not directly attached to 10.0.3.9, so it has to ask another gateway to help it forward the packet. In this case, 10.0.1.1 knows that 10.0.2.2 is closer to the ultimate destination, so 10.0.1.1 forwards the packet to 10.0.2.2. 10.0.2.2 is attached directly to the 10.0.3.0 subnet, so it can forward the packet directly to 10.0.3.9. The IP packet has reached its destination.</P></LI>
+</UL>
+<H2>What Default Gateway address do I use ?</H2>
+<P>
+The Default Gateway IP address is the IP address of one of the gateways / routers attached to the local segment. This will be the device which is asked for help when sending an IP packet to a remote destination.
+</P>
+<H3>Default Gateway IP Address examples</H3>
+<P>The following are the IP addresses that would be used for Default Gateway IP addresses in the above diagram.</P>
+<UL>
+	<LI><P>10.0.1.5 and 10.0.1.6 will have a Default Gateway address of 10.0.1.1.</P></LI>
+	<LI><P>10.0.2.8 could use either 10.0.2.1 or 10.0.2.2 as Default Gateway address. It doesn't matter which, as long as there is <STRONG>only one</STRONG>.</P></LI>
+	<LI><P>10.0.3.8 and 10.0.3.9 would use 10.0.3.1 as their Default Gateway Address.</P></LI>
+</UL>
+<H2>When don't you set a Default Gateway address ?</H2>
+<P>
+You don't set a Default Gateway address in two situations :
+</P>
+<UL>
+	<LI><P>When you only have one network segment, and no gateways.</P></LI>
+	<LI><P>When you are using PPP to dial into the Internet. When you connect to the Internet using PPP, PPP will add a temporary default gateway address, specifying the dial in access server that you have connected to. From that point on, any IP packets that you send, with a destination that is remote, will be sent out your modem, to the ISP, and onto the Internet. When you finish Surfing, and log off, PPP will remove the temporary default gateway address.</P>
+	<P>This method of operation is really no different to using a fixed Default Gateway address. The problem with using a fixed Default Gateway address and PPP is that you cannot have both a fixed, manually configured Default Gateway and one created by PPP operating at the same time.</P></LI>
+</UL>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="ipaddrex.html">[Previous Page]</A>
+	|
+	<A HREF="ipscript.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

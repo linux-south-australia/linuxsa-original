@@ -1,0 +1,161 @@
+Using Perl and Linux for writing Real-Time Software
+and other various hopefully-interesting things
+
+Specifically, voice-over-IP
+
+Quick intro to VoIP
+
+- RTP (RFC 1889)
+  - Real Time Protocol
+
+  - take audio data, put a timestamp and sequence number on it, and
+    put it in a UDP packet
+
+- SDP (RFC 2327)
+  - Session Description Protocol
+
+    v=0
+    o=Cisco-SIPUA 8522 8274 IN IP4 203.x.y.z
+    s=SIP Call
+    c=IN IP4 203.x.y.z
+    t=0 0
+    m=audio 26858 RTP/AVP 8 0 18 101
+    a=rtpmap:8 PCMA/8000
+    a=rtpmap:0 PCMU/8000
+    a=rtpmap:18 G729/8000
+    a=rtpmap:101 telephone-event/8000
+    a=fmtp:101 0-15
+ 
+- SIP (RFC 3261)
+  - Session Initiation Protocol
+
+    INVITE sip:voicemail@203.x.y.z SIP/2.0
+    Via: SIP/2.0/UDP 203.x.y.z:5060
+    From: "Geoffrey" <sip:g@203.x.y.z>;tag=00036b8b191e0009534ba7eb-785e52b8
+    To: <sip:voicemail@203.x.y.z>
+    Call-ID: 00036b8b-191e0011-70640599-5b37a907@x.y.z.87
+    Date: Tue, 15 Jul 2003 07:45:29 GMT
+    CSeq: 101 INVITE
+    User-Agent: CSCO/4
+    Contact: <sip:g@203.x.y.z:5060>
+    Expires: 180
+    Content-Type: application/sdp
+    Content-Length: 248
+    Accept: application/sdp
+    Remote-Party-ID: "Geoffrey" <sip:g@203.x.y.z>;party=calling;id-type=subscriber;privacy=off;screen=no
+
+Phone diagram
+
+Commonly use packets with 20ms of audio = 50pps.
+
+Real-Time
+- Hard real-time: deadlines (usually <1sec) must be guaranteed or the
+  system fails catastrophically
+- Soft real-time: deadlines must be met most of the time
+
+VoIP requires sending packets out with reasonable consistency.
+Receiver will have a jitter buffer to deal with packets arriving late.
+
+Implementing SIP end-points:
+- Music On Hold, Voicemail, IVR, Conference Bridge
+
+Is Perl suitable?
+
+time() accurate to 1 sec
+sleep() accurate to 1 sec
+
+gettimeofday() accurate to microseconds
+select() can specify microsecond durations
+
+What happens?  see test-select, test-select2
+
+Why?  Linux kernel 100Hz timer.
+Can patch for higher values
+(interesting sidenote -- HZ patch for boot-time selection, tickless patch)
+
+RTP packing/unpacking
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |V=2|P|X|  CC   |M|     PT      |       sequence number         |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           timestamp                           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |           synchronization source (SSRC) identifier            |
+   +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+ 
+   |            contributing source (CSRC) identifiers             |
+   |                             ....                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           payload                             |
+   |                             ....                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+pack()/unpack() in Perl?
+
+Inline.pm
+- embed C in Perl
+- write as little C as possible
+  - enough to convert to and from a binary string and a Perl hash:
+
+    my $packet = {
+      data         => '...',
+      marker       => 1,
+      payload_type => 8,
+      seq_num      => int(rand(65536)),
+      ssrc         => int(rand(2**32)),
+      timestamp    => int(rand(2**32)),
+    };
+
+First experiments didn't require coding or decoding of audio, so
+non-issue at the time.
+
+- ethereal
+
+Architecture to handle more than one thing at a time:
+
+Three layers:
+
+- SIP Messaging - should be responsive, but not time critical
+- Application Logic - can pause for long periods of time
+  (Separate programs for different functionality;
+  one instance per call)
+- RTP (One instance per call) - time-critical
+
+RTP layer has two functions
+- Tx/Rx audio from the network
+- Read/write audio from the disk
+
+Threads?  One for disk I/O, one for network I/O?
+
+  use Thread;
+  use Thread::shared;
+  share(..);
+  my $t = Thread->new(\&thing_to_start, 'arg1', 'arg2');
+
+Shared scalars leak :(
+
+Codecs & File I/O
+- Inline again
+- libsndfile
+
+Debugging
+- Perl debugger
+- gdb on Perl for Inline
+  use Inline C => 'DATA',
+             OPTIMIZE => '-g',
+             FORCE_BUILD => 1,
+             CLEAN_AFTER_BUILD => 0;
+  % gdb perl
+  gdb> set args -d rtp
+  gdb> r
+  perl> n
+  perl> n
+  perl> ^C
+  gdb> b pack_rtp
+  gdb> l
+  gdb> c
+  perl> c 44
+  perl> n
+  perl> x pack_rtp($packet)
+  gdb> ...

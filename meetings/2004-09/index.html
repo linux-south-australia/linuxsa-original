@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<TITLE>Internet Services</TITLE>
+</HEAD>
+
+<BODY>
+<PRE>
+Internet Services
+Geoffrey D. Bennett
+
+- Web
+- FTP
+- Email
+- POP
+
+Services
+--------
+
+Configuring services for boot time:
+
+- Check all services:
+
+  /sbin/chkconfig --list
+
+- Check one service:
+
+  /sbin/chkconfig --list httpd
+
+- Turn a service on or off:
+
+  /sbin/chkconfig httpd on
+  /sbin/chkconfig httpd off
+
+(for xinetd-based services, changes made by chkconfig take effect
+immediately, presuming that xinetd is running)
+
+Starting/stopping services now:
+
+- Check one service:
+
+  /sbin/service httpd status
+
+- Check all services:
+
+  ps auxw
+  netstat -tunap
+
+- Start, stop, restart, reload:
+
+  /sbin/service httpd start
+  /sbin/service httpd stop
+  /sbin/service httpd restart
+  /sbin/service httpd reload
+
+Web
+---
+
+Package name: httpd
+Service name: httpd
+
+Configuration:
+
+- Main configuration file: /etc/httpd/conf/httpd.conf
+
+  Important parameters:
+  - ServerName
+  - ServerAdmin
+
+- Other configuration files: /etc/httpd/conf.d/
+  (eg. welcome.conf)
+
+- /sbin/service httpd reload
+
+- Files to serve go in /var/www/html (by default).
+
+Testing:
+
+- telnet your.ip.address 80
+
+  GET / HTTP/1.0
+  Host: your.host.name
+
+- Look for your content preceded by HTTP headers.
+
+Log files:
+
+- /var/log/httpd/error_log (when things go wrong)
+- /var/log/httpd/access_log
+
+Userdir (http://host/~username) configuration:
+
+- UserDir public_html
+
+FTP
+---
+
+Package name: vsftpd
+Service name: vsftpd
+
+- Anonymous FTP: files go in /var/ftp/pub
+
+- Adding/removing local FTP users (eg. for public_html access):
+
+useradd username
+passwd username
+userdel -r username
+
+To restrict shell access, use 'useradd -s /sbin/nologin username'
+(but add /sbin/nologin to /etc/shells)
+
+Testing:
+
+ftp your.ip.address
+username
+password
+mkdir public_html
+put - index.html
+blah
+^D
+
+- Main configuration file: /etc/vsftpd/vsftpd.conf
+
+  Important parameters:
+  - anonymous_enable=NO
+  - chroot_local_user=YES
+
+- /sbin/service vsftpd reload
+
+Testing:
+
+telnet your.ip.address 80
+GET /~username/ HTTP/1.0
+Host: your.host.name
+
+Mail
+----
+
+Package name: sendmail
+Service name: sendmail
+
+Configuration files in /etc/mail:
+- sendmail.mc
+  - m4 &lt; sendmail.mc &gt; sendmail.cf  (or just 'make'), then reload sendmail
+- local-host-names (then reload sendmail)
+- access (then 'make')
+
+Remove accept_unresolvable_domains
+Remove DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')
+
+Testing:
+
+telnet your.ip.address 25
+HELO bob
+MAIL FROM: &lt;...@...&gt;
+RCPT TO: &lt;...@...&gt;
+DATA
+Subject: test
+
+test
+.
+
+Log file for sendmail: /var/log/maillog
+
+POP
+---
+
+User configuration as for FTP.
+
+Package name: imap
+Service name: ipop3
+
+Testing:
+
+telnet your.ip.address 110
+USER username
+PASS password
+LIST
+RETR 1
+DELE 1
+QUIT
+</PRE>
+</BODY>
+</HTML>

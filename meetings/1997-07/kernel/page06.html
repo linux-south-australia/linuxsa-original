@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<TITLE>Device drivers; modules vs. compiled in</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Helvetica, Arial">
+<FONT SIZE=7><CENTER>Choosing to build modules</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	Modules
+	<UL><UL>
+		<LI>Code (eg. device drivers) inserted into the kernel
+		while it is running
+		<LI>Eg. floppy disk driver or printer port driver only
+		needed when accessing those devices
+		<LI>Saves on memory (kernel code is not swappable)
+	</UL></UL>
+	</P>
+	Nearly all device drivers can be built as modules
+	</P>
+	Not usually a good idea to build boot-time devices such as a
+	hard disk device driver as a module (however it can be done
+	with initrd)
+	</P>
+	Sound-card support is better built compiled-in, anything else
+	that can be modularised should be
+	</P>
+</UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

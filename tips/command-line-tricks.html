@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Command Line Tricks</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Command line tricks</H1>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<H2>Introduction</H2>
+
+<P>I have seen a lot of people who are new to Linux who are aware of
+the poor scripting tools and command line tools that Windows has;
+these same people bring the same attitudes to Linux.</P>
+
+<H2>Command Line Tricks</H2>
+
+<P>The default shell under Linux, bash (the Bourne Again Shell, an old
+UNIX joke), has a number of very useful facilities.</P>
+
+<UL>
+
+<LI><P><STRONG>command and file name completion.</STRONG></P>
+
+<P>You do not have to slavishly type in the whole of a command's name
+or the whole of a file's name if it is an argument to a command.  bash
+can complete these things for you if what you have already typed in is
+unambiguous.</P>
+
+<P>Try for example: <CODE>mor</CODE>&lt;tab&gt;</P>
+
+<P>That is hit the tab key after tying in '<CODE>mor</CODE>'</P>
+
+<P>Under most circumstances, bash will complete it to '<CODE>more
+</CODE>' for you, and wait for you to type in a file name.</P>
+
+<P>Next, try: <CODE>mo</CODE>&lt;tab&gt;</P>
+
+<P>In this case, nothing happens, except that bash may beep at you.
+Here, what you have typed is ambiguous, so bash can't complete it.</P>
+
+<P>To see what commands are available, hit the tab key twice in
+succession.  bash will display all the possibilities, and you can
+usually enter one or two more characters and hit tab again, and bash
+will complete the command for you.</P>
+
+<P>The same is true for file names as arguments.</P>
+
+<LI><P><STRONG>bash is a veritable programming language that has
+variables, programming statements and so forth.</STRONG></P>
+
+<P>The DOS command prompt is crap by comparison.</P>
+
+<P>Let us say that you are downloading a file, something that many of
+us do frequently, I think.  You want to do something else after the
+download is finished, and you want to watch it in a window while you
+do other things in other windows.</P>
+
+<P>Instead of manually entering an '<CODE>ls -al</CODE> &lt;file&gt;'
+in a window every now and then, here is an approach that will
+automatically show you how far the download has got every minute.</P>
+
+<P>
+<PRE>
+   while [ 1 ]
+   do
+      ls -al &lt;file&gt; ; sleep 60
+   done
+</PRE>
+</P>
+
+<P>What this does is loop forever (<CODE>while [ 1 ]</CODE> says while
+true do etc)</P>
+
+<P>Then do an '<CODE>ls -al</CODE>' of the file. You will have to
+specify the file name and path.  Then the semicolon allows me to put
+two commands on the one line.</P>
+
+<P>Then we sleep for 60 seconds, and then complete the loop.</P>
+
+<P>Try it with other commands.  You can use it with</P>
+
+<PRE>
+      ps -ax | grep &lt;some proc&gt;
+</PRE>
+
+<P>to check that a process is still running and so on ...</P>
+
+<P>When you are finished, use ^C (That is control-C) to kill the
+loop.</P>
+
+<P>Then recall the command (with the up-arrow key) and see what bash
+has recorded it as.  See all those extra semicolons there?  That is
+how you enter the above loop all on the one line ...</P>
+
+</UL>
+
+<P>Of course, if you want to get a file and then do something after,
+you could use wget to get the file and simply enter another command
+after a semicolon of something like that.</P>
+
+<P>Next posting, someone will explain STDIN, STDOUT, and STDERR, along
+with talking about what is going on with piping commands together.
+Then we will get to bash variables, and more complex loops.</P>
+
+<P>In the spirit of contribution,</P>
+
+<P>Hope this helps ...</P>
+
+<P>Regards</P>
+
+<PRE>
+-------
+Richard Sharpe, <A HREF="mailto:sharpe@ns.aus.com">sharpe@ns.aus.com</A>, Master Linux Administrator :-),
+Samba (Team member, <A HREF="http://www.samba.org/">www.samba.org</A>), Ethereal (Team member, <A HREF="http://www.zing.org/">www.zing.org</A>)
+Co-author, SAMS Teach Yourself Samba in 24 Hours
+Author: First Australian 5-day, intensive, hands-on Linux SysAdmin course
+</PRE>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

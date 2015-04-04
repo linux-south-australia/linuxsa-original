@@ -1,0 +1,71 @@
+Tivo Hacking
+Geoffrey D. Bennett
+geoffrey@linuxsa.org.au
+
+What is TiVo
+- Video Recorder that uses hard disk instead of tape
+- Runs Linux
+- Made by Philips, Sony, and Hughes
+- Available in US and UK
+- Sold for about US$199 (20 hour model), $299 (30 hour model)
+- UK (PAL) version more expensive
+- TiVo (the company) provide a subscription service where the TiVo downloads
+  (over modem) the TV guide
+  - $9.95/month or $249.00
+- Subscription service dials into a local POP to download TV guide information
+
+User Features
+- Pause, rewind live TV
+- Record by time
+- Record by name
+- Season Passes
+- Figures out what you like
+- Easy to use
+- Watch a program that's currently being recorded
+- Watch a recorded program while another is being recorded
+
+Technically
+- RF, composite, or S-Video input
+- RF, composite, or S-Video output
+- Internal Modem
+- IR and serial ports for controlling cable or satellite receivers
+- Hard disk mounting
+- System Diagram
+- Linux
+- PROM/BIOS
+- Partitioning
+  - kernel * 2
+  - /root * 2 (mounted r/o)
+  - /var (mounted r/w)
+  - MFS - "Media Filesystem" (not mountable)
+
+Hacks
+- Getting into the TiVo
+- Setting up PPP
+- Adding a new disk
+- Locked drives
+- Cross-compiler
+
+Tridge & Friends Hacks
+- Ported rsync and ps
+- Web server (Stephen Rothwell)
+- Ethernet (Bob Edwards)
+- Australian Support
+  - PAL support
+    - video decoder (Philips SAA7114)
+    - MPEG encoder (Sony CXD1922)
+    - MPEG decoder (IBM CS22)
+    - 7120?
+  - Guide Data
+    - Slice files, encoder/decoder
+    - SOFCOM/FOXTEL
+    - Distribution
+  - IR
+    - irtest2tivo (Chris Yeoh)
+  - Tuner
+    - Dick Smith TV Capture card
+- More RAM
+- Video over LAN
+
+- Coping with the 2.0 software upgrade
+- Stereo when using the tuner

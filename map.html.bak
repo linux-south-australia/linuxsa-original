@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<TITLE>LinuxSA - Endeavour House Map</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+<P><IMG ALT="Linux" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+<P><IMG ALT="Map" SRC="/images/mapbar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<P>The address for the next
+<FONT COLOR="#0000FF">Linux</FONT><FONT COLOR="#FF0000">SA</FONT>
+meeting is:</P>
+<BLOCKQUOTE>
+Dynamic Computer Solutions<BR>
+38 Greenhill Road<BR>
+Wayville SA
+</BLOCKQUOTE>
+
+<P>We now have a map of the area near the meeting place thanks to
+Scott Lawson
+(<A HREF="mailto:slawson@denr.sa.gov.au">slawson@denr.sa.gov.au</A>).</P>
+
+<P><IMG SRC="/images/map.gif"></P>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

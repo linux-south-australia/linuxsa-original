@@ -1,0 +1,118 @@
+<HTML><HEAD>
+<TITLE>LinuxSA - Linux and Security - What can I do?</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<A NAME="top"></A>
+[<A HREF="part2.html"><<</A> <A HREF="index.html">^</A> <A HREF="#intro">></A> <A HREF="part4.html">>></A>]
+<FONT FACE="arial, helvetica">
+
+<HR>
+<A NAME="intro"><H1>Part III : What can I do?</H1></A>
+	<H3><LI>Define your goals</LI></H3>
+	<H3><LI>Clean up from the inside</LI></H3>
+	<H3><LI>Clean up from the outside</LI></H3>
+	<H3><LI>Add defence in depth</LI></H3>
+	<H3><LI>Monitor your system</LI></H3>
+
+<FONT SIZE=-3>[ <A HREF="#top"><</A> <A HREF="#top">^</A> <A HREF="#policy">></A> ]</FONT><HR>
+
+<A NAME="policy"><H1>Define your goals</H1></A>
+	<H3><LI>Define your goals</LI></H3>
+	<H3><LI>Work out how to achieve them</LI></H3>
+	<H3><LI>Create a security policy</LI></H3>
+
+<FONT SIZE=-3>[ <A HREF="#intro"><</A> <A HREF="#top">^</A> <A HREF="#inside">></A> ]</FONT><HR>
+
+
+<A NAME="inside"><H1>Clean up from the inside</H1></A>
+	<H3><LI>Find out how people can connect</LI></H3>
+	<UL>
+		<LI>netstat -a <FONT COLOR="red">!!!</FONT></LI>
+		<LI>rpcinfo -p localhost <FONT COLOR="red">!!!</FONT></LI>
+	</UL>
+	<H3><LI>Check file permissions</LI></H3>
+	<UL>
+		<LI>setuid only when necessary</LI>
+		<LI>Check that protected data is protected</LI>
+	</UL>
+	<H3><LI>Know thy enemy - know the state of installed software</LI></H3>
+	<UL>
+		<LI>Keep up to date with patches/updates</LI>
+		<LI>Monitor security mailing lists for alerts <FONT COLOR="red">!!!</FONT></LI>
+		<LI>Restrict packages installed to only those needed</LI>
+	</UL>
+	<H3><LI>Use some scanning packages</LI></H3>
+	<UL>
+		<LI>COPS</LI>
+	</UL>
+
+<FONT SIZE=-3>[ <A HREF="#policy"><</A> <A HREF="#top">^</A> <A HREF="#outside">></A> ]</FONT><HR>
+
+
+<A NAME="outside"><H1>Clean up from the outside</H1></A>
+	<H3><LI>Improve security of your site by breaking into it</LI></H3>
+	<UL>
+		<LI>Become a <EM>script-kiddie</EM></LI>
+		<LI>Multiple checklists step-throughs available on the Internet</LI>
+	</UL>
+	<H3><LI>Use some scanning packages</LI></H3>
+	<UL>
+		<LI>SATAN</LI>
+		<LI>ISS</LI>
+	</UL>
+
+<FONT SIZE=-3>[ <A HREF="#inside"><</A> <A HREF="#top">^</A> <A HREF="#depth">></A> ]</FONT><HR>
+
+<A NAME="depth"><H1>Add defence in depth</H1></A>
+	<H3><LI>Protect each part of the system</LI></H3>
+	<UL>
+		<LI>BIOS, LILO and kernel passwords, single user mode</LI>
+		<LI>Helps with physical security</LI>
+	</UL>
+	<H3><LI>Apply cryptography where appropriate</LI></H3>
+	<UL>
+		<LI>PGP encrypt files</LI>
+		<LI>Cryptographic File System</LI>
+	</UL>
+	<H3><LI>Add network protection at various levels</LI></H3>
+	<UL>
+		<LI>ip filtering (ipfw)</LI>
+		<LI>TCP wrappers</LI>
+	</UL>
+
+<FONT SIZE=-3>[ <A HREF="#outside"><</A> <A HREF="#top">^</A> <A HREF="#monitor">></A> ]</FONT><HR>
+
+<A NAME="monitor"><H1>Monitor your System</H1></A>
+	<H3><LI>Know what to trust</LI></H3>
+	<H3><LI>Message logs</LI></H3>
+	<UL>
+		<LI>syslog is typically used by a lot of programs</LI>
+		<LI>Check files pointed to by /etc/syslog.conf <FONT COLOR="red">!!!</FONT></LI>
+	</UL>
+	<H3><LI>Login history</LI></H3>
+	<UL>
+		<LI>Who logged in from where at what time</LI>
+		<LI>/var/log/wtmp and last</LI>
+	</UL>
+
+<FONT SIZE=-3>[ <A HREF="#depth"><</A> <A HREF="#top">^</A> > ]</FONT><HR>
+</FONT>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT></BODY>
+

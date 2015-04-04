@@ -1,0 +1,95 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Special IP Addresses</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Special IP Addresses</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>Special Addresses</H2>
+<P>
+The following are special IP addresses reserved for use during the operation of an IP based network.
+</P>
+
+<H3>Networks / Subnets</H3>
+<UL>
+	<LI><P><STRONG>A network/subnet number with all binary 0s</STRONG> - This specifies "this" network/subnet ie. the current network/subnet.</P></LI>
+	<LI><P><STRONG>A subnet number with all binary 1s</STRONG> - This specifies all subnets.</P></LI>
+</UL>
+<P>
+As you cannot have a subnet number of 0 (all binary zeros) or 255 (all binary 1s), you can only have 254 subnets when using 1 octet for subnetting (ie. 2^8 -2 = 254).
+</P>
+
+<H3>Hosts</H3>
+<UL>
+	<LI><P><STRONG>A host portion with all binary 1s</STRONG> - Sending a packet to this address will broadcast the packet to all hosts on the specified network/subnet.</P></LI>
+	<LI><P><STRONG>A host portion with all binary 0s</STRONG> - This address specifies a network/subnetwork, but does not specify any host on the network/subnetwork. This form is commonly used in routing tables.</P></LI>
+</UL>
+<P>
+As you cannot have a host number of 0 (all binary zeros) or 255 (all binary 1s), you can only have 254 hosts when using 1 octet for host addresses (ie. 2^8 - 2 = 254).
+</P>
+
+<H3>Individual Networks</H3>
+<UL>
+	<LI><P><STRONG>127.0.0.0</STRONG> - This special Class A network is commonly known as the "loopback" network. Any packets sent to a host on this network will not be sent out the network card installed in the computer. They will be returned to back to the machine. This allows both a client application and server application to reside on the same machine. The 127.0.0.0 is not, nor should not be subnetted. Most operating systems will automatically configure this address.</P></LI>
+</UL>
+
+<H3>Individual IP Addresses</H3>
+<UL>
+	<LI><P><STRONG>Network/subnet/host portions with all binary 1s - 255.255.255.255</STRONG> - This address can only be used as a source IP address, to send a broadcast to all hosts on the current network.</P></LI>
+	<LI><P><STRONG>A network/subnet portion with all binary 0s, and a specified host portion eg. 0.0.0.5</STRONG> - this address specifies a host on "this" network ie. the network the host is currently attached to.</P></LI>
+	<LI><P><STRONG>Network/subnet/host portions with all binary 0s - 0.0.0.0</STRONG> - This address can only be used as a source IP address, when the host does not know its IP address ie. it has not been assigned. It is also used in route tables to indicate a default route.</P></LI>
+</UL>
+<H2>RFC 1918 Addresses</H2>
+<P>
+The people at InterNIC realise that there may be organisations who want to build their own private IP based internetworks, using any old IP addressing scheme.
+</P>
+<P>
+However, if these organisations connected to the Internet at a later date, the addresses they may have used could conflict with official Internet addresses.
+</P>
+<P>
+To remedy this, InterNIC have allocated some Class A, B and C network addresses for use in private networks, which would not cause problems if accidently connected to the Internet. Keep in mind, these addresses will not work on the Internet either.
+</P>
+<P>
+These network addresses are documented in <STRONG>RFC 1918</STRONG>. They are :
+</P>
+<UL>
+	<LI><P>Class A network <STRONG>10</STRONG>.<EM>0.0.0</EM> - 1 Class A</P></LI>
+	<LI><P>Class B networks <STRONG>172.16</STRONG>.<EM>0.0</EM> to <STRONG>172.31</STRONG>.<EM>0.0</EM> - 16 Class Bs</P></LI>
+	<LI><P>Class C networks <STRONG>192.168.0</STRONG>.<EM>0</EM> to <STRONG>192.168.255</STRONG>.<EM>0</EM> - 255 Class Cs</P></LI>
+</UL>
+<P>
+If you are going to create your own TCP/IP network segment using ethernet at home, and still have a machine dialing into the Internet, it is best to use one of the above Class A, B or C networks.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="subnetmask.html">[Previous Page]</A>
+	|
+	<A HREF="ipaddrex.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

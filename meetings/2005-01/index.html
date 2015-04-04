@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<TITLE>vim</TITLE>
+</HEAD>
+
+<BODY>
+<PRE>
+vim
+Geoffrey D. Bennett
+
+Modal editing:
+- command mode
+- insert mode (traditionally didn't permit movement)
+
+Inserting:
+- i - before cursor
+- a - after cursor
+- I - beginning of line
+- A - end of line
+- o - after line
+- O - before line
+
+Things that move you around:
+- h j k l - character
+- w W b B - words or WORDs
+- e E - end of words or WORDs
+- ( ) - sentence
+- { } - paragraph
+- H L - top or bottom of screen
+- gg or G - beginning or end of file
+
+Things that do something and need a motion:
+- d - delete ("cut")
+- y - yank ("copy")
+- c - change (same as delete then insert)
+
+Eg. dw, yw, cw, dW, yW, cW
+
+- double character (dd, yy, cc) means operate by line
+- capital (D, Y, C) means to the end of line (except for "y" by default :-( )
+
+- x - delete character under cursor
+- s - substitute (delete character, then insert)
+- p - put ("paste") after cursor
+- P - put before cursor
+
+Everything (so far) can be prefixed with a "count".  Eg.:
+- 3j - go down 3 lines
+- 3w - forward 3 words
+- 3dw - 3x delete word
+- d3w - delete 3 words
+- 3d3w - 3x delete 3 words (ie. delete 9 words)
+- 3yy - yank 3 lines
+- 3cc - change 3 lines
+- 3i ... ESC - repeat insert 3 times
+- i-----ESC10a8&lt;-----ESC
+
+. - repeat last command
+
+/ - search (regular expressions)
+:noh - turn off highlight
+
+.n.n.n - interactive find and replace (instead of :%s/ferd/fred/gc)
+
+Visual mode:
+- v, V, ^V - by character, line, or block
+  (use any movement command while in visual mode)
+- o - go to other end of the highlighted text
+- gv - re-highlight last highlighted text
+then any delete, yank, change command (and others, like J, ~, :s, ...)
+
+Visual-block-mode funkyness: I A r
+(try ":set virtualedit=block" or "all")
+
+:help or :help anycommand
+CTRL-] - follow "link"
+CTRL-T - "back"
+- user guide
+
+Windows
+- CTRL-wn - new window
+- CTRL-ws - split current window
+- CTRL-wj (k, w, Up, Down) - move between windows
+- CTRL-w+ (-, _) - resize windows
+- :q or CTRL-Wc - close window
+- CTRL-wv - vertical split
+- vim -o * - open lots of files into windows
+
+Or use gvim :-).
+
+More searching:
+- * or # - search forward or backwards
+- Use with windows to search for one thing in another window
+
+Numbers:
+- ^A - add
+- ^X - subtract
+(of course, can be prefixed with a count)
+
+Macros:
+- qa - start recording macro "a"
+- q - finish recording
+- @a - run macro "a"
+- @@ - run last macro
+
+Eg. to create a numbered list:
+- i1ESC - insert a "1"
+- qa - start recording
+- yyp - copy line
+- ^A - increment number
+- q - stop recording
+- 8@a - run macro 8 times
+
+Eg. editing lots of files:
+- qa - start recording
+- gg - top of file
+- OblahESC - insert some text
+- :wn - write, and go to next file
+- q - stop recording
+
+Registers:
+- "ay - yank to register "a"
+- "ap - paste from register "a"
+
+Swapping:
+- xp - characters
+- dWWP - words
+- ddp - lines
+
+Editing config files:
+
+#ServerName new.host.name:80
+
+- yyp - copy line
+- x - delete "#"
+- w - go to next word
+- Cblah - change text to blah
+
+Reading from a command:
+- :r!ls -la
+
+Filtering lines (eg. delimited files):
+- ! - works like d, y, c (ie. requires a motion)
+- Tab-separated files: gg!Gcut -f1-3 -d'TAB'
+  (enter "TAB" by pressing ^V then TAB)
+- Calculator: yyp!!bc&lt;ENTER&gt;kJi =&lt;ESC&gt;
+
+Scrolling: zz, zt, zb, ^E, ^Y
+
+Append/prepend: :%s/$/stuff/
+(and with visual mode)
+
+Tabs:
+- :set ts=8 - tabstops
+- :set et - expand tabs
+- :set noet - don't expand tabs
+- :retab! - remove or insert tabs as necessary
+
+Indent/outdent:
+- set sw=2 - shiftwidth
+- &lt; - outdent
+- &gt; - indent
+Requires a motion (eg. "&lt;&lt;", "&gt;&gt;", "&gt;}".
+
+Formatting:
+- :set tw=70
+- gq - format (requires a motion)
+- :set paste
+- :set nopaste
+- :set pastetoggle=&lt;F11&gt;
+
+vimdiff
+
+Syntax highlighting
+
+Tab completion, eg.:
+- :e ^I
+- :set ^I
+
+Command line history:
+- :e (Up)
+
+Marks:
+- ma - mark this spot as "a"
+- `a - go back to "a"
+
+Use of swp files
+
+viminfo file
+
+vimrc file
+
+Regexes need lots of backslashes
+:%s/^\(.*\),\(.*\)/\2,\1/
+instead of:
+:%s/^(.*),(.*)/$2,$1/
+
+`` - back to last "jump" (usually "big" movements)
+
+Cool plugins:
+- editing gzipped files: vi blah.txt.gz
+- editing remote files: vi scp://remotehost//etc/hosts
+- file explorer: vi directory
+
+set -o vi - for vi-editing on the bash command line
+
+:help emacs-keys - for emacs keybindings on the vi command line
+
+Fun stuff:
+- hanoi
+- mandelbrot
+- tetris
+</PRE>
+</BODY>
+</HTML>

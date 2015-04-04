@@ -1,0 +1,8 @@
+<P ALIGN=CENTER>
+<A HREF="/"><IMG ALT="[Home]" SRC="/images/home.jpg" BORDER=0 WIDTH=100 HEIGHT=35></A>
+<A HREF="/linuxsa/"><IMG ALT="[LinuxSA]" SRC="/images/linuxsa.jpg" BORDER=0 WIDTH=102 HEIGHT=35></A>
+<A HREF="/linux/"><IMG ALT="[Linux]" SRC="/images/linux.jpg" BORDER=0 WIDTH=100 HEIGHT=35></A>
+<A HREF="/links.html"><IMG ALT="[Links]" SRC="/images/links.jpg" BORDER=0 WIDTH=100 HEIGHT=35></A>
+<A HREF="/meetings/"><IMG ALT="[Meetings]" SRC="/images/meetings.jpg" BORDER=0 WIDTH=100 HEIGHT=35></A>
+<A HREF="/mailing-list/"><IMG ALT="[Mailing List]" SRC="/images/mailing.jpg" BORDER=0 WIDTH=100 HEIGHT=35></A>
+</P>

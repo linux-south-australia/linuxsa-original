@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE>Verifying Packages</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>Verifying Packages</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	<FONT FACE="courier">rpm -V pkg1 ...</FONT>
+	</P>
+	Verifies:
+	<UL><UL>
+		<LI>Owner</LI>
+		<LI>Group</LI>
+		<LI>Mode</LI>
+		<LI>MD5 checksum</LI>
+		<LI>Size</LI>
+		<LI>Major/minor numbers</LI>
+		<LI>Symbolic link string</LI>
+		<LI>Modification time</LI>
+	</UL></UL>
+	</P>
+	Verifying all packages:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -Va</FONT></LI>
+	</UL></UL>
+	</P>
+	Verifying the package that owns a file:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -Vf /bin/bash</FONT></LI>
+	</UL></UL>
+	</P>
+	Verifying against a package file:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -Vp eject-1.4-3.i386.rpm</FONT></LI>
+	</UL></UL>
+	</P>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

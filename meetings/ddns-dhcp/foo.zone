@@ -1,0 +1,12 @@
+;BIND DUMP V8
+$ORIGIN com.
+foo	86400	IN	NS	test.foo.com.	;Cl=2
+	86400	IN	SOA	test.foo.com. root.foo.com. (
+		2002021819 10800 3600 604800 86400 )	;Cl=2
+$ORIGIN foo.com.
+bar	86400	IN	A	10.0.2.2	;Cl=2
+test	86400	IN	A	10.0.2.1	;Cl=2
+bob5	60	IN	A	10.0.2.250	;Cl=2
+	60	IN	TXT	"315d17bc265ccaef5edea810eef98612cf"	;Cl=2
+guppy	21600	IN	A	10.0.2.250	;Cl=2
+	21600	IN	TXT	"31a28226d892736ef1c03aa5acfed78352"	;Cl=2

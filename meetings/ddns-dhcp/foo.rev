@@ -1,0 +1,8 @@
+;BIND DUMP V8
+$ORIGIN 0.10.in-addr.arpa.
+2	86400	IN	NS	test.foo.com.	;Cl=5
+	86400	IN	SOA	foo.com. root.foo.com.au. (
+		2002021811 10800 3600 604800 86400 )	;Cl=5
+$ORIGIN 2.0.10.in-addr.arpa.
+250	60	IN	PTR	bob5.foo.com.	;Cl=5
+1	86400	IN	PTR	test.foo.com.	;Cl=5

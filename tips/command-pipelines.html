@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Command Pipelines</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Command Pipelines</H1>
+<FONT SIZE=1>by <A HREF="mailto:davidn@rebel.net.au">David
+Newall</A>.</FONT>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<P>Pipes are easy.&nbsp; The Unix shells provide mechanisms which you
+can use them to allow you to generate remarkably sophisticated
+`programs' out of simple components.&nbsp; We call that a
+pipeline.&nbsp; A pipeline is composed of a data generator, a series
+of filters, and a data consumer.&nbsp; Often that final stage is as
+simple as displaying the final output on stdout, and sometimes the
+first stage is as simple as reading from stdin.&nbsp; I think all
+shells use the "|" character to separate each stage of a
+pipeline.&nbsp; So:</p>
+
+<PRE>
+data-generator | filter | ... | filter | data-consumer
+</PRE>
+
+<P>Each stage of the pipeline runs in parallel, within the limits
+which the system permits.&nbsp; Hey, look closely, because that last
+phrase is important.&nbsp; Are you on a uni-processor system because
+if you are, then obviously only one process runs at a time, although
+that point is simply nitpicking.&nbsp; But pipes are buffers capable
+of holding only finite data.&nbsp; A process can write into a pipe
+until that pipe is full.&nbsp; When the pipe is full the process
+writing into it blocks until some of the data already in the pipe has
+been read.&nbsp; Similarly, a process can read from a pipe until that
+pipe is empty.&nbsp; When it's empty the reading process is blocked
+until some more data has been written into the pipe.</P>
+
+<P>An interesting effect of pipes, which is not immediately obvious,
+is that `record boundaries' can be lost in a pipe.&nbsp; What I mean:
+If a program reads from the terminal using buffered stream libraries,
+it will be given data one line at a time.&nbsp; Likewise if it writes
+to the terminal using buffered stream libraries the data will be
+displayed one line at a time.&nbsp; But if a program writes into a
+pipe that data will be sent to the pipe one stream buffer at a time;
+that's about 1K of data.&nbsp; So if your data generator `emits' a
+line of data (using the buffered stream library) to a pipe, the data
+might actually NOT be written immediately, but maybe held in an
+internal buffer (internal the data generator) until there's enough
+data to make it worth sending.</P>
+
+<P>Similarly, the program reading from a pipe might get a partial line
+from the read.&nbsp; That can cause unintentional effects.&nbsp;
+Suppose, for example, that the end of your pipeline is reading a list
+of files and directories to delete, and supposing the buffer is five
+characters long.&nbsp; If you write "/user/john" into the pipe, what
+comes out could be "/user"  and "/john".&nbsp; Curious, yes?</P>
+
+<P>This buffering effect of the stream libraries might sound like a
+bad thing but it actually gives you performance benefits most of the
+time.&nbsp; If you are writing a program which uses them you should
+consider how buffering will affect your program in a pipeline, but
+other than that I wouldn't be upset about it.&nbsp; As I said: It's a
+good thing.</P>
+
+<P>If you are constructing a pipeline (as all true Unix users do every
+day) you should remember the buffering effect which the stream
+libraries and which pipes both introduce.&nbsp; If your pipeline
+starts with something which reads lines from standard input and then
+writes variations of those lines to standard output, remember that the
+second stage of the pipeline might not receive any input until you
+have typed a few lines; and then it might receive all of those lines
+in one go!&nbsp; Here's an example of what I mean for you to try:</P>
+
+<PRE>
+awk '{$2="SURPRISE"; for (i=0; i<100; i++) print }' | grep -n SURPRISE
+</PRE>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

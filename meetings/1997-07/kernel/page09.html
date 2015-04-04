@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<TITLE>Installing the kernel</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Helvetica, Arial">
+<FONT SIZE=7><CENTER>Installing the kernel</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	<TT>cp arch/i386/boot/zImage /boot/pick-a-name</TT>
+	<UL><UL>
+		<LI>The name is arbitrary, but commonly begins with
+		<TT>zImage</TT> or <TT>vmlinuz</TT>
+		<LI>Also common to append version number/build number to keep
+		track of multiple kernels (eg. <TT>vmlinuz-2.0.30-1</TT>)
+	</UL></UL>
+	</P>
+	Installation of modules:
+	<UL><UL>
+		<LI>Move any old modules in
+		<TT>/lib/modules/kernel-version</TT> out of the way, eg:<BR>
+		<TT>cd /lib/modules</TT><BR>
+		<TT>mv 2.0.30 2.0.30-old</TT>
+		<LI><TT>cd /usr/src/linux</TT><BR><TT>make modules_install</TT>
+	</UL></UL>
+</UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

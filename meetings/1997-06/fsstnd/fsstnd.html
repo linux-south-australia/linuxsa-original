@@ -1,0 +1,471 @@
+<HTML>
+<HEAD>
+<TITLE>A Quick Tour Of the Linux Filesystem</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>A Quick Tour Of the Linux Filesystem</H1>
+<H2 ALIGN=CENTER>LinuxSA - June 1997 Meeting<BR>
+Matthew Tippett<BR>
+(<A HREF="mailto:mtippett@tne.net.au">mtippett@tne.net.au</A>)</H2>
+
+<H2>Introduction</H2>
+<UL>
+  <LI>The filesystem standardised in the FSSTND:
+  <UL>
+    <LI>Why standardise?
+    <LI>What the FSSTND covers
+  </UL>
+  <P>
+  <LI>What files are classified as:
+  <UL>
+    <LI>Static and variable
+    <LI>Shareable and unshareable
+  </UL>
+  <P>
+  <LI>Where files are located:
+  <UL>
+    <LI>Configuration files
+    <LI>Administrator binaries
+    <LI>User binaries
+    <LI>System libraries
+    <LI><TT>/usr</TT> hierachy
+    <LI><TT>/var</TT> hierachy
+  </UL>
+  <P>
+</UL>
+
+<H2>Why Standardise?</H2>
+<UL>
+  <LI>No Standards in the Variants of Unix
+  <UL>
+    <LI>No <EM>standard</EM> layout
+    <LI>Historical layouts
+    <UL>
+      <LI>BSD
+      <LI>System V
+      <LI>SunOS
+    </UL>
+  </UL>
+  <P>
+  <LI>Lack of regularity	
+  <UL>
+    <LI>Difficult for newcomers to Linux
+      <UL>
+        <LI>especially from non-UNIX backgrounds
+      </UL>
+    <LI>Experienced UNIX users found navigating difficult
+  </UL>
+  <P>
+  <LI>Incompatibilities for developers and users
+  <UL>
+    <LI>Symbolic link workarounds becoming the norm
+    <LI>Movements between distributions very difficult
+  </UL>
+</UL>
+
+<H2>The Linux File System Structure (FSSTND)</H2>
+<UL>
+  <LI>Developed through consultation with Linux developers,
+    administrators, programmers and users
+  <P>
+  <LI>Defines locations for various files
+  <UL>
+    <LI><TT>/sbin</TT> directories
+    <LI><TT>/bin</TT> directories
+    <LI><TT>/etc</TT> directories
+    <LI><TT>/tmp</TT> directories
+  </UL>
+  <P>
+  <LI>Defines uses of sections of the filesystem
+  <UL>
+    <LI>Root partition
+    <LI><TT>/usr</TT> partition
+    <LI><TT>/var</TT> partition
+  </UL>
+  <P>
+  <LI>Provides guidelines on where files should be placed
+  <UL>
+    <LI>Do I place this in <TT>/usr/sbin</TT> or <TT>/usr/bin</TT>?
+  </UL>
+  <P>
+</UL>
+
+<H2>The Filesystem</H2>
+<UL>
+  <LI>The UNIX filesystem
+  <UL>
+    <LI>Hierachical structure
+    <LI>Consistent treatment of data
+    <LI>Protection of file data
+  </UL>
+  <P>
+  <LI>Orthogonal categories of files
+  <UL>
+    <LI>Shareable vs Unshareable
+    <LI>Variable vs Static
+  </UL>
+  <P>
+  <LI>Examples applying these categories	
+  <UL>
+  <P>
+  <TABLE CELLPADDING=5>
+    <TR>
+      <TD></TD>
+      <TD BGCOLOR="#cccccc">Shareable</TD>
+      <TD BGCOLOR="#cccccc">Unshareable</TD>
+    </TR>
+    <TR>
+      <TD BGCOLOR="#cccccc">Static</TD>
+      <TD BGCOLOR="#aaaaaa">/usr</TD>
+      <TD BGCOLOR="#aaaaaa">/etc<BR>
+                            /boot</TD>
+    </TR>
+    <TR><TD BGCOLOR="#cccccc">Variable</TD>
+      <TD BGCOLOR="#aaaaaa">/var/spool/mail<BR>
+                            /var/spool/news</TD>
+      <TD BGCOLOR="#aaaaaa">/var/run<BR>
+                            /var/lock</TD></TR>
+  </TABLE>
+  </UL>
+  <P>
+</UL>
+
+<H2>Shareable vs Unshareable</H2>
+<UL>
+  <LI>Distinction allows more efficient use of resources
+  <P>
+  <LI>Shareable data
+  <UL>
+    <LI>Can be shared between multiple machines
+    <LI>Not machine dependant
+    <LI>Examples:
+    <UL>
+      <LI>Common post-boot binaries (<TT>/usr</TT>)
+      <LI>News and mail spool directories
+    </UL>
+  </UL>
+  <P>
+  <LI>Unshareable Data
+  <UL>
+    <LI>Data useful to local machine only
+    <LI>Data meaningless on another machine
+    <LI>Can be shared on a per-machine basis
+    <LI>Examples:
+    <UL>
+      <LI>Local configuration information (<TT>/etc</TT>)<BR>
+      <LI>Lock and pid files (<TT>/var/run</TT> and <TT>/var/lock</TT>)<BR>
+    </UL>
+  </UL>
+  <P>
+</UL>
+
+<H2>Static vs Variable</H2>
+<UL>
+  <LI>Distinction allows protection and partioning of data
+  <UL>
+    <LI>Administrator can make decision about what to
+      mount read/write and what to mount read-only
+  </UL>
+  <P>
+  <LI>Static data
+  <UL>
+    <LI>Won't change without super-user interaction
+    <LI>Doesn't need write access
+    <LI>Examples:
+    <UL>
+      <LI><TT>/usr</TT> hierachy<BR>
+      <LI><TT>/etc</TT> hierachy<BR>
+    </UL>
+  </UL>
+  <P>
+  <LI>Variable Data
+  <UL>
+    <LI>Changes with user interaction
+    <LI>Changes due to system operation
+    <LI>Definately needs write access
+    <LI>Examples:
+    <UL>
+      <LI><TT>/tmp</TT>
+      <LI><TT>/var</TT> hierachy
+      <LI><TT>/home</TT> hierachy
+      <LI>Local spool files (mail and news)
+    </UL>
+  </UL>
+  <P>
+</UL>
+
+<H2>The Root Directory</H2>
+<UL>
+  <LI>The base of the system, enough to:
+  <UL>
+    <LI>Boot the system
+    <LI>Mount <TT>/usr</TT> and other parts of the filesystem
+    <LI>Repair a corrupt filesystem
+    <LI>Recover data from system backups
+  </UL>
+  <P>
+  <LI>Issues about the root filesystem
+  <UL>
+    <LI>Small size less prone to errors in system crash
+    <LI>Some programs may be statically linked
+    <LI>Has a number of sub-directories
+    <LI>No new root directory entries needed
+    <LI>Contains generally unshareable data
+    <LI>Contains both variable and static data
+  </UL>
+  <P>
+</UL>
+
+<H2>The Root Directory (cont.)</H2>
+<UL>
+  <TT>/bin</TT>
+  <UL>
+    <LI>Essential user binaries
+  </UL>
+  <P>
+  <TT>/boot</TT>
+  <UL>
+    <LI>Static boot files
+  </UL>
+  <P>
+  <TT>/dev</TT>
+  <UL>
+    <LI>Entries for the device special files
+  </UL>
+  <P>
+  <TT>/etc</TT>
+  <UL>
+    <LI>Configuration files and directories
+    <LI><TT>/etc/skel</TT> & <TT>/etc/X11</TT>
+  </UL>
+  <P>
+  <TT>/home</TT>
+  <UL>
+    <LI>User home directories
+  </UL>
+  <P>
+</UL>
+
+<H2>The Root Directory (cont.)</H2>
+<UL>
+  <TT>/lib</TT>
+  <UL>
+    <LI>Essential shared libraries
+    <LI>Kernel modules
+  </UL>
+  <P>
+  <TT>/proc</TT>
+  <UL>
+    <LI>Kernel information
+    <LI>Process information
+  </UL>
+  <P>
+  <TT>/sbin</TT>
+  <UL>
+    <LI>Essential system binaries
+    <LI>Binaries for root and power users
+    <LI>Historically in <TT>/etc</TT>
+  </UL>
+  <P>
+  <TT>/tmp</TT>
+  <UL>
+    <LI>Storage of temporary files
+    <LI>Data may be cleared out frequently
+  </UL>
+  <P>
+</UL>
+
+<H2>The <TT>/usr</TT> Hierachy</H2>
+<UL>
+  <LI>A major part of filesystem, containing only:
+  <UL>
+    <LI>Shareable data
+    <LI>Read-only (static) data
+    <LI>Non-essential (post-boot) files
+  </UL>
+  <P>
+  <LI>Issues about the <TT>/usr</TT> Hierachy
+  <UL>
+    <LI>X Window System sits in <TT>/usr</TT>
+    <LI>No other large package should be placed directly in <TT>/usr</TT>
+    <LI><TT>/usr</TT> can be shared between multiple machines
+    <LI>A small number of symbolic links to <TT>/var</TT> permissible for compatibility
+  </UL>
+  <P>
+</UL>
+
+<H2>The <TT>/usr</TT> Hierachy (cont.)</H2>
+<UL>
+  <TT>/usr/X11R6</TT> and <TT>/usr/X386</TT>
+  <UL>
+    <LI>X Window System, version 11 release 6 and 5 respectively
+    <LI>On <TT>/usr</TT> for compatibility only
+  </UL>
+  <P>
+  <TT>/usr/bin</TT>
+  <UL>
+    <LI>Most user binaries
+  </UL>
+  <P>
+  <TT>/usr/doc</TT>
+  <UL>
+    <LI>Miscellaneous documentation
+  </UL>
+  <P>
+  <TT>/usr/etc</TT>
+  <UL>
+    <LI>Network wide configuration files
+  </UL>
+  <P>
+  <TT>/usr/games</TT>
+  <UL>
+    <LI>Games and "Educational" binaries
+  </UL>
+  <P>
+  <TT>/usr/include</TT>
+  <UL>
+    <LI>Headers for C programs
+  </UL>
+  <P>
+</UL>
+
+<H2>The <TT>/usr</TT> Hierachy (cont.)</H2>
+<UL>
+  <TT>/usr/lib</TT>
+  <UL>
+    <LI>Libraries
+    <LI>Package Directories
+  </UL>
+  <P>
+  <TT>/usr/local</TT>
+  <UL>
+    <LI>Locally installed packages
+  </UL>
+  <P>
+  <TT>/usr/man</TT>
+  <UL>
+    <LI>Online manual pages
+  </UL>
+  <P>
+  <TT>/usr/sbin</TT>
+  <UL>
+    <LI>System administration binaries
+  </UL>
+  <P>
+  <TT>/usr/share</TT>
+  <UL>
+    <LI>Architecture-independent data
+  </UL>
+  <P>
+  <TT>/usr/src</TT>
+  <UL>
+    <LI>Source code
+  </UL>
+  <P>
+</UL>
+
+<H2>The <TT>/var</TT> Hierachy</H2>
+<UL>
+  <LI>A major part of filesystem, containing:
+  <UL>
+    <LI>A mixture of shareable and unshareable data
+    <LI>Mostly variable data
+  </UL>
+  <P>
+  <LI>Issues about the <TT>/var</TT> Hierachy
+  <UL>
+    <LI>Exists primarily to allow a read-only <TT>/usr</TT>
+    <LI>Some portions of <TT>/var</TT> are used network wide
+    <LI>Other portions definately local information only
+    <LI>May be a separate partition, or placed on <TT>/</TT> or <TT>/usr/var</TT>
+  </UL>
+  <P>
+</UL>
+
+<H2>The <TT>/var</TT> Hierachy (cont.)</H2>
+<UL>
+  <TT>/var/adm</TT>
+  <UL>
+    <LI>Obsolete, link to <TT>/var/log</TT> or remove
+  </UL>
+  <P>
+  <TT>/var/catman</TT>
+  <UL>
+    <LI>Locally formatted manual pages
+  </UL>
+  <P>
+  <TT>/var/lib</TT>
+  <UL>
+    <LI>Application state files for <TT>/usr/lib</TT> files
+  </UL>
+  <P>
+  <TT>/var/local</TT>
+  <UL>
+    <LI>Variable storage for <TT>/usr/local</TT>
+  </UL>
+  <P>
+  <TT>/var/lock</TT>
+  <UL>
+    <LI>Various lock files
+  </UL>
+  <P>
+  <TT>/var/log</TT>
+  <UL>
+    <LI>System log files
+  </UL>
+  <P>
+</UL>
+
+<H2>The <TT>/var</TT> Hierachy (cont.)</H2>
+<UL>
+  <TT>/var/named</TT> & <TT>/var/nis</TT>
+  <UL>
+    <LI>DNS and NIS naming services files
+  </UL>
+  <P>
+  <TT>/var/preserve</TT>
+  <UL>
+    <LI>Crash storage for vi and ed
+  </UL>
+  <P>
+  <TT>/var/run</TT>
+  <UL>
+    <LI>Information (pid, utmp) on the active system
+  </UL>
+  <P>
+  <TT>/var/spool</TT>
+  <UL>
+    <LI>Used for spooling to UNIX subsystems (mail, news, at, lp)
+  </UL>
+  <P>
+  <TT>/var/tmp</TT>
+  <UL>
+    <LI>Temporary storage, with longer "life"
+  </UL>
+  <P>
+</UL>
+
+<H2>Conclusion</H2>
+<UL>
+  <LI>Where to look for programs and data<P>
+  <LI>Where packages should be installed<P>
+  <LI>Where and how partitions should be mounted<P>
+  <LI>Demystified why things work sometimes, and not others<P>
+</UL>
+
+<H2>More Information</H2>
+<UL>
+  <LI>Linux Filesystem Structure (FSSTND) v1.2<P>
+  <LI>Soon to be released FHS<P>
+</UL>
+
+<H2>Questions</H2>
+
+</BODY>
+</HTML>

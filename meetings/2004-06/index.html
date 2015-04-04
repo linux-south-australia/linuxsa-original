@@ -1,0 +1,103 @@
+<HTML>
+<HEAD>
+<TITLE>Statistical Spam Filtering</TITLE>
+</HEAD>
+
+<BODY>
+<PRE>
+Statistical Spam Filtering
+Geoffrey D. Bennett
+
+- SpamAssassin
+- BogoFilter
+- dspam
+
+SpamAssassin http://www.spamassassin.org/
+
+- Perl, regexs, scoring
+
+- /\b(?:accept\b|are accepting).{1,15}credit cards?\b/i
+  +2.507
+
+- /\b(?:bad|poor|no\b|eliminate|repair|(?:re)?establish|damag).{0,10} (?:credit|debt)\b/i
+  +1.230
+
+- eval:html_test('font_blue')
+  +0.1
+
+- procmailrc:
+
+  :0fw
+  | spamc -f
+
+bogofilter http://bogofilter.sourceforge.net/
+
+- "Bayesian", "Fisher-Robinson's Inverse Chi-Square"
+
+- requires training:
+
+  bogofilter -s &lt; spam-corpus
+  bogofilter -n &lt; innocent-corpus
+
+- procmailrc:
+
+  :0fw
+  | bogofilter -e -p
+
+  :0:
+  * ^X-Bogosity: Yes, tests=bogofilter
+  spam-bogofilter
+
+dspam http://www.nuclearelephant.com/projects/dspam/
+
+- "DSPAM has a strong focus on providing better data to already existing
+  algorithms (Bayesian, Chi-Square, etcetera) Combination algorithms work
+  inherently well, but depend on the quality of data."
+
+- Chained Tokens
+
+  - Combining two "words" together
+
+    Eg. "click" and "here" separately may not mean anything.
+    Probability of seeing the two together in a spam is greater.
+
+    Or. "bgcolor" and "#000000"
+
+- Inoculation:
+
+  bob_c:     "|/path/to/dspam --addspam --inoculate --user bob --corpus"
+
+- "Bayesian Noise Reduction"
+
+- Modes:
+
+  - Local Delivery Agent
+
+    - Mail interface for submitting spam
+
+    - Web interface for quarantined spam
+
+  - Filter-style
+
+  - POP3 Proxy
+
+- ./configure --with-dspam-home=$HOME/.dspam --with-userdir-owner=none --with-userdir-group=none --with-dspam-mode=none --with-dspam-owner=none --prefix=$HOME --enable-spam-delivery --enable-delivery-to-stdout
+
+- Training:
+
+  tools/dspam_corpus g innocent-corpus
+  tools/dspam_corpus --addspam g spam-corpus
+
+- Using through procmail:
+
+  :0fw
+  | dspam --stdout --deliver=spam,innocent --mode=teft --user g --feature=chained,noise
+
+  Mistakes:
+
+  | dspam --addspam
+  or
+  | dspam --falsepositive
+</PRE>
+</BODY>
+</HTML>

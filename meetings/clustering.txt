@@ -1,0 +1,22 @@
+Clustering for Beginners
+March 18th, 2003
+
+A joint presentation sponsored by Apple Australia (SA Office) and
+Tellurian Pty Ltd, presented by:
+- Jennifer Walbank, Apple Engineer
+- John Brazel, Tellurian Software Engineer
+- Dan Shearer, Tellurian
+
+While it might sound like "Building your own nuclear power station at
+home", this presentation explains how ordinary systems administration
+skills are all that are required in order to build and run a useful,
+heterogenous cluster using open source software.
+
+There will be a mixture of Apple and other hardware used, with a
+distributed graphics demonstration to illustrate how one type of
+compute clustering works. The discussion will rapidly mention all
+sorts of open source clustering before focussing on things relevant to
+the demonstration for the evening. This is "Open Source Clustering
+Basics", not "El Guru Clustering for 4th Yr Computational Dynamics",
+but there should be new things for El Gurus too -- and certainly the
+opportunity to contribute to discussion.

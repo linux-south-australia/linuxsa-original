@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Slide 35</title>
+</head>
+<body text=#000000 bgcolor=#FFFFFF link=#000080 vlink=#800000 alink=#000080>
+<center>
+<a href="text0.htm">First page</a> <a href="text33.htm">Back</a> <a href="text35.htm">Continue</a> <a href="text84.htm">Last page</a> <a href="index.html">Summary</a> <a href="img34.htm">Graphics</a></center><br>
+<h1>Mounting a filesystem</h1><p>
+<ul><li><h2>mount -T ext2 /dev/hda1 /mnt</h2>
+<li><h2>No files below mount point can be opened</h2>
+<ul><li>But already open files are fine
+</ul><li><h2>Mount points and symbolic links</h2>
+<ul><li>Use relative symbolic links
+<ul><li>No: ln -s /usr/bin/fred /usr/local/fred
+<li>Yes: cd /usr/local; ln -s ../../bin/fred fred
+</ul></ul></ul></body>
+</html>

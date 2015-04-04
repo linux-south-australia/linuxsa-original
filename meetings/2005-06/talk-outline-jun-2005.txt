@@ -1,0 +1,421 @@
+-*- outline -*-
+
+Presentation
+
+Using and developing for Embedded Linux on ARM
+Paul Schulz <paul@mawsonlakes.org>
+Tue, 21 June 2005
+
+* Equipment and layout
+
+  Configuration 1.
+
+    Projector    -+- Armcore/ARMBase --.
+     [Power]	 -'   (192.168.10.250) |
+    Keyboard(USB)-'    		       |
+    Mouse(PS2)	 -'    		   network
+   		       		       |
+       	       	     Hero -------------'
+   		     [Power]
+   		     (192.168.10.10)
+   		     OpenOffice-Impress
+
+    Sharp Zaurus
+    iPod Photo
+    [Powerboard]
+    [Crossover-cable]
+
+  Configuration 2.
+
+    Projector     -+- Hero --- serial ----.
+      [Power]	  -'     `---- net ------.|
+    Keyboard(USB) -'	    	         ||
+    Mouse(USB)    -'	    	         ||
+		     	    	         ||
+		       ARMCore2/ARMBase -'|
+       	       	       [Power]        `---'
+
+ 
+* Pre-Intro - A word from our sponsor.
+
+[Bart's Blackboard]
+[Bart's Balckboard2]
+ 
+* Introduction
+ 
+** Other people
+
+Tim Ansell
+
+  - He gave a good talk at the LCA2005 on setting up bitbake.
+    Used by Emdebian to build an entire system, kernel and filesystem.
+
+Ryan Werner
+
+  - Has cool new Sharp Zaurus.
+
+Anyone else?
+ 
+* Embedded Systems Historically
+ 
+** Overview
+  Computers designed to do one task
+  - Apollo Guidence Computer (AGC)
+      15 bits + 1 bit parity check.
+      Memory Access - 11.7 us
+      Addition Instruction - 23.4 us
+      Memory Type
+        ROM (core rope memory) - 36.8k words
+	RAM (ferrit core planes) - 2k words
+      Weight - 29.5 Kg
+ 
+** Manufacturing and Embedded System
+
+- Conservative influences
+  - If you're onto a good thing stick to it.
+  - Good industrial design is hard to come by.
+  - Development is an investment and change can be expensive.
+
+  eg.
+  - 8 bit procesors are still being used in manufacturing processes
+
+  - Space industry uses uses older intel architectures that have been
+    radiation hardened.
+
+- Progressive influences
+  - Hardware in decreasing in cost and increasing in power.
+  - Big rewards for first to market with a product that is
+    superior in view of the market.
+
+- Application development
+  - Code was specific to target platform (c and assembly).
+  - Code could not be run on another platform. 
+  - In-circuit-emulators used for debugging. ICE was specific
+    hardware used to control processor.
+  - JTAG (??) 
+
+- Suffers from bitrot.
+  - No amount of documentation will stop this!
+  - DOS based compiler, that requires windows to install
+    -> transfer to Dosemu.
+ 
+* Hardware Show and tell
+
+- PDA's (Embedded systems?)
+  - Sharp Zaurus, SL 5500
+    [Picture]
+    - ARM
+    - 480x640 touch screen with backlight
+
+  - CompuLabs ARMCoce
+    [Picture - DevKit]
+
+  - iMac Mini
+
+    People are using the iMac Mini as part of their entertainment
+    systems.
+
+  - iPod Photo (4th Generation iPod)
+    ARM Based
+
+** About ARM Hardware
+
+  Data
+  32 bit, Little Endian CPU
+  16 bit thumb mode
+
+  Address space 
+  32 bit
+
+  Memory management, but no memory protection
+  (Unable to 'virtualise' memory addresses).
+
+  Memory alignment
+  - Memory types need to be aligned with type boundry.
+    (Addressing is done word-alignment + bitrotation for subword types.)
+
+* Getting Started with Embedded Development
+
+  - Getting started with development.
+ 
+** Compiling software and compiling compilers.
+
+- What's required?
+
+  - Binutils
+  - Linux Kernel
+  - C-library
+  - debugger (gdb,ddd)
+
+The GNU autotools make compiling software very easy.
+eg. untar, configure, amke, make install
+
+What is the process for compiling a new toolchain?
+
+A. Compiling a static c-binary only requires the compiler and the
+   c-libray. It may make use of other libraries, but this isn't
+   necessary.
+
+   Why does it need the c-library?
+   The c-library supplies the system IO.
+
+B. Compiling the c-library requires the compiler, kernel headers
+   (kernel interface), and binary manipulation utilities (binutils).
+
+   Bin utils are used to create the libary files which other programs
+   can be linked against.
+
+C. Compiling the binary utilities, requires.. well.. see step A.
+
+Chicken and egg... how to get around it? The GNU binary utilities are
+able to link directly to kernel interface by including the
+Linux kernel headers and calling the kernel directly.
+
+0. In beginning was the native compiler..
+
+1. Compile cross platform binutils.
+   These are used to manipulate binaries on the target platform.
+
+2. Compile the cross compiler (which needs to know where the
+   programs were, created in step 1.), with out c-library
+   support. (Can be used to build Linux Kernel, and c-library).
+
+3. Compile the target c-library. Requires target linux headers.
+
+4. Recompile cross-compiler with c-library.
+   Compiler can be used to build applications.
+
+It is also possible to createa toolchain which can be used to build
+binaries that can run on target architecture.
+
+This can be used to build a compiler...
+.. Canadian Cross. (Named after Canadians 'three party' political
+system.)
+ 
+** Versions
+                  Ubuntu-Hoary   Compulab-armcore    Latest
+  - C compiler    3.3.5          2.95.3              4.0.0
+  - Clibrary	  2.3.2          2.2.2		     2.3.5
+  - Binutils      2.15           2.11.2		     2.15
+  - Linux Kernel  2.6.10         2.4.18		     2.6.11
+
+ 
+* Hardware Vendors
+
+- What do you get?
+  - Hardware
+  - Development Kit
+  - Toolchain
+  - Development support
+
+  [Describe hardware.]
+
+- Why use a hardware vendor?
+  - Small volume
+  - Availability of expertese.
+  - Low immediate entry costs
+  - Quick start
+
+- When shouldn't you use?
+  - Ongoing development
+  - Vendor lockin
+  - Licencing costs
+ 
+* Open Source Community
+ 
+** The nature of the problem
+
+  When compiling for differnet architectures, the problem inceases as
+  the number of platforms increase, and the number of tool
+  combinations increase.
+
+  - Problem scales
+    - not linear
+    - atleast a power law                   
+    - particularly if you include all possible Canadian crosses
+
+  - Approaches to the problem
+    - Don't cross compile (Debian)
+      - All packages are build natively.
+      - excludes small platforms
+    - Emulate target platform - Scratchbox, using QENU
+    - Automate the process
+
+    and 
+
+    - Simplify
+      C is a very simple language not going to go away anytime soon
+        (small number of keywords).
+ 
+** Tools and Tool-chains
+ 
+*** Debian
+
+  - Doesn't use cross compilers.
+ 
+*** Scratchbox
+
+  - Emulate native environment.
+  - OK, if you are using and Intel processor, not available on PowerPC
+ 
+*** Open Embedded, Open Zaurus and Bitbake
+
+  - Recipe based.
+ 
+*** Crosstool
+
+  Shell script for building cross compiler toolchains.
+
+  - Shell script
+  - large number of tweeks and patches for different combinations.
+  - Used to build toolchain for current project, and used in examples 
+    below.
+
+* Examples/Demonstrations
+ 
+** Basic applicaton
+ 
+  Here is an application I prepared earlier..
+  Hello world.
+
+  (See attached files.)
+
+  > make
+  > file hello-world
+
+  Note the file type
+  Now.. Build with cross-compiler
+
+  > rm hello-world
+  > . setpath.sh
+  > make
+  > file hello-world
+
+** Again, but With Autotools 
+
+  Look at individual files.. in addition to previous example we now
+  have 'configure.in', 'Makefile.am' and bootstrap.
+
+  > ./bootstrap - Also called 'autogen.sh' in some cases.
+
+  This produces 'configure' and associated scripts/files which can be
+  distributed to in source package.
+
+  > ./configure
+  > make  
+
+  See 'configure-and-build-for-arm' for details on how to build with
+  alternative compiler.
+ 
+** Uploading and runing the program.
+
+  - Connect serial and ethernet.
+    The process uses a TFTP server to transfer files.
+
+    Copy binary to tftp directory
+    > cp hello-world /var/tftpboor
+
+    On Arm (under Linux)
+    > tftp get 192.168.10.10:hello-world hello-world
+    > chmod 775 hello-world
+    > ./hello-world
+ 
+** Uploading a new kernel and filesystem to ARMCore.
+ 
+  - Connect serial
+  - Swap ethernet port (eth0 <-> eth1) \
+	 (Linux detects ports in different order.)
+  - Connect ethernet  
+
+  Reboot ARMCore into 'armmonitor' mode (Ctl-C)
+    > setupinfo
+
+    > setip eth0
+    > setip ip 192.168.10.244
+    > setip mask 255.255.255.0
+    > save
+    > reboot
+
+  Flash linux kernel
+    > download kernel tftp zimage 192.168.10.10
+    > flash kernel
+
+  Flash filesystem
+    > nand flash format
+    > nand write disk.dat 192.168.10.10
+    (wait)
+
+  Reboot
+    > reboot
+
+** Using Quilt
+
+  Quilt is a patch management too, that allows you to easily
+  save changes in multiple files in patches that can then be 
+  submitted with bug-reports, or as new features.  
+
+  Patches are maintained as 'series'. This is a stack, on which
+  patches can be pushed and popped.
+
+  Examples..
+
+  quilt new <patchname> - To create a new patch
+  quilt add <filename>  - Add a file
+  quilt refresh         - Include changes to patch.
+  quilt pop		- Remove topmost patch
+  quilt import		- Import a patch into quilt
+ 
+  See: http://savannah.nongnu.org/projects/quilt 
+  (For Debian users - apt-get install quilt)
+ 
+** Asside
+  To generate a list of used commands with usage count ...
+
+  history | awk '{print $2}' | sort | uniq -c | sort -r -n
+ 
+* References
+ 
+** Useful books
+
+   Autoconf, Automake and Libtool
+   Author: Gary V. Vaughan et.al
+   Published by: New Riders
+
+   Linux Application Development
+   Author: Michael K. Johnson, Erik W. Troan
+   Published by: Addison Wesley
+
+   Linux Device Drivers, 3rd Edition
+   Author: Jonathan Corbet, Alessandro Rubini and Greg Kroah-Hartman
+   Published by: O'Reilly
+
+   Linux Kernel Development, Second Edition
+   Author: Robert Love
+   Published by: Novell
+ 
+** Useful websites
+
+  - Crosstool
+    http://kegel.com/crosstool/crosstool-0.35/doc/crosstool-howto.html
+    http://freshmeat.net/projects/crosstool/
+
+  - IPod
+    http://www.ipodlinux.org
+    http://www.cs.duke.edu/~geha/ipod/
+
+  - Apollo Guidence Computer
+    http://history.nasa.gov/afj/compessay.htm
+    http://www.ibiblio.org/apollo/index.html
+    http://hrst.mit.edu/hrs/apollo/public/
+
+* Thankyou's
+
+  Robway - My Employer
+    Maker of fine Crane Safety Systems
+
+  Linux Torvalds
+  Richard Stallman
+
+  ..and anyone who's ever submitted a patch to an
+  open source project.
+ 

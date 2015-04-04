@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>Static vs Variable</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>Static vs Variable</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	Distinction allows protection and partioning of data
+	<UL><UL>
+		<LI>Administrator can make decision about what to
+			mount read/write and what to mount read-only</LI>
+	</UL></UL>
+	</P>
+	Static data
+	<UL><UL>
+		<LI>Won't change without super-user interaction</LI>
+		<LI>Doesn't need write access</LI> 
+		<LI>Examples :
+		<UL><FONT SIZE=3>
+			<FONT FACE="courier">/usr</FONT> hierachy<BR>
+			<FONT FACE="courier">/etc</FONT> hierachy<BR>
+		</FONT></UL>
+	</UL></UL>
+	</P>
+	Variable Data
+	<UL><UL>
+		<LI>Changes with user interaction</LI>
+		<LI>Changes due to system operation</LI>
+		<LI>Definately needs write access</LI>
+		<LI>Examples :
+		<UL><FONT SIZE=3>
+			<FONT FACE="courier">/tmp</FONT><BR>
+			<FONT FACE="courier">/var</FONT> hierachy<BR>
+			<FONT FACE="courier">/home</FONT> hierachy<BR>
+			Local spool files (mail and news)<BR>
+		</FONT></UL>
+	</UL></UL>
+	</P>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

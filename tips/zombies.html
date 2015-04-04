@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Zombies</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Zombies</H1>
+<FONT SIZE=1>by <A HREF="mailto:davidn@rebel.net.au">David
+Newall</A>.</FONT>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<P><TT>What are these zombie processes that show up in ps?&nbsp; I
+kill them but they don't go away!</TT></P>
+
+<P>Zombies are dead processes.&nbsp; You cannot kill the dead.&nbsp;
+All processes eventually die, and when they do they become
+zombies.&nbsp; They consume almost no resources, which is to be
+expected because they are dead!&nbsp; The reason for zombies is so the
+zombie's parent (process) can retrieve the zombie's exit status and
+resource usage statistics.&nbsp; The parent signals the operating
+system that it no longer needs the zombie by using one of the
+<TT>wait()</TT> system calls.</P>
+
+<P>When a process dies, its child processes all become children of
+process number 1, which is the init process.&nbsp; Init is ``always''
+waiting for children to die, so that they don't remain as zombies.</P>
+
+<P>If you have zombie processes it means those zombies have not been
+waited for by their parent (look at PPID displayed by
+<TT>ps&nbsp;-l</TT>).&nbsp; You have three choices: Fix the parent
+process (make it wait); kill the parent; or live with it.&nbsp;
+Remember that living with it is not so hard because zombies take up
+little more than one extra line in the output of <TT>ps</TT>.</P>
+
+</BODY>
+</HTML>

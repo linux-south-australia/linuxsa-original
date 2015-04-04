@@ -1,0 +1,53 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>TCP/IP Model</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>TCP/IP Model</H1>
+<HR>
+
+<!-- Slide Image -->
+<IMG SRC="tcpipmodel.jpg">
+<!-- Slide Image -->
+
+<HR>
+<!-- Body Text Starts Here -->
+<P>The TCP/IP model defines 4 layers - The Link, Internet, Transport and Application.</P>
+<UL>
+	<LI><P><STRONG>Link</STRONG> - This is where the specifications for Ethernet, Token ring, PPP etc fit. Definitions such as how the Internet layer protocols operate over Ethernet, Token Ring etc work fit into this layer. Protocols operating at this layer allow information to be passed between two nodes on the same network segment ie. nodes can see each other directly (electronically or optically).</P></LI>
+	<LI><P><STRONG>Internet</STRONG> - The Internet layer performs two functions; discovering how the various network segments are interconnected, and selecting the best path through the various network segments to deliver data from the utimate source machine, to the ultimate destination machine. (A group of interconnected network segments is called an internetwork or internet (notice the lower-case "i")).</P></LI>
+	<LI><P><STRONG>Transport</STRONG> - The Transport layer is the "end-to-end" layer ie. protocols and functions operating at this layer work between the utimate source and ultimate destination machines. The Transport layer protocols can provide a reliable, flow controlled connection between the end-nodes, or an unreliable, faster connection between the end-nodes. The Transport layer protocols do not interact with any devices performing Internet or Link layer functions - in fact, the Transport layer is not aware whether the two source and destination machines are on the same Link segment, or are separated by 20 different Link segments.</P></LI>
+	<LI><P><STRONG>Application</STRONG> - The Application layer protocols specify how applications running on the end-nodes interoperate eg. a WWW client interacting with a WWW server.</P></LI>
+</UL>
+
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="tcpipover.html">[Previous Page]</A>
+	|
+	<A HREF="commontcpip.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:07 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

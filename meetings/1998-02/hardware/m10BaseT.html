@@ -1,0 +1,66 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>A Multi-Node Connection - Connecting using 10BaseT</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>A Multi-Node Connection - Connecting using 10BaseT</H1>
+<HR>
+
+<!-- Slide Image -->
+<IMG SRC="m10BaseT.jpg">
+<!-- Slide Image -->
+
+<HR>
+<!-- Body Text Starts Here -->
+<P>
+To connect more than two nodes to a 10BaseT network you <STRONG>do not</STRONG> use a <STRONG>10BaseT Crossover cable</STRONG>. Doing so could waste a lot of time, as the node using the 10BaseT Crossover Cable just <STRONG>will not work</STRONG>. 
+</P>
+<P>
+To connect together more than 2 nodes in a 10BaseT network, you will need the following components :
+</P>
+<UL>
+	<LI><P>An ethernet card with a 10BaseT (RJ-45) connector installed in each Linux box to be attached.</P></LI>
+	<LI><P>A 10BaseT cable (wired straight through) for each node to be connected. These cables are quite common in pre-made lengths, and are available at Dick Smith's (again they are pricey), and other places such as Lawrence & Hanson. Data Cabling and Cable Assembly companies should also be able to provide these cables in a number of pre-made and customised lengths.</P></LI>
+	<LI><P>A 10BaseT hub, with enough available ports for the number of Linux boxes being connected. A 10BaseT hub is an electronic device which takes in a signal from a 10BaseT node, and repeats it out onto all the other ports on the hub (another name for a hub is a multi-port repeater). They come in a variety of configurations, ranging from 4 ports through to some configurations with 48 ports. Also, hubs can be joined together to create a larger number of ports. Hubs are available from computer networking equipment suppliers.</P></LI>
+</UL>
+<P>
+Although this method is significantly more expensive than all the other methods of connecting ethernet nodes together, it has become the preferred method of connecting ethernet networks together in the corporate world for the following reasons :
+</P>
+<UL>
+	<LI>You can physically remove a node from the network (ie. the cable and the Linux box) without disrupting the operation of the network.</LI>
+	<LI>The failure of a cable only affects the node it is attached to. When diagnosing a fault in the network, this saves a lot of time and money.</LI>
+</UL>
+<P>
+The only problem with a 10BaseT network like this is the "eggs in one basket" problem. If the hub fails, all nodes will not be able to communicate. This is a good reason to buy a well-known, well-established brand of hub.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="m10Base2.html">[Previous Page]</A>
+	|
+	<A HREF="nictypes.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="index.html">[Previous Topic]</A>
+	|
+	<A HREF="../conflinux/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:03 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

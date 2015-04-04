@@ -1,0 +1,201 @@
+<!--What has DavidN done?
+
+Put two spaces between sentences, which conforms to standard
+typographic convention.
+
+Put the document in the active voice (e.g. "you do something"),
+which aids in comprehension.
+
+Removed the convention to capitalise "User", because it was too pretentious.
+
+Minor typographic corrections.
+
+Added lots of defintion hyperlinks.
+
+Increased the prominence of your explanation of Groups, by moving
+it to a paragraph by itself.
+
+-->
+
+<!-- X-URL: http://www.linuxsa.org.au/tips/file-permissions.html -->
+<!-- Date: Wed, 01 Dec 1999 23:11:05 GMT -->
+<BASE HREF="http://www.linuxsa.org.au/tips/file-permissions.html">
+<html>
+<body>
+
+<header>
+
+<meta name="author" content="David Lloyd">
+<meta name="email" content="lloy0076@senet.com.au">
+<meta name="home_page" content="http://users.senet.com.au/~lloy0076/index.html">
+<meta name="copying" content="Pursuant to the GNU Public License (http://www.gpl.org)">
+<meta name="disclaimer" content="The author does not warranty directly or indirectly any information or your use or misuse of this information pursuant to the terms of the GPL License">
+
+<title>
+About File Permissions
+</title>
+
+</header>
+
+<body>
+<h1>
+About File Permissions
+</h1>
+
+<h2>
+Preliminary
+</h2>
+
+<p>
+Each file in Linux inherits a set of properties.&nbsp;
+One vital set of properties is the file's permissions.&nbsp;
+Permissions determine what any particular <a href="#userdef">user</a> (or <a href="#groupdef">group</a> of users) is able to do that file.&nbsp;
+<a ref="permdef">File permissions</a> help prevent unwanted deletion and safeguard your data.&nbsp;
+In order to use Linux's file permissions, you need to understand Linux's categories of <a href="#userdef">users</a> and <a href="#groupdef">groups.</a>
+</p>
+
+<h2>
+<a name="#userdef">Categories of Users</a>
+</h2>
+
+<p>
+You are asked to enter a login name and password when you first log into Linux.&nbsp;
+When we talk of a <i>user</i>, we refer to the account issuing commands to the operating system at the time and <i>not</i> to the actual person operating the computer.&nbsp;
+As soon as Linux authenticates your login name and password you "become" that user and operate using that user account.
+</p>
+
+<p>
+<a name="#groupdef">Users belong to one or more groups.&nbsp;</a>
+(The SuperUser allocates Users to particular groups.)&nbsp;
+Each user has a default group.
+
+<p>
+Linux organises users into three broad categories (the values in brackets are Linux's accepted abbreviations):
+<ol>
+  <li><b>user (u)</b> The owner of the file.&nbsp; A user who creates a file automatically owns it.&nbsp; Only the owner and the SuperUser (alias root) can change the permissions of a file.&nbsp;
+  <li><b>group (g)</b> The group of a file.&nbsp; One <a href="#groupdef">group</a> of users is given special access to a file.&nbsp; This is determined by the file owner.
+  <li><b>others (o)</b> All other users on the system.&nbsp; In other words, every account except the file's owner, or users in the file's group.
+</ol>
+</p>
+
+<h2>
+<a name="#permdef">File access attributes</a>
+</h2>
+
+<p>
+Each file has a set of attributes specifying what the user in each category (user, group, others) can do with the file.&nbsp;
+Here are the three types of access available in Linux:
+<ol>
+  <li><b>read (r)</b> This category of users can display, but not necessarily alter, the file.
+  <li><b>write (w)</b> This category of users can alter the file (but not necessarily read it.)
+  <li><b>execute (x)</b> This category of user can execute (i.e. run) the file.
+</ol>
+
+<h2>
+Displaying file permissions
+</h2>
+
+<p>
+You can display a file's permissions by executing the <i>ls -l</i> command.&nbsp; Here is a sample output:
+</p>
+
+<pre>
+lloy0076@localhost bin2dec]$ ls -l
+total 23
+-rw-r-----  1 lloy0076 root    286 Aug 28 02:17 b2d.lex
+-rwxr-xr-x  1 lloy0076 root  20390 Aug 28 02:17 b2d
+-rw-r--r--  1 lloy0076 root     49 Aug 27 22:08 Makefile
+</pre>
+
+<p>
+You can see the file permissions in the left-most column.&nbsp;
+The first character is usually a `-' or `d'.&nbsp;
+This actually refers to the type of the file, and does not refer to the file permissions; a `-' indicates the file is a "normal" file, and a `d' indicates the it is a directory.&nbsp; Other letters indicate files with special meanings to Linux.&nbsp; The next nine characters refer to file permissions.  
+</p>
+
+<p>
+The first three (of the nine permission characters) shows what access to the file is permitted for the owner; the next three shows the permissions for anyone in the file's group; and the last three are for those classified as other.&nbsp; A letter (r, w or x) indicates that the permission for that particular user, group or other is set, and a `-' indicates that the permission is not available.
+</p>
+
+<p>
+Schematically you could represent it like this:
+<p>
+<table border=1>
+  <tr align="center"><td>-</td><td>rwx</td><td>rwx</td><td>rwx</td></tr>
+  <tr align="center"><td>type</td><td>user</td><td>group</td><td>other</td></tr>
+</table>
+<br>
+[-rwxrwxrwx]
+</p>
+
+<p>
+The b2d.lex file is owned by the user lloy0076, who can read and write it; anyone in the root group can read the file; and nobody else is permitted any access at all.&nbsp;
+The b2d file is also owned by lloy0076, who has read, write and execute permission on it.&nbsp; Anyone in the "root" group has read and execute permissions for the file; and so does everyone else.
+</p>
+
+<h2>
+Changing file permissions
+</h2>
+
+<h3>
+chmod
+</h3>
+
+<p>
+To change permissions use the command <i>chmod</i> from the command-line.&nbsp; You must be the owner of the file (or you must be the SuperUser.)&nbsp;
+Take care when changing a file's permissions and be especially careful when you are working with any system files.
+</p>
+
+<p>
+The basic format for chmod is:
+<ul>
+  <li><i>chmod [OPTION]... MODE... FILE...</i>
+</ul>
+FILE is a file or directory, which will have its permissions set.&nbsp;
+MODE is the permissions being set on the [FILE].
+</p>
+
+<p>
+You can use a number of OPTIONs with chmod. Two useful ones are:
+<ul>
+  <li><b>-v</b> chmod produces verbose output; useful to see exactly what chmod is doing
+  <li><b>-R</b> chmod will descend (recursively) into all subdirectories, changing all file permissions contained within.&nbsp; This means that it will iterate through all the files in all the specified FILE's subdirectories (if it has any) changing them at it goes.&nbsp; <i>This option should be used with care</i>.
+</ul>
+
+<p>
+You use the `+', '-' or '=' action symbols to add, subtract or set file permissions.&nbsp; Here is how you do it:
+<ol>
+  <li>Specify the category of users with the abbreviations for the categories (u, g or o).&nbsp; A special category ,'a', also exists which means all users.&nbsp; You can add these together like ug, which means the user and the group
+  <li>Specify an appropriate action symbol ('+', '-' or '=')
+  <li>Specify a file access attribute (r, w, or x).&nbsp; As with the specification for users, you can add these together like rw, which means read and write permissions
+</ol>
+
+<p>
+Here are two examples of how to use chmod on a file called `test'; for our purposes we will assume that `test' has absolutely <i>no</i> access permited at the start:
+<ol>
+  <li><tt>chmod ug+rx test</tt> This gives read and execute permissions to the user and group, the permissions are now -r-xr-x---
+  <li><tt>chmod a-x test</tt> This removes execute permissions from all users, after these two steps, the permissions are -r--r-----
+  <li><tt>chmod u=x test</tt> This sets execute permission, and removes all others, for the owner.&nbsp; After these three steps the permissions are ---xr-----
+</ol>
+
+<p>
+An easy way to determine what the mode string, ug+rx for example, means is by actually saying it <i>fully</i> out loud.&nbsp; This example would be user; group; add; read permissions; execute permission.&nbsp; Although it is terrible English, it should be plain what this particular mode is trying to achieve.
+</p>
+
+<h2>
+Conclusion
+</h2>
+
+<p>
+<i>info chmod</i> and <i>man chmod</i> are both good reference points for chmod.&nbsp; Whilst chmod also understands another way of specifying modes - the <i>octal</i> method - I find it easier to explain this method to new Linux Users.&nbsp; The <i>octal</i> method is adequately explained in the man pages for chmod.
+</p>
+
+<p>
+Please submit any suggestions to:
+
+lloy0076@senet.com.au
+</p>
+
+</body>
+</html>
+

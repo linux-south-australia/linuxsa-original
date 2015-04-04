@@ -1,0 +1,19 @@
+$TTL 86400
+
+@	IN	SOA	test.foo.com. root.foo.com. (
+		2002021800	; serial
+		10800		; refresh
+		3600		; retry
+		604800		; expire
+		86400 )		; minimum
+
+	IN	NS	test.foo.com.
+
+; glue
+
+test.foo.com.			IN	A	10.0.2.1
+
+$ORIGIN foo.com.
+;
+bar			IN	A	10.0.2.2
+

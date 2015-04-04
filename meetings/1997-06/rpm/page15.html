@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>Information Selection</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>Information Selection</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	Display package information:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -qi libc</FONT></LI>
+	</UL></UL>
+	</P>
+	Display files in the package:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -ql libc</FONT></LI>
+		<LI>Verbose: <FONT FACE="courier">-v</FONT></LI>
+	</UL></UL>
+	</P>
+	Display a package's configuration or documentation files:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -qc libc</FONT></LI>
+		<LI><FONT FACE="courier">rpm -qd libc</FONT></LI>
+	</UL></UL>
+	</P>
+	Custom Queries:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -qa --queryformat '%{NAME} %{SIZE}\n' | sort -n +1</FONT></LI>
+	</UL></UL>
+	</P>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

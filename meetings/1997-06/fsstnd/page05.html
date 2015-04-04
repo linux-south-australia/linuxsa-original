@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>Shareable vs Unshareable</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>Shareable vs Unshareable</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	Distinction allows more efficient use of resources
+	<UL><UL>
+	</UL></UL>
+	</P>
+	Shareable data
+	<UL><UL>
+		<LI>Can be shared between multiple machines</LI>
+		<LI>Not machine dependant</LI> 
+		<LI>Examples :
+		<UL><FONT SIZE=3>
+			Common post-boot binaries (<FONT FACE="courier">/usr</FONT>)<BR>
+			News and mail spool directories<BR>
+		</FONT></UL>
+	</UL></UL>
+	</P>
+	Unshareable Data
+	<UL><UL>
+		<LI>Data useful to local machine only</LI>
+		<LI>Data meaningless on another machine</LI>
+		<LI>Can be shared on a per-machine basis</LI>
+		<LI>Examples :
+		<UL><FONT SIZE=3>
+			Local configuration information (<FONT FACE="courier">/etc</FONT>)<BR>
+			Lock and pid files (<FONT FACE="courier">/var/run</FONT> and <FONT FACE="courier">/var/lock</FONT>)<BR>
+		</FONT></UL>
+	</UL></UL>
+	</P>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

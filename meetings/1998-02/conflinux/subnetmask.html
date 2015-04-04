@@ -1,0 +1,107 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Subnet Mask</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Subnet Mask</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>Subnetting - Sub-dividing Networks</H2>
+<P>The term <STRONG>subnetting</STRONG> refers to taking a single network number (eg. A single Class A network) and sub-dividing it into a number of smaller <STRONG>sub-networks</STRONG>.
+</P>
+<P>
+Subnetting was introduced to IP addressing to allow better, more efficient allocation of network numbers.
+</P>
+<H3>Why Subnet</H3>
+<P>
+Before subnetting, each segment in your network (eg. 10Base2 segment) needed an individual network number (ie. its own Class A or B or C number).
+</P>
+<P>
+If you were using 10Base2, with a limit of 30 ethernet nodes, when you hit this limit, you needed another Class A, B or C network number to use to create another 10Base2 segment. You then connected these two 10Base2 segments together with a device called a <STRONG>router</STRONG> or <STRONG>gateway</STRONG>. In fact, you can only connect 29 Linux boxes to the 10Base2 segment, because the router also counts as an ethernet node.
+</P>
+<P>
+In the case of a Class A network number, this was a terrible waste of host addresses. A Class A network number can support 16 777 214 host address (3 octets for host part), and you have only used 30, wasting 16 777 184 host addresses. A Class B network is not much better, with a waste of 65 504 host addresses. Even with a Class C, 224 host addresses are wasted.
+</P>
+<P>
+Subnetting solves this waste problem by using some of the host addresses to represent sub-networks.
+</P>
+<H3>How to subnet</H3>
+<P>
+To subnet a Class A, B or C network number, you <STRONG>"steal"</STRONG> some of the <STRONG>octets and/or bits</STRONG> available for <STRONG>host</STRONG> addresses, and use them to identify each of your subnets (eg. ethernet segments)
+</P>
+<P>
+For example, with the Class B address <STRONG>172.16</STRONG>.<EM>0.0</EM> you have <STRONG>2 octets</STRONG> available for <STRONG>host identification</STRONG>. However, it is a better use of the Class B network if we subnet it by <STRONG>stealing</STRONG> the <STRONG>third octet</STRONG> and using it to <STRONG>identify</STRONG> our subnets.
+</P>
+<P>
+As a result of this subnetting, we end up with <STRONG>1 Class B network</STRONG>, with <STRONG>254 subnets</STRONG>, which can <STRONG>each subnet</STRONG> having <STRONG>254 hosts</STRONG> attached. The reason why it is 254 subnets and hosts, not 256 subnets and hosts will be explained on the next page.
+</P>
+<P>
+The subnets will be numbered <STRONG>172.16.1</STRONG>.<EM>0</EM> to <STRONG>172.16.254</STRONG>.<EM>0</EM>, with nodes ranging from <STRONG>1</STRONG> to <STRONG>254</STRONG> in the last octet.
+</P>
+<P>
+All of the IP devices (including all routers) that are on the same Class A, B or C subnetted network need to be told how the network has been subnetted. A <STRONG>subnet mask</STRONG> is number, with the <STRONG>same format</STRONG> as an IP address, which tells an IP device where the subnet / host boundary is occuring.
+</P>
+<H2>Subnet Mask Format</H2>
+<P>
+The definition of the subnet mask format is as follows :
+</P>
+<UL>
+	<LI><P><STRONG>Same format</STRONG> as an <STRONG>IP address</STRONG> (32 bits, 4 octets, decimal digits, dot separated).</P></LI>
+	<LI><P><STRONG>Binary 1s</STRONG> for the positions in the IP address corresponding to the <STRONG>network</STRONG> and <STRONG>subnet</STRONG> portions.</P></LI>
+	<LI><P><STRONG>Binary 0s</STRONG> for the positions in the IP address corresponding to the <STRONG>host</STRONG> portion.</P></LI>
+</UL>
+<H3>Example Subnet Mask</H3>
+<P>
+The earlier example of subnetting Class B network <STRONG>172.16</STRONG>.<EM>0.0</EM> into <STRONG>254 subnets</STRONG> with <STRONG>254 hosts per subnet</STRONG> would have a subnet mask of <STRONG>255.255.255.0</STRONG> decimal (<STRONG><CODE>1111 1111.1111 1111.1111 1111.0000 0000</CODE></STRONG> binary)
+</P>
+<H3>Default Subnet Masks</H3>
+<P>
+There are two situations when you may not subnet your network number :
+</P>
+<UL>
+	<LI><P>Your organisation is never going to connect to the Internet (very unlikely!). You then can act like InterNIC, and allocate your own Class A, B and C addresses to your segments.</P></LI> 
+	<LI><P>You only have one segment in your organisation (eg. at home). In this situtation though, it may not be very wise to avoid subnetting, because you may need to subnet at a later date, and have to change the subnet masks on all previously configured machines.</P></LI>
+</UL>
+<P>
+In these two cases you use a subnet mask with Binary 1s in the network portion only (as there is no subnet portion!). A subnet mask with no subnet bits is called a default subnet mask.
+</P>
+<P>
+The default subnet masks for Class A, B and C networks are :
+</P>
+<UL>
+	<LI><P><STRONG>Class A</STRONG> - <STRONG>255.0.0.0</STRONG></P></LI>
+	<LI><P><STRONG>Class B</STRONG> - <STRONG>255.255.0.0</STRONG></P></LI>
+	<LI><P><STRONG>Class C</STRONG> - <STRONG>255.255.255.0</STRONG></P></LI>
+</UL>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="ipaddressing.html">[Previous Page]</A>
+	|
+	<A HREF="specialip.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

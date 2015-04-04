@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>LILO Configuration</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Helvetica, Arial">
+<FONT SIZE=7><CENTER>LILO Configuration</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	Sample /etc/lilo.conf:
+<FONT FACE="courier">
+<PRE>
+boot=/dev/hda
+map=/boot/map
+install=/boot/boot.b
+prompt
+timeout=50
+other=/dev/hda1
+        label=dos
+        table=/dev/hda
+image=/boot/vmlinuz
+        label=linux
+        root=/dev/hda2
+        read-only
+</PRE>
+</FONT>
+	"image=" section can be repeated as required to boot different
+	kernels
+	</P>
+	You <B>must</B> rerun <TT>/sbin/lilo</TT> when any changes to
+	this file or any kernels are made
+</UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

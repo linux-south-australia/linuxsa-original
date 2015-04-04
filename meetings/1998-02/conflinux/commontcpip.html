@@ -1,0 +1,61 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Common TCP/IP Protocols</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Common TCP/IP Protocols</H1>
+<HR>
+
+<!-- Slide Image -->
+<IMG SRC="tcpipprot.jpg">
+<!-- Slide Image -->
+
+<HR>
+
+<!-- Body Text Starts Here -->
+<P>There are a large number of TCP/IP protocols implemented at each layer of the TCP/IP model. Some of the most common are :</P>
+<UL>
+	<LI><P><STRONG>Ethernet / Token Ring / PPP</STRONG> - Technically, these are not really TCP/IP protocols, they are protocols that TCP/IP can operate over.</P></LI>
+	<LI><P><STRONG>Internet Protocol (IP)</STRONG> - The Internet Protocol is the protocol that is used to deliver the data from the source node to the destination node. It is a best effort, non-reliable (connectionless) protocol. If data gets lost by the Internet Protocol, it is up to the Transport layer protocols to detect this and correct it. Logical identification of devices on the network is specified as part of the Internet Protocol - these addresses are called IP addresses.</P></LI>
+	<LI><P><STRONG>Transmission Control Protocol (TCP)</STRONG> - The Transport layer protocol provides an end-to-end reliable, flow controlled connection between the end-nodes (it is a connection-oriented protocol). Data sent by the source node should arrive at the end node in the exact same order as it was sent. Because it is connection-oriented, there are three phases of operation - connection establishment, data transfer and connection termination.</P></LI> 
+	<LI><P><STRONG>User Datagram protocol (UDP)</STRONG> - The UDP protocol is an end-to-end protocol, similar to TCP. However, it is a connectionless protocol, meaning that data is sent to the destination node whenever it is ready. This results in better performance, as a connection to the destination does not have to be set up before data transfer. This comes at a cost though, which is a lack of reliability. There is no guarantee that the data will arrive, and arrive in order. The reason it exists is that the programming code to implement UDP is much simpler, and requires less operating memory, allowing it to be embedded in minimal amounts of ROM.</P></LI>
+	<LI><P><STRONG>Telnet / FTP / TFTP / HTTP</STRONG> - These protocols define how various user applications interoperate. They use the Transport layer protocols to perform this interoperation.</P>
+		<UL>
+			<LI><STRONG>Telnet</STRONG> is a virtual terminal protocol, allowing a client node to act as though it was a dumb terminal physically connected to the server node. Telnet uses TCP.</LI>
+			<LI><STRONG>FTP</STRONG> is the File Transport Protocol, used to transfer files between a client and server node. FTP uses TCP.</LI>
+			<LI><STRONG>TFTP</STRONG> is the Trivial File Transport Protocol, used for transfering boot files to devices booting off of the network. Usually these devices only have a small bootstrap ROM, and therefore TFTP uses UDP. </LI>
+			<LI><STRONG>HTTP</STRONG> is the Hyper Text Transport Protocol, used to transfer WWW html files between the WWW client and server. HTTP uses TCP.</LI>
+		</UL>
+		</LI>	
+</UL>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="tcpipmodel.html">[Previous Page]</A>
+	|
+	<A HREF="linuxipset.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

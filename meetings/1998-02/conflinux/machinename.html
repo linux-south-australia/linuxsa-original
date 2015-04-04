@@ -1,0 +1,72 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Giving remote machines names</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Giving remote machines names</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>Host Names</H2>
+<P>
+People don't cope with remembering numbers very well. Particularly a large number of them (both people, and numbers).
+</P>
+<P>
+TCP/IP based systems allow the association of names with IP addresses, to allow people to use the name of a machine, not its IP address.
+</P>
+<P>
+These names are called <STRONG>Host names</STRONG>.
+</P>
+<P>
+There are 3 ways of associating a name with an IP address :
+</P>
+<UL>
+	<LI><P>Add an entry into the /etc/hosts file</P></LI>
+	<LI><P>Add an entry into the Domain Name Server</P></LI>
+	<LI><P>Add an entry into the Sun Network Information Service (Yellowpages)</P></LI>
+</UL>
+<P>
+This simplest way is to add an entry into the /etc/hosts file.
+</P>
+<H2>/etc/hosts</H2>
+<P>
+The /etc/hosts file is a text file containing mappings between IP addresses and host names.
+</P>
+<P>
+Each line in the /etc/hosts file has the following format :
+</P>
+<BLOCKQUOTE><CODE>&#60IP Address&#62 &#60hostname&#62</CODE></BLOCKQUOTE> 
+<P>
+You can add as many entries as you like to this file, for both local and remote machines.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="defgateway.html">[Previous Page]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

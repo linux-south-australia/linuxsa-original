@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<TITLE>Erasing Packages</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>Erasing Packages</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	<FONT FACE="courier">rpm -e pkg1 ...</FONT>
+	<UL><UL>
+		<LI>Checks that no other packages require the one being removed</LI>
+		<LI>Performs any tasks required before uninstalling</LI>
+		<LI>Check if any config files were changed</LI>
+		<LI>Deletes any files belonging to the package</LI>
+		<LI>Performs any tasks required after uninstalling</LI>
+		<LI>Keeps track of what it did</LI>
+	</UL></UL>
+	</P>
+	<FONT FACE="courier">rpm -e eject</FONT>
+	<UL><UL>
+		<LI>Package name is used, not the filename</LI>
+		<LI><FONT FACE="courier">--nodeps</FONT></LI>
+	</UL></UL>
+	</P>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

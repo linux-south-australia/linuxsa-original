@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<TITLE>The /usr Hierachy</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>The <FONT FACE="courier">/usr</FONT> Hierachy</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	A major part of filesystem, containing only :
+	<UL><UL>
+		<LI>Shareable data</LI>
+		<LI>Read-only (static) data</LI>
+		<LI>Non-essential (post-boot) files</LI>
+	</UL></UL>
+	</P>
+	Issues about the <FONT FACE="courier">/usr</FONT> Hierachy
+	<UL><UL>
+		<LI>X Window System sits in <FONT FACE="courier">/usr</FONT></LI>
+		<LI>No other large package should be placed directly in <FONT FACE="courier">/usr</FONT></LI>
+		<LI><FONT FACE="courier">/usr</FONT> can be shared between multiple machines</LI>
+		<LI>A small number of symbolic links to <FONT FACE="courier">/var</FONT> permissible for compatibility</LI>
+	</UL></UL>
+	</P>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

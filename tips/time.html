@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Linux, Clocks, and Time</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Linux, Clocks, and Time</H1>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<H2>Introduction</H2>
+
+<P>This document explains how to set your computer's clock from Linux,
+how to set your timezone, and other stuff related to Linux and how it
+does its time-keeping.</P>
+
+<P>Your computer has two timepieces; a battery-backed one that is
+always running (the ``hardware'', ``BIOS'', or ``CMOS'' clock), and
+another that is maintained by the operating system currently running
+on your computer (the ``system'' clock).  The hardware clock is
+generally only used to set the system clock when your operating system
+boots, and then from that point until you reboot or turn off your
+system, the system clock is the one used to keep track of time.</P>
+
+<P>On Linux systems, you have a choice of keeping the hardware clock
+in UTC/GMT time or local time.  The preferred option is to keep it in
+UTC because then daylight savings can be automatically accounted for.
+The only disadvantage with keeping the hardware clock in UTC is that
+if you dual boot with an operating system (such as DOS) that expects
+the hardware clock to be set to local time, the time will always be
+wrong in that operating system.</P>
+
+<H2>Setting your timezone</H2>
+
+<P>The timezone under Linux is set by a symbolic link from
+<CODE>/etc/localtime</CODE><SUP><A HREF="#note1">[1]</A></SUP> to a
+file in the <CODE>/usr/share/zoneinfo</CODE><SUP><A
+HREF="#note2">[2]</A></SUP> directory that corresponds with what
+timezone you are in.  For example, since I'm in South Australia,
+<CODE>/etc/localtime</CODE> is a symlink to
+<CODE>/usr/share/zoneinfo/Australia/South</CODE>.  To set this link,
+type:</P>
+
+<P><CODE>ln -sf ../usr/share/zoneinfo/<I>your/zone</I> /etc/localtime</CODE></P>
+
+<P>Replace <CODE><I>your/zone</I></CODE> with something like
+<CODE>Australia/NSW</CODE> or <CODE>Australia/Perth</CODE>.  Have a
+look in the directories under <CODE>/usr/share/zoneinfo</CODE> to see
+what timezones are available.</P>
+
+<P><FONT SIZE="-1"><A NAME="note1">[1]</A> This assumes that
+<CODE>/usr/share/zoneinfo</CODE> is linked to
+<CODE>/etc/localtime</CODE> as it is under Red Hat Linux.</FONT></P>
+
+<P><FONT SIZE="-1"><A NAME="note2">[2]</A> On older systems, you'll
+find that <CODE>/usr/lib/zoneinfo</CODE> is used instead of
+<CODE>/usr/share/zoneinfo</CODE>.  See also the later section ``<A
+HREF="#wrongtime">The time in some applications is wrong</A>''.</FONT></P>
+
+<H2>Setting UTC or local time</H2>
+
+<P>When Linux boots, one of the initialisation scripts will run the
+<CODE>/sbin/hwclock</CODE> program to copy the current hardware clock
+time to the system clock.  <CODE>hwclock</CODE> will assume the
+hardware clock is set to local time unless it is run with the
+<CODE>--utc</CODE> switch.  Rather than editing the startup script,
+under Red Hat Linux you should edit the
+<CODE>/etc/sysconfig/clock</CODE> file and change the
+``<CODE>UTC</CODE>'' line to either ``UTC=true'' or ``UTC=false'' as
+appropriate.</P>
+
+<H2>Setting the system clock</H2>
+
+<P>To set the system clock under Linux, use the <CODE>date</CODE>
+command.  As an example, to set the current time and date to July 31,
+11:16pm, type ``<CODE>date 07312316</CODE>'' (note that the time is
+given in 24 hour notation).  If you wanted to change the year as well,
+you could type ``<CODE>date 073123161998</CODE>''.  To set the seconds
+as well, type ``<CODE>date 07312316.30</CODE>'' or ``<CODE>date
+073123161998.30</CODE>''.  To see what Linux thinks the current local
+time is, run <CODE>date</CODE> with no arguments.</P>
+
+<H2>Setting the hardware clock</H2>
+
+<P>To set the hardware clock, my favourite way is to set the system
+clock first, and then set the hardware clock to the current system
+clock by typing ``<CODE>/sbin/hwclock --systohc</CODE>'' (or
+``<CODE>/sbin/hwclock --systohc --utc</CODE>'' if you are keeping the
+hardware clock in UTC).  To see what the hardware clock is currently
+set to, run <CODE>hwclock</CODE> with no arguments.  If the hardware
+clock is in UTC and you want to see the local equivalent, type
+``<CODE>/sbin/hwclock --utc</CODE>''</P>
+
+<H2><A NAME="wrongtime">The time in some applications is
+wrong</A></H2>
+
+<P>If some applications (such as <CODE>date</CODE>) display the
+correct time, but others don't, and you are running Red Hat Linux 5.0
+or 5.1, you most likely have run into a bug caused by a move of the
+timezone information from <CODE>/usr/lib/zoneinfo</CODE> to
+<CODE>/usr/share/zoneinfo</CODE>.  The fix is to create a symbolic
+link from <CODE>/usr/lib/zoneinfo</CODE> to
+<CODE>/usr/share/zoneinfo</CODE>: ``<CODE>ln -s ../share/zoneinfo
+/usr/lib/zoneinfo</CODE>''.</P>
+
+<H2>Summary</H2>
+
+<UL>
+
+<LI><CODE>/etc/sysconfig/clock</CODE> sets whether the hardware clock
+is stored as UTC or local time.<P>
+
+<LI>Symlink <CODE>/etc/localtime</CODE> to
+<CODE>/usr/share/zoneinfo/...</CODE> to set your timezone.<P>
+
+<LI>Run ``<CODE>date MMDDhhmm</CODE>'' to set the current system
+date/time.<P>
+
+<LI>Type ``<CODE>/sbin/hwclock --systohc [--utc]</CODE>'' to set the
+hardware clock.<P>
+
+</UL>
+
+<H2>Other interesting notes</H2>
+
+<P>The Linux kernel always stores and calculates time as the number of
+seconds since midnight of the 1st of January 1970 UTC regardless of
+whether your hardware clock is stored as UTC or not.  Conversions to
+your local time are done at run-time.  One neat thing about this is
+that if someone is using your computer from a different timezone, they
+can set the TZ environment variable and all dates and times will
+appear correct for their timezone.</P>
+
+<P>If the number of seconds since the 1st of January 1970 UTC is
+stored as an signed 32-bit integer (as it is on your Linux/Intel
+system), your clock will stop working sometime on the year 2038.
+Linux has no inherent Y2K problem, but it does have a year 2038
+problem.  Hopefully we'll all be running Linux on 64-bit systems by
+then.  64-bit integers will keep our clocks running quite well until
+aproximately the year 292271-million.</P>
+
+<H2>Other programs worth looking at</H2>
+
+<UL>
+
+<LI><CODE>rdate</CODE> - get the current time from a remote machine;
+can be used to set the system time.<P>
+
+<LI><CODE>xntpd</CODE> - like <CODE>rdate</CODE>, but it's extremely
+accurate and you need a permanent 'net connection.  <CODE>xntpd</CODE>
+runs continuously and accounts for things like network delay and clock
+drift, but there's also a program (<CODE>ntpdate</CODE>) included that
+just sets the current time like rdate does.<P>
+
+</UL>
+
+<H2>Further information</H2>
+
+<UL>
+
+<LI><CODE>date(1)</CODE><P>
+
+<LI><CODE>hwclock(8)</CODE><P>
+
+<LI><CODE>/usr/doc/HOWTO/mini/Clock</CODE><P>
+
+</UL>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

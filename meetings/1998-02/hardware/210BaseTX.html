@@ -1,0 +1,76 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>A 2 Node Connection - 10Base2</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>A 2 Node Connection - 10BaseT Crossover Cable</H1>
+<HR>
+
+<!-- Slide Image -->
+<IMG SRC="210BaseTX.jpg">
+<!-- Slide Image -->
+
+<HR>
+
+<!-- Body Text Starts Here -->
+<P>
+You will need the following components to connect the two Linux machines together using a 10BaseT Crossover Cable :
+</P>
+<UL>
+	<LI><P>2 Ethernet network cards with a 10BaseT Interface.</P></LI>
+	<LI><P>Custom made 10BaseT Crossover cable, with the RJ-45 male connectors wired as follows :</P>
+	<UL>
+		<LI>1 (Tx+) --------- 3 (Rx+)</LI>
+		<LI>2 (Tx-) --------- 6 (Rx-)</LI>
+		<LI>3 (Rx+) --------- 1 (Tx+)</LI>
+		<LI>6 (Rx-) --------- 2 (Tx-)</LI>
+	</UL>
+	<P>The remaining pins should either be wired straight through or not wired at all.</P>
+	<P>It is a good idea to have this cable made of a <STRONG>different colour</STRONG> outer sheath than <STRONG>traditional blue or grey</STRONG> and <STRONG>labeled</STRONG> as a <STRONG>10BaseT Crossover</STRONG> if possible. This will save confusing it with a standard 10BaseT cable.</P>
+	</LI>
+</UL>
+<P>
+The advantages of this method are :
+</P>
+<UL>
+	<LI>Only 1 cable needed, if you loose it, you have lost everything !</LI>
+	<LI>If you are using two machines which have 100Mbps Ethernet cards, you can network at 100Mbps instead of 10Mbps.</LI>
+</UL>
+<P>
+The disadvantages of this method are :
+</P>
+<UL>
+	<LI>You have to have a customised cable made up. Cable Assembly and Data Cabling companies should be able to do this.</LI>
+	<LI>You can only connect two nodes together using this method. You need different cables, and additional equipment to connect together more machines using 10BaseT.</LI>
+</UL>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="210Base2.html">[Previous Page]</A>
+	|
+	<A HREF="m10Base2.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="index.html">[Previous Topic]</A>
+	|
+	<A HREF="../conflinux/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:03 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

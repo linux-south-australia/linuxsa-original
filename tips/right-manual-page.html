@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Finding The Right Manual Page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Finding The Right Manual Page</H1>
+<FONT SIZE=1>by <A HREF="mailto:davidn@rebel.net.au">David
+Newall</A>.</FONT>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<H2>Preliminary</H2>
+
+<P>Suppose you want to find a command that relates to <I>foobie
+bletch</I>, but you have no idea what that command might be.&nbsp; The
+manual (`man') pages can be searched in two ways: search one line
+description; and search complete page.</P>
+
+<H2>Search one line description</H2>
+
+<P>Each man page has a brief, one line description.&nbsp; For example,
+the brief description for the <TT>man</TT> manual page is `<TT>man -
+format and display the on-line manual pages</TT>'.&nbsp; You can
+search the brief description for all pages using the command
+<TT>man&nbsp;-k</TT>.&nbsp; Include one (or more) keywords that would
+appear in the description, and all matching pages are found.&nbsp; For
+example, if you want to find all commands that might let you search
+for a pattern, type <TT>man&nbsp;-k&nbsp;pattern</TT>.&nbsp; You will
+get the following output like this:</P>
+
+<PRE>
+awk(1) - GNU awk pattern scanning and processing language
+grep(1), egrep(1), fgrep(1) - print lines matching a pattern
+lptest(1) - generate lineprinter ripple pattern
+zipgrep(1) - search files in a ZIP archive for lines matching a pattern
+</PRE>
+
+<H2>Searching the complete man page</H2>
+
+<P>It might be the keywords that you wish to read about do not appear
+in any of the brief descriptions.&nbsp; You can still find an
+appropriate man page.&nbsp; You can search complete man pages using
+the <TT>grep</TT> command.</P>
+
+<P>The man pages are stored in just a few groups of directories.&nbsp;
+Most are stored in directories within <TT>/usr/man</TT>.&nbsp; Your
+machine could have other places, in addition to this, for example many
+sites also have man pages in </TT>/usr/X11R6/man</TT> and
+<TT>/usr/local/man</TT>.</P>
+
+<P>Suppose you want to find out about zombie processes.&nbsp;
+<TT>man&nbsp;-k</TT> is not helpful, so try:</P>
+
+<PRE>
+$ grep -l -i zombie /usr/man/*/*
+</PRE>
+
+<P>This produces:</P>
+
+<PRE>
+/usr/man/man1/perlfunc.1
+/usr/man/man1/perlipc.1
+/usr/man/man1/ps.1
+/usr/man/man1/screen.1
+/usr/man/man1/top.1
+/usr/man/man2/kill.2
+/usr/man/man2/wait.2
+/usr/man/man2/wait4.2
+/usr/man/man5/proc.5
+/usr/man/man8/fsck.minix.8
+</PRE>
+
+<P>You will quickly discover that <TT>perlfunc</TT>, <TT>perlipc</TT>,
+<TT>ps</TT>, <TT>screen</TT> and <TT>top</TT> are unhelpful.&nbsp; You
+will equally quickly discover that <TT>kill</TT>, <TT>wait</TT> and
+<TT>wait4</TT> all are useful.</P>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

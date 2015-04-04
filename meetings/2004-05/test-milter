@@ -1,0 +1,136 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+use Sendmail::Milter;
+use Socket;
+
+sub connect_callback {
+  my($ctx, $host) = @_;
+
+  print "connect_callback $host\n";
+  return SMFIS_CONTINUE;
+}
+
+sub helo_callback {
+  my($ctx, $host) = @_;
+
+  print "helo_callback $host\n";
+  return SMFIS_CONTINUE;
+}
+
+sub envfrom_callback {
+  my($ctx, $addr) = @_;
+
+  print "envfrom_callback $addr\n";
+
+  my $private = $ctx->getpriv();
+  $private->{from} = $addr;
+  $ctx->setpriv($private);
+
+  return SMFIS_CONTINUE;
+}
+
+sub envrcpt_callback {
+  my($ctx, $addr) = @_;
+
+  print "envrcpt_callback $addr\n";
+
+  my $private = $ctx->getpriv();
+  if ($private->{to}) {
+    $ctx->setreply("551", "5.7.1", "No more than one recipient allowed.");
+    return SMFIS_REJECT;
+  }
+  $private->{to} = $addr;
+  $ctx->setpriv($private);
+
+  return SMFIS_CONTINUE;
+}
+
+sub header_callback {
+  my($ctx, $field, $value) = @_;
+
+  print "header_callback '$field: $value'\n";
+  return SMFIS_CONTINUE;
+}
+
+sub eoh_callback {
+  my($ctx) = @_;
+
+  print "eoh_callback\n";
+  return SMFIS_CONTINUE;
+}
+
+sub body_callback {
+  my($ctx, $body) = @_;
+
+  print "body_callback:\n$body\n";
+  return SMFIS_CONTINUE;
+}
+
+sub eom_callback {
+  my($ctx) = @_;
+
+  print "eom_callback\n";
+  $ctx->addheader("X-Testing", "Tested.");
+  $ctx->setpriv(undef);
+  return SMFIS_CONTINUE;
+}
+
+sub abort_callback {
+  my($ctx) = @_;
+
+  print "abort_callback\n";
+  $ctx->setpriv(undef);
+  return SMFIS_CONTINUE;
+}
+
+sub close_callback {
+  my($ctx, @args) = @_;
+
+  print "close_callback\n";
+  $ctx->setpriv(undef);
+  return SMFIS_CONTINUE;
+}
+
+my %my_callbacks = (
+  'connect' => \&connect_callback,
+  'helo'    => \&helo_callback,
+  'envfrom' => \&envfrom_callback,
+  'envrcpt' => \&envrcpt_callback,
+  'header'  => \&header_callback,
+  'eoh'     => \&eoh_callback,
+  'body'    => \&body_callback,
+  'eom'     => \&eom_callback,
+  'abort'   => \&abort_callback,
+  'close'   => \&close_callback,
+);
+
+if (@ARGV != 2) {
+  print "Usage: perl $0 <name_of_filter> <path_to_sendmail.cf>\n";
+  exit;
+}
+
+my $conn = Sendmail::Milter::auto_getconn($ARGV[0], $ARGV[1]);
+
+if (!$conn) {
+  die "$0: failed to detect connection information\n";
+}
+
+if ($conn =~ /^local:(.+)$/) {
+  my $socket = $1;
+
+  if (-e $socket) {
+    die "$0: couldn't unlink $conn: $!\n" unless unlink($socket);
+  }
+}
+
+if (!Sendmail::Milter::auto_setconn($ARGV[0], $ARGV[1])) {
+  die "$0: failed to detect connection information\n";
+}
+
+if (!Sendmail::Milter::register($ARGV[0], \%my_callbacks, SMFI_CURR_ACTS)) {
+  die "$0: failed to register callbacks\n";
+}
+
+Sendmail::Milter::main();

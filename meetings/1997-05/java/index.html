@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE>Java Overview</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>Java Under Linux Overview</H1>
+<H2 ALIGN=CENTER>LinuxSA - May 1997 Meeting<BR>
+Matthew Tippett<BR>
+(<A HREF="mailto:mtippett@tne.net.au">mtippett@tne.net.au</A>)</H2>
+
+<HR>
+<H1>Introduction</H1>
+<UL>
+	<LI>Java, the hottest new concept
+</UL>
+<H1>What is Java</H1>
+<UL>
+	<LI>Portable
+	<LI>Programming Language
+	<UL>
+		<LI>Mixture of C and Ada
+		<LI>Well defined API
+	</UL>
+	<LI>Design based on networking and Security
+	<LI>Portable executable format (bytecodes)
+	<LI>Created by Sun Microsystems
+	<LI>Spawned browser languages such as Javascript
+</UL>
+<H1>Java Under Linux</H1>
+<UL>
+	<LI>Java Virtual Machine (JVM) ported to Linux
+	<UL>
+		<LI>JDK 1.0.2 and JDK 1.1.1
+		<LI>JRE 1.1.1
+		<LI>kaffe 0.9.0
+	</UL>
+	<LI>To run java applets, either
+	<UL>
+		<LI>Compile Java Support in Kernel
+			<UL><LI>Run the applets/applications natively</UL>
+		<LI>Run Java Applets/Applications through the JVM
+	</UL>
+
+</UL>
+<H1>How does Java Run Natively</H1>
+<UL>
+	<LI>Kernel detects the executable type
+	<LI>Kernel starts the JVM (java or appletviewer)
+	<UL>
+		<LI>JVMs defined in binfmt_java.c
+	</UL>
+	<LI>Runs the Java bytecodes in the JVM
+</UL>
+<H1>What having native support does</H1>
+<UL>
+	<LI>Full Java Development Environment
+</UL>
+<H1>Running HTML files (Applets)</H1>
+<UL>
+	<LI>Get html and applet classes
+	<LI>Give HTML file a magic number
+		<UL><LI>&lt;!--APPLET--&gt;</UL>
+	<LI>Set execute bit on binary.
+	<LI>Run the HTML file
+	<LI>Each applet wil run in it's own window
+</UL>
+<H1>An Example of Applets</H1>
+<UL>
+	<LI>Animated "duke"
+	<LI>PACMAN
+</UL>
+<H1>Running Java Applications</H1>
+<UL>
+	<LI>Compile or get a class with main() method
+	<LI>Set execute bit on binary
+	<LI>Run the Application
+</UL>
+<H1>An Example of an Java Application</H1>
+<UL>
+	<LI>Corel Office for Java
+</UL>
+<H1>What Java May do For Linux</H1>
+<UL>
+	<LI>Access to Commercial Applications
+	<UL>
+		<LI>Corel Office for Java
+	</UL>
+	<LI>Allow Linux on to the Desktop as a NC
+</UL>
+<H1>Future of Java</H1>
+<UL>
+	<LI>Commercial Acceptance as alternative
+	<LI>JIT compilers
+</UL>
+<H1>More information</H1>
+<UL>
+	<LI>JavaSoft's Homepage
+		<UL><LI><A HREF="http://www.javasoft.com">Java Soft Homepage</A></UL>
+	<LI>Applet Repositories
+	<UL>
+		<LI><A HREF="http://www.gamelan.com">Gamelan</A>
+	</UL>
+	<LI>Java To Linux Port
+		<UL><LI><A HREF="http://www.blackdown.org/java-linux.html">Blackdown Org</a></UL>
+	<LI>Current Java Linux Port
+		<UL><LI><A HREF="ftp://ftp.progsoc.uts.edu.au/pub/Linux/java/">JDK or JRE</A></UL>
+</UL>
+<H1>Questions?</H1>
+
+<HR>
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

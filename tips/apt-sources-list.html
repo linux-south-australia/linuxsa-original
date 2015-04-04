@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - apt/sources.list and Debian Versions</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+apt/sources.list and Debian Versions</H1>
+<FONT SIZE=1>by Paul Schulz</FONT>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<P><I>Translated from an email that Paul sent to the LinuxSA list
+15/Sep/2004.</I></P>
+
+<P>This was meant to be a small point of correction.. but it got a
+little out of hand.</P>
+
+<P>The format of the /etc/apt/sources.list is:</P>
+
+<PRE>
+deb &lt;BASE_URL&gt; &lt;DISTRIBUTION&gt; &lt;SECTION&gt; [&lt;SECTION&gt;*]
+deb-src &lt;BASE_URL&gt; &lt;DISTRIBUTION&gt; &lt;SECTION&gt; [&lt;SECTION&gt;*]
+</PRE>
+
+<P>Where <TT>BASE_URL</TT> is something like:</P>
+
+<PRE>
+http://ftp.au.debian.org
+</PRE>
+
+<P>The DISTRIBUTION may be one of</P>
+
+<DL>
+
+<DT>stable</DT>
+
+<DD>never changes unless absolutely necessary. There is a separate
+repository for security updates. Which is a separate entry in
+'<TT>sources.list</TT>'. This is the distribution you would use for
+'servers' that cannot EVER have any downtime. Designed to allow
+sysadmins to sleep at night. As a result, it is getting reasonably
+old.</DD>
+
+<DT>unstable</DT>
+
+<DD>current Debian development bleeding edge distribution. You should
+expect both code bugs and packaging issues, if you use this
+distribution.  On the plus side, any problems found will be fixed here
+first, and there are some package sanity checks.</DD>
+
+<DT>testing</DT>
+
+<DD>After a package has been in the 'unstable' distribution for a
+period (10 days I think) and no bugs have been raised against it, it
+migrates to the 'testing' distribution. This is a good distribution to
+use, for those who don't want cutting edge, but would like to use
+Gnome 2.6 for example.</DD>
+
+</DL>
+
+<P>There are 'core' packages that make up a distribution and are only
+changed if '<TT>apt-get dist-upgrade</TT>' or equivalent command is
+used. These includes the software that maintains the packaging system
+itself.</P>
+
+<P>The distributions can also be referred to by their names. This is
+less useful as a Debian release essentially involves renaming
+'unstable/testing' to 'stable' and recreating 'unstable' and starting
+a new development cycle. So the next stable release (CD's etc.) will
+be Sarge... and I'm expecting to see this before the end of the year..
+(ever hopeful).</P>
+
+<DL>
+
+<DT>woody</DT>
+
+<DD>currently another name for stable</DD>
+
+<DT>sarge</DT>
+
+<DD>currently another name for unstable</DD>
+
+<DT>sid</DT>
+
+<DD>a half baked experimental distribution, given the the name
+because of the kid next door that pulled toys apart. The names come
+from Toy Story...</DD>
+
+</DL>
+
+<P>But back to '<TT>/etc/apt/sources.list</TT>'. The section can be
+one of:</P>
+
+<DL>
+
+<DT>main</DT>
+
+<DT>contrib</DT>
+
+<DD>free packages that have non-free dependancies</DD>
+
+<DT>non-free</DT>
+
+<DD>as in free speech not free beer</DD>
+
+</DL>
+
+<P>The purpose of these is described on the Debian Documentation
+pages, but all of packages that you would normally need would be in
+'main'. You can put multiple sections onto the end of the same line,
+and if you are creating your own Debian repository, you can create
+your own sections.</P>
+
+<P>All these are put together to form a URL that 'apt' uses to recover
+the packages that you're after.</P>
+
+<UL>
+
+<LI>'<TT>dists</TT>' is placed after the BASE_URL, before the
+DISTRIBUTION
+
+<LI>'<TT>binary-i386</TT>' is placed after the SECTION
+
+</UL>
+
+<P>So the full URL becomes something like:</P>
+
+<PRE>
+http://ftp.debian.org/dists/testing/main/binary-i386/
+</PRE>
+
+<P>This used to be used to get both the package listing (with
+'<TT>apt-get update</TT>') and the packages themselves.  These days,
+it usually only contains the package listing which then refers to the
+package pool, where all the packages are kept..</P>
+
+<PRE>
+http://ftp.debian.org/debian/pool/main/
+</PRE>
+
+<P>The '<TT>packages</TT>' file lists the file location as something
+like</P>
+
+<PRE>
+pool/main/3/3dchess/3dchess_0.8.1-11_i386.deb
+</PRE>
+
+<P>which is applied the the base URL, to find the location of the
+file. You can browse the Debian repository by going directly to these
+URL's.</P>
+
+<P>NOTE: Do not be tempted to mix 'stable', 'testing' and 'unstable'
+sources.list entries without reading some more about 'pinning'.
+<B>*** You have been warned ***</B></P>
+
+</BODY>
+</HTML>

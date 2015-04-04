@@ -1,0 +1,179 @@
+<HTML>
+<HEAD>
+<TITLE>SAMBA</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>SAMBA<BR>
+A Linux Based SMB File Server</H1>
+<H2 ALIGN=CENTER>LinuxSA Meeting<BR>
+Matthew Tippett</H2>
+
+<H1>Overview</H1>
+
+<UL>
+<LI>Allows a Linux system to act a file and print server for SMB clients
+<LI>Server runs on most Unix variants
+<LI>Supports clients such as
+  <UL>
+  <LI>LanManager for DOS
+  <LI>Windows for Workgroups, Windows95, WindowsNT
+  <LI>OS/2, Digital Pathworks
+  </UL>
+<LI>Unix SMB client and NetBIOS nameserver
+</UL>
+
+<H1>History</H1>
+
+<UL>
+<LI>Started Dec 1991 by Andrew Tridgell
+  <UL>
+  <LI>Mount Sun drives on a PC running Pathworks
+  <LI>Version 1.0 released Jan 1992
+  </UL>
+<LI>Andrew Converted To Linux in November 1992
+<LI>December 1993 `NetBIOS For Unix' project started
+</UL>
+
+<H1>Linux &amp; SAMBA</H1>
+
+<UL>
+<LI>Linux and Sun's form the base of development of SAMBA
+<LI>smbfs under construction
+  <UL>
+  <LI>Allows SMB shares to be `mounted' under Linux
+  <LI>Part of the User Process File System
+  </UL>
+<LI>Point of Leverage into Commercial server market
+</UL>
+
+<H1>Features</H1>
+
+<UL>
+<LI>SMB file and print serving
+<LI>Unix client
+<LI>Username/password security
+<LI>Home directory/printer exporting
+<LI>Guest connections
+<LI>Name mangling (long to 8.3)
+<LI>Free, covered by the GPL
+<LI>LAN Manager compatible password encryption
+</UL>
+
+<H1>Components</H1>
+
+<UL>
+<LI>smbd
+  <UL>
+  <LI>File and Print services daemon
+  <LI>testparm - test smbd.conf file
+  <LI>smbrun - Runs unix programs for smbd
+  </UL>
+<LI>nmbd
+  <UL>
+  <LI>NetBIOS nameserver and browser controller
+  </UL>
+<LI>smbclient
+  <UL>
+  <LI>Ftp-like program for accessing a different SMB servers shares
+  </UL>
+<LI>smbstatus
+  <UL>
+  <LI>Tells who is logged on to a server
+  </UL>
+</UL>
+
+<H1>Getting Started with SAMBA</H1>
+
+<UL>
+<LI>Compilation
+<LI>Installation
+<LI>Configuration
+  <UL>
+  <LI>smbd.conf
+  </UL>
+<LI>Testing
+</UL>
+
+<H1>SAMBA as a Server</H1>
+
+<UL>
+<LI>Speed
+  <UL>
+  <LI>One contributer qoutes around 400 kb/s
+  </UL>
+<LI>Compatibility
+  <UL>
+  <LI>Allows hiding of non 8.3 names or mangling
+  <LI>Exists and can be browsed by multiple platforms
+  </UL>
+<LI>Security
+  <UL>
+  <LI>Allows `Secure' connections with username/password
+  </UL>
+</UL>
+
+<H1>SAMBA as a Client</H1>
+
+<UL>
+<LI>FTP like interface to a SMB file server
+  <UL>
+  <LI>Transfer Files
+  </UL>
+<LI>Print to a SMB print server
+  <UL>
+  <LI>Print direct with smbprint program
+  <LI>Print with normal Unix print utilities (lpr, lp, etc)
+  <LI>Add an appropriate /etc/printcap file
+  </UL>
+</UL>
+
+<H1>Real Life Applications</H1>
+
+<UL>
+<LI>Allows Linux to act as a multiprotocol file server
+  <UL>
+  <LI>NFS
+  <LI>SMB
+  </UL>
+<LI>Particular Applications
+  <UL>
+  <LI>Mail Server
+  <LI>Domain Controller
+  </UL>
+<LI>Competes well against Commercial SMB servers
+</UL>
+
+<H1>More Information</H1>
+
+<UL>
+<LI>Web Page
+  <UL>
+  <LI><A HREF="http://lake.canberra.edu.au/pub/samba">http://lake.canberra.edu.au/pub/samba</A>
+  </UL>
+<LI>FTP
+  <UL>
+  <LI><A HREF="ftp://nimbus.anu.edu.au/pub/tridge/samba">ftp://nimbus.anu.edu.au/pub/tridge/samba</A>
+  </UL>
+<LI>Mailing List
+  <UL>
+  <LI><A HREF="mailto:listproc@listproc.anu.edu.au">listproc@listproc.anu.edu.au</A><BR>
+    (BODY of 'subscribe samba &lt;Your Name&gt;')
+  </UL>
+<LI>USENET News
+  <UL>
+  <LI><A HREF="news:comp.protocols.smb">news:comp.protocols.smb</A>
+  </UL>
+</UL>
+
+<HR>
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

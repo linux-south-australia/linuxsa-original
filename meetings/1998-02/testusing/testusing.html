@@ -1,0 +1,85 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Testing and Using your Connection</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Testing and Using your Connection</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<P>
+There are two ways of testing your TCP/IP connection.
+</P>
+<P>
+The first test tests for another machine's presence on the IP network. This test uses the PING utility.
+</P>
+<P>
+The second test tests whether you can use an application layer protocol to communcate with the remote machine.
+</P>
+<H2>Using PING</H2>
+<P>
+The <STRONG>P</STRONG>acket <STRONG>I</STRONG>nter<STRONG>N</STRONG>et <STRONG>G</STRONG>roper (PING) test shows whether a remote host is available on the network.
+</P>
+<P>
+It works by sending an <STRONG>ICMP echo request</STRONG> packet to the specified IP address. If the selected machine is operating, it will receive the ICMP echo request, and return an <STRONG>ICMP echo response</STRONG> packet to the originating host. For each successful ICMP echo request and response pair, the orginating host will print a message indicating a successful ping.
+</P>
+<P>
+To perform the PING test issue the following command :
+</P>
+<BLOCKQUOTE><CODE>ping &#60IP Address&#62</CODE></BLOCKQUOTE>
+<P>
+Alternatively, you can specify the <KBD>host name</KBD> instead of the <KBD>IP address</KBD> as long as you have made a corresponding entry in <STRONG>/etc/hosts</STRONG>.
+</P>
+<H3>Telnetting</H3>
+<P>
+Now that you have tested that the IP host is visable on the network using the PING test, you can now test your configuration using the application protocol TELNET.
+</P>
+<P>The TELNET protocol is a virtual terminal protocol. It sets up a connection to the remote machine and pretends to be a dumb terminal.
+</P>
+<P>
+It is a good test because it shows that the other machine is communcating, and also supporting one of the most common application services available. 
+</P>
+<P>
+To initiate a Telnet connection to the remote machine, issue the following command :
+</P>
+<BLOCKQUOTE><CODE>telnet &#60hostname&#62</CODE></BLOCKQUOTE>
+<P>
+Alternatively, you could use the <KBD>IP address</KBD> instead of the <KBD>hostname</KBD>. 
+</P>
+<P>
+After a short period, you should be presented with a banner showing the name of the remote machine, and a login prompt. At this login prompt, you can enter a user name of one of the users of the remote host. You then enter the password, and if it is correct, you will be logged in at a command line prompt, where you can issue any shell commands.
+</P>
+<P>
+At this point, you have a fully networked Linux box. Any other services the remote machine is running, such as an FTP server or a Web server can now be accessed over the network.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="index.html">[Previous Page]</A>
+	|
+	<A HREF="testusing.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../conflinux/index.html">[Previous Topic]</A>
+	|
+	<A HREF="index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:13 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

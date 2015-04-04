@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Removable Media</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Accessing Removable Media</H1>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<H2>Floppy Disks</H2>
+
+<P>There are two completely different ways to access a floppy
+disk:</P>
+
+<OL>
+<LI><P><STRONG>By mounting it.</STRONG></P>
+
+<P>Run '<CODE>mount -t msdos /dev/fd0 /mnt/floppy</CODE>' (but check
+that the directory <CODE>/mnt/floppy</CODE> exists first).</P>
+
+<P>After mounting it, the disk is accessible through the directory
+<CODE>/mnt/floppy</CODE> and the usual unix commands will work in that
+directory (eg. cat, cp, rm, mv).  This will work for other disk
+formats too (eg. Linux ext2, minix, etc if you use
+'<CODE>-t ext2</CODE>' instead of '<CODE>-t msdos</CODE>').</P>
+
+<P>After you finish working with the disk (<STRONG>BEFORE</STRONG>
+ejecting it) you <STRONG>MUST</STRONG> unmount it with
+'<CODE>umount /mnt/floppy</CODE>'.  Note that you cannot unmount a
+disk if it is in use (that even includes being cd'ed into the mounted
+directory).</P>
+
+<P>You can (by default) only mount/unmount a disk if you are root.  If
+you want to be able to do this as any user, you need to add a line
+such as this to the file <CODE>/etc/fstab</CODE>:</P>
+
+<PRE>
+/dev/fd0  /mnt/floppy  msdos  noauto,user,exec 0 0</CODE>
+</PRE>
+
+<P>After adding that line, any user can mount or unmount the floppy by
+typing '<CODE>mount /mnt/floppy</CODE>' and
+'<CODE>umount /mnt/floppy</CODE>' respectively.</P>
+
+<P>Note:</P>
+<UL>
+<LI><P>To access the 'B:' drive, use <CODE>/dev/fd1</CODE> instead of
+<CODE>/dev/fd0</CODE></P>
+<LI><P>The choice of <CODE>/mnt/floppy</CODE> is only a convention;
+you can pick a different directory if you prefer.  The only
+requirement is that the directory must exist and not be in use.</P>
+<LI><P>For further information, see <CODE>mount(8)</CODE> and
+<CODE>fstab(5)</CODE> (ie. type '<CODE>man mount</CODE>' or
+'<CODE>man fstab</CODE>').</P>
+</UL>
+
+<LI><P><STRONG>By using the '<EM>mtools</EM>' set of programs.</STRONG></P>
+
+<P>Without mounting a disk, you can manipulate an MSDOS disk by using
+commands such as:</P>
+<PRE>
+mdir a:
+mcopy file a:
+mcopy a:file
+mdel a:file
+</PRE>
+<P>Note:</P>
+<UL>
+<LI><P>To perform the above commands, the user needs to have the
+permissions to access the floppy device <CODE>/dev/fd0</CODE>.  To
+give everyone on the system read and write permissions to the floppy
+disk, type the command: '<CODE>chmod 666 /dev/fd0</CODE>' when logged
+in as root.</P>
+<LI><P>For further information, see <CODE>mtools(1)</CODE> (ie. type
+'<CODE>man mtools</CODE>').
+</UL>
+</OL>
+
+<H2>CDROMs</H2>
+
+<P>Presuming that your kernel already supports your CDROM drive, using
+a CDROM drive is essentially the same as mounting and accessing a
+floppy drive (so read and understand that section first), with the
+following differences:</P>
+<OL>
+<LI><P>CDROMs use the <CODE>iso9660</CODE> filesystem type instead of
+<CODE>msdos</CODE>.</P>
+<LI><P>The customary directory for mounting a CDROM is
+<CODE>/mnt/cdrom</CODE>.</P>
+<LI><P>A different device name to <CODE>/dev/fd0</CODE> will be used.
+Some of the more common device names are:</P>
+  <UL>
+  <LI><CODE>/dev/scd0</CODE> (SCSI CDROM drive)
+  <LI><CODE>/dev/hda</CODE>, <CODE>/dev/hdb</CODE>,
+    <CODE>/dev/hdc</CODE>, etc (IDE CDROM drive)
+  <LI><CODE>/dev/sbpcd</CODE> (Old SoundBlaster/Panasonic CDROM
+    interface type)
+  </UL>
+<P>The kernel will display the device name of the CDROM drive when it
+boots up.  To see those messages again, type '<CODE>dmesg</CODE>'.</P>
+<P>There may be a link from <CODE>/dev/cdrom</CODE> to the real device
+name.  For these purposes, use the real device name.</P>
+<P>CDROMs are read-only, so the '<CODE>ro</CODE>' option should be
+supplied to the '<CODE>mount</CODE>' command.
+</OL>
+
+<P>As an example, here is how to mount a CDROM in a SCSI CDROM
+drive:</P>
+<PRE>
+mount -t iso9660 -o ro /dev/scd0 /mnt/cdrom
+</PRE>
+
+<P>To allow any user to mount/unmount CDROMs, the line to place
+in <CODE>/etc/fstab</CODE> would be:</P>
+<PRE>
+/dev/scd0  /mnt/cdrom  iso9660  noauto,user,exec,ro 0 0
+</PRE>
+<P>With the above line added, users can type
+'<CODE>mount /mnt/cdrom/</CODE>' or '<CODE>umount /mnt/cdrom</CODE>'
+to mount/umount the CDROM</P>
+
+For further information, see:
+<UL>
+<LI><CODE>/usr/src/linux/Documentation/cdrom/</CODE>
+<LI>The CDROM HOWTO
+</UL>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

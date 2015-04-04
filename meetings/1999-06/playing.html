@@ -1,0 +1,49 @@
+<HTML><HEAD><TITLE>Playing MP3's</TITLE><HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<H2>How To Play MP3's</H2>
+
+<H3><A NAME="where">Where To Get Software</A></H3>
+
+The 'normal' places to find linux software can be used. eg
+
+<BR><A HREF="http://www.freshmeat.net/appindex/console/mp3.html">Freshmeat (console)</A>
+<BR><A HREF="http://www.freshmeat.net/appindex/x11/mp3.html">Freshmeat (X11)</A>
+<BR><A HREF="http://linuxberg.ozbytes.net.au/conhtml/mul_mp3.html">Linuxberg (console) (OzBytes)</A>
+<BR><A HREF="http://linuxberg.ozbytes.net.au/x11html/mul_mp3.html">Linuxberg (X11) (OzBytes)</A>
+
+<P>Also, some MP3 specific sites have Linux MP3 players eg.
+<BR><A HREF="http://www.mp3.com/software/linux/players.html">mp3.com</A>
+
+<P>Please note that getting a mp3 player is sometimes a little harder than it seems. On Linux, some 'players' are actually frontends to other (normally colsole) decoders. 
+
+<H3><A NAME="compile">Do I Need To Compile The Software?</A></H3>
+
+If you don't want to, no! Many players can be downloaded as binaries, sometimes as gzipped tar archives, sometimes as rpms. In addition, some sources are packed well, so all you need to do is extract the source code, then type "./configure ; make".
+
+<P>Some programs do not come as a binary, so you must compile it yourself. As shown above, this is not always difficult. All the programs I have come across so far do not need to be put in any specific directory, so you may put the executable anywhere you like.
+
+<H3><A NAME="examples">Some Examples</A><BR><A NAME="X11">X Windows Software</A></H3>
+
+RedHat 6.0 comes with <A HREF="http://www.x11amp.org">X11Amp</A> which has now been renamed <A HREF="http://www.xmms.org">xmms</A> (X Multimedia System>.
+<BR>Features include: Winamp 2.x skin support, playlist editor with eye candy and play controls, equalizer, and many other options just like <A HREF="http://www.winamp.com">Winamp</A> (for MS win). This is capable of playing streamed music, however, my test with X11amp and icecast had some problems.
+
+<P>I downloaded freeamp as a binary in a tar.gz.
+<BR>Features: I'm not entirely sure. It has a nice GUI, although loading the program requires you to pass the path/filename of the MP3's you want to play.
+
+<P>I also download a binary rpm for Kmp3. I had problems getting it to work (maybe because I use GNOME, and also the rpm I got intsalled the files in /opt (which previously didn't exist). At least the GUI loads.
+
+<P>Another binary rpm I got is for eMusic. It has a strange GUI (which I find a bit hard to understnad and use). It can also play audio CDs and it gets information about the song/artist from a CDDA database.
+
+<P>The last example in X windows came from a binary rpm, the program gqmpeg. It has an easy to use GUI, and lots of information while playing (include cpu usage).
+
+<H3><A NAME="colsole">Console Software</A></H3>
+<P>RedHat 6.0 comes with mpg123, which (apparently) can play any MPEG sound file (it claims to be the fastest MPEG player for UNIX, being able to play in real time on a 486DX4-120, or with 2:1 downsampling, on a 486DX2-66).
+
+<P>Unfortunatly, I wasn't able to get any other colsole based player to work.
+
+<P>
+[ <A HREF="introduction.html">previous</A> ] [ <A HREF="index.html">contents</A> ] [ <A HREF="getting.html">next</A> ]
+
+</BODY></HTML>

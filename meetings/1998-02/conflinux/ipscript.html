@@ -1,0 +1,113 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Configuring these settings the hardway - in the scripts</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Configuring these settings the hardway - in the scripts</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<P>
+The first way to configure the IP address, subnet mask and option default gateway address is in the system boot scripts.
+</P>
+<P>
+The location of these scripts is Linux distribution dependent, but the are usually located somewhere under the <SAMP>/etc</SAMP> subdirectory.
+</P>
+<P>
+For example, under the slackware distribution, they are located in the <SAMP>/etc/rc.d</SAMP> subdirectory.
+</P>
+<H2><SAMP>rc.inet1</SAMP></H2>
+<P>
+The <SAMP>rc.inet1</SAMP> file is the location of the commands which assign an IP address, subnetmask and default gateway to the Linux box.
+</P>
+<H3>Assigning an IP address and subnet mask to <SAMP>eth0</SAMP></H3>
+<P>
+Somewhere within the <SAMP>rc.inet1</SAMP> script will be the lines which assign an IP address and subnet mask to the <SAMP>eth0</SAMP> interface. 
+</P>
+<P>
+These lines will look something like this :
+</P>
+<BLOCKQUOTE>
+<SAMP>/sbin/ifconfig eth0 10.0.1.65 netmask 255.255.255.0 broadcast 10.0.1.255</SAMP><BR>
+<SAMP>/sbin/route add -net 10.0.1.0 dev eth0 netmask 255.255.255.0</SAMP>
+</BLOCKQUOTE>
+<P>
+The first line assigns an IP address of 10.0.1.65 to the <SAMP>eth0</SAMP> interface. It also specifies the subnet mask (<SAMP>netmask 255.255.255.0</SAMP>) and also sets the interface broadcast value, which corresponds to the network and subnet number, with a host address of all binary 1s (<SAMP>broadcast 10.0.1.255</SAMP>).
+</P>
+<P>
+The second line adds an entry into the route table, specifying that the 10.0.1.0 subnet is attached to the <SAMP>eth0</SAMP> device. Ensure that you assign the subnet number to the eth0 interface, by specifying the network and subnet, with a host address of all binary 0s (<SAMP>10.0.1.0</SAMP>).
+</P>
+<H3>Assigning the Default Gateway Address</H3>
+<P>
+Remember that you may not assign a Default Gateway address, if you have no gateways, or you are using PPP.
+</P>
+<P>
+If you do need to assign a default gateway address, there will be a line in the <SAMP>rc.inet1</SAMP> file which looks like this :
+</P>
+<BLOCKQUOTE>
+<SAMP>/sbin/route add default gw 10.0.1.1</SAMP>
+</BLOCKQUOTE>
+<P>
+This line assigns a default gateway address of 10.0.1.1. Specify the value of your default gateway instead of 10.0.1.1.
+</P>
+<H3>Applying these settings</H3>
+<P>
+After you have changed and saved the <SAMP>rc.inet1</SAMP> script, you need to apply these settings.
+</P>
+<P>
+Although you could run the script manually, it is best to reboot the Linux box to ensure that the settings will be applied automatically, every time Linux is booted.
+</P>
+<H3>Checking the settings</H3>
+<H4>IP Address and Subnet Mask</H4>
+<P>
+To check the IP address and subnet mask settings for your ethernet card issue the following command :
+</P>
+<BLOCKQUOTE><KBD>/sbin/ifconfig eth0</KBD></BLOCKQUOTE>
+<P>
+The values you are interested in are the <SAMP>inet addr</SAMP> which should correspond to the IP address you assigned, the <SAMP>Bcast</SAMP> address, which should correspond to the broadcast address you assigned, and finaly, the <SAMP>Mask</SAMP> value, which should correspond to the subnet mask you assigned.
+</P>
+<H4>Default Gateway</H4>
+<P>
+To check the default gateway value issue the following command :
+</P>
+<BLOCKQUOTE><KBD>netstat -rn</KBD></BLOCKQUOTE>
+<P>
+This command shows the route table of the Linux box, which is where the default gateway value is stored.
+</P>
+<P>
+Look for the entry which has <SAMP>0.0.0.0</SAMP> in the destination column. Under the Gateway column of the same row, you should see the IP address you specified as the default gateway address.
+</P>
+<P>
+You may also notice that you have an entry with a destination of the subnet you assigned to the <SAMP>eth0</SAMP> interface. This is the result of the second command (<SAMP>route</SAMP>) configured when setting the IP address of the <SAMP>eth0</SAMP> interface.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="defgateway.html">[Previous Page]</A>
+	|
+	<A HREF="ipredhat.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

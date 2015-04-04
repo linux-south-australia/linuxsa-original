@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<TITLE>Selecting Packages</TITLE>
+</HEAD>
+<BODY BACKGROUND="/images/backbody.jpg" TEXT="white">
+<FONT FACE="Verdana, Arial, Helvetica">
+<FONT SIZE=7><CENTER>Selecting Packages</CENTER></FONT>
+<FONT SIZE=5>
+<UL><UL>
+	One installed package:
+	<UL><UL>
+		<LI>The package name/version/label<BR>
+			<FONT FACE="courier">rpm -q libc</FONT><BR>
+			<FONT FACE="courier">rpm -q libc-5.3.12</FONT><BR>
+			<FONT FACE="courier">rpm -q libc-5.3.12-18</FONT></LI>
+		<LI>Case sensitive</LI>
+		<LI>No wildcards</LI>
+	</UL></UL>
+	</P>
+	All installed packages:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -qa</FONT></LI>
+		<LI>Use "<FONT FACE="courier">less</FONT>" or
+			"<FONT FACE="courier">grep</FONT>"</LI>
+	</UL></UL>
+	</P>
+	Query the package owning a file:
+	<UL><UL>
+		<LI><FONT FACE="courier">rpm -qf /bin/ls</FONT></LI>
+	</UL></UL>
+</UL></UL></UL>
+</FONT>
+</FONT>
+</BODY>
+</HTML>

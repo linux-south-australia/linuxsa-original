@@ -1,0 +1,86 @@
+Apache SSL Talk Notes
+Geoffrey D. Bennett <geoffrey@netcraft.com.au>
+Copyright NetCraft Australia 2000
+
+- What is SSL
+  - Secure Socket Layer
+  - "Secure" Web Server
+  - Commonly used to encrypt HTTP communications
+    (https://... on default port 443 instead of http://...)
+    but also can used for telnet, POP, etc.
+  - Client can be sure who they are talking to
+  - Less common: server can be sure who they are talking to
+
+- How it works (more crypto stuff)
+  - Described basics of symmetric/asymmetric cryptography last month
+    - Symmetric: one key (private) used to both encrypt and decrypt
+    - Asymmetric: one key (public) used to encrypt and another (private) to
+      decrypt
+
+  - Email examples:
+    - Signing a message
+      - Hashing algorithms
+    - Signing a key
+
+  - Web examples:
+    - Signing a key
+
+- mod_ssl, Apache-SSL
+  http://www.openssl.org/
+  http://www.modssl.org/
+
+- Installing mod_ssl
+  - Included with Red Hat 7.0
+  - http://www.megaloman.com/~hany/RPM/mod_ssl.html
+
+- Generating a public/private key pair:
+  - openssl genrsa 1024 > www.domain.com.key
+  - or with a passphrase: openssl genrsa -des3 1024 > www.domain.com.key
+
+- Removing a passphrase from a key:
+  - openssl rsa -in in.key -out out.key
+
+- Creating a certificate request:
+  - openssl req -new -key www.domain.com.key -out www.domain.com.csr
+
+- Creating a temporary self-signed certificate:
+  - openssl x509 -req -days 30 -in www.domain.com.csr \
+    -signkey www.domain.com.key -out www.domain.com.crt 
+
+- Viewing a key/crt/csr information:
+  - openssl asn1parse < in-file
+
+- Setting up Apache:
+  - Include the mod_ssl module by appending to the LoadModule list:
+    LoadModule ssl_module modules/libssl.so
+
+  - And to the AddModule list:
+    AddModule mod_ssl.c
+
+  - Listen to the SSL port:
+    Listen 80
+    Listen 443
+
+  - Set up the virtual host (must be IP-based):
+
+<VirtualHost _default_:443>
+  ServerAdmin webmaster@netcraft.com.au
+  DocumentRoot /home/httpd/html
+  ServerName www.netcraft.com.au
+
+  SSLEngine on
+  SSLCertificateFile    /etc/httpd/conf/ssl.crt/www.netcraft.com.au.crt
+  SSLCertificateKeyFile /etc/httpd/conf/ssl.key/www.netcraft.com.au.key
+</VirtualHost>
+
+  - Default certificate & key names:
+    /etc/httpd/conf/ssl.crt/server.crt
+    /etc/httpd/conf/ssl.key/server.key
+
+  - Restart Apache (not reload or graceful reload)
+
+  - Testing with Netscape
+
+- Getting a certificate signed:
+  - www.verisign.com
+  - www.thawte.com

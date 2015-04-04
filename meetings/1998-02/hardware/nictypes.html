@@ -1,0 +1,102 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>What types of ethernet cards are there, and which type should I buy ?</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>What types of ethernet cards are there, and which type should I buy ?</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>The Information source for Ethernet and Linux</H2>
+<P>The best way to find out what you need to know about the status of ethernet cards on Linux is to read the Ethernet-HOWTO, archived at <A HREF="http://sunsite.unc.edu/mdw/HOWTO/Ethernet-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/Ethernet-HOWTO.html</A>
+</P>
+<H2>Ethernet Card Catagories</H2>
+<P>
+There are basically two catagories of ethernet card available :
+</P>
+<UL>
+	<LI><P>Single Interface - these cards only have one type of interface supporting one type of ethernet network eg. 10Base2 only, or 10BaseT only.</P></LI>
+	<LI><P>Multiple or Combo Interface - these cards have two or at the most three interface types ie. 10Base2, 10BaseT and some times a special type of interface called an AUI interface (used to connect to 10Base5) networks. On most cards you use software or a physical jumper to select which interface you are attaching the network to. Some ethernet cards "autosense" which interface is being used when the card is powered on. Although they cost more than single interface cards, at a later date you can change from one type of ethernet network to another eg. 10Base2 to 10BaseT.</P></LI>
+</UL>
+<H2>PCI or ISA</H2>
+<P>
+Once you have selected which type of ethernet card you are going to buy, you then need to select which PC interface type you are going to use to plug the card into your computer.
+</P>
+<H3>ISA</H3>
+<P>ISA bus ethernet cards have existed for a long time, and the Linux drivers for them tend to be fairly well tested.</P>
+<P>According to the Ethernet-HOWTO, the following cards are the most stable :</P>
+<UL>
+	<LI>SMC-Ultra/EtherEZ, WD80x3, 3c509, 3c503/16, Lance, NE2000</LI>
+</UL>
+<P>One of the most popular ISA based network cards is the NE2000. Over the last few years, this ISA card has become very popular, particularly as the chip set is very cheap, resulting in very inexpensive network cards.</P>
+
+<P>The original NE2000 was designed by Novell and Eagle technologies (who later became Microdyne). It has been cloned by many manufacturers, and is now being implemented with a PCI interface as well.</P>
+
+<P>For a basic home network, with minimal traffic, the NE2000 is a fairly good choice. However, there is one issue you need to be aware of when buying a NE2000. Not all NE2000s are 100% compatible. Because of the number and amount of cloning of this card, there are a number of not-quite compatible NE2000s around.</P>
+
+<P>
+The best way to deal with this problem is to make sure that the NE2000 you are buying is "Novell Labs Tested and Approved". Although this ensures it will work with Novell Netware, in general terms, it also indicates that the card is 100% NE2000 compatible. You may end up paying slight premium for this labeling, as Novell's testing procedure does involve a cost the manufacturer.
+</P>
+<P>
+If you wish to have a better performing ISA bus network card, one of the other cards listed above, such as the SMC Ultra/EtherEz, are a better choice. These cards implement much more advanced technology than the NE2000, resulting in far better networking performance. However, as with all things in life, you can tend to pay two or more times the price of a NE2000, for this higher performance.
+</P>
+<P>
+Another issue to be aware of is Plug and Pray. Plug and play ISA network cards are becoming more available, however, plug and play support in Linux is fairly limited, and you will have to be comfortable with the <STRONG><EM>isapnptools</EM></STRONG> package to configure a PnP network card to work with Linux.
+</P>
+<H3>PCI</H3>
+<P>
+The PCI interface has become more and more popular over the last few years, to the point where most machines running Linux today will contain PCI slots.
+</P>
+<P>
+This has led to manufacturers of network cards to produce PCI cards. The range of PCI cards is growing on a day to day basis.
+</P>
+<P>
+With regards to 10Mbps ethernet, the implementation of PCI network cards has mostly been because the customer has wanted PCI network cards, not necessarily because the customer needs PCI network cards.
+</P>
+<P>
+The 32bit PCI interface is capable of <STRONG>132 Mega<EM>bytes</EM> per second</STRONG>. Doing a simple calculation, a <STRONG>10 Mega<EM>bit</EM> per second</STRONG> ethernet network, with best performance will only do <STRONG>1.19 Megabytes per second</STRONG>. Obviously, using a PCI slot for a 10Mbps ethernet card is a waste of a PCI slot. It is better to keep the PCI slot for a high performance video card or disk controller, and use an ISA slot for your 10Mpbs ethernet card.
+</P>
+<P>Also, you can tend to pay a premium for PCI network cards, which may be two to three times the cost of a 10Mbps ISA bus network card.</P>
+<P>
+PCI does become more appropriate if you are going to either have a server servicing a large number of users, or you are going to implement 100Mbps ethernet at a later date.
+</P>
+<P>
+In the case of implementing a high performance server, you may want to purchase a network card with very advanced hardware features such as bus mastering etc.
+</P>
+<P>
+If you are planning to implement 100Mbps ethernet at a later date, you can purchase 10/100 Mbps ethernet card. This card will operate as either a 10BaseT network card, or, when connected to a 100Mbps ethernet network, a 100BaseT network card. These cards, however, do not have a 10Base2 interface, so therefore, if you are planning to use one of these cards at home, you either have to use a 10BaseT Crossover cable, or use a hub to connect multiple nodes.
+</P>
+<P>
+If you do decide to use a PCI network card, the best place to visit on the web is <A HREF="http://cesdis.gsfc.nasa.gov/pub/linux/linux.html">http://cesdis.gsfc.nasa.gov/linux/linux.html</A>. This is the home site for most of the networking drivers for Linux, written by Donald Becker.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="m10BaseT.html">[Previous Page]</A>
+	|
+	<A HREF="confnic.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="index.html">[Previous Topic]</A>
+	|
+	<A HREF="../conflinux/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:03 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

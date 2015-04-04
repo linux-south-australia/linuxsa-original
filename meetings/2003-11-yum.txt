@@ -1,0 +1,92 @@
+yum (http://linux.duke.edu/projects/yum/)
+
+- Yellow dog Updater, Modified
+- utility for managing RPMs on a system
+  - easily install RPMs
+  - easily keep up-to-date
+  - where "easily" means automatic downloading of RPMs and resolution
+    of dependencies
+
+- uses "repositories" of RPMs over either FTP or HTTP
+
+Example 1: installing and upgrading packages
+
+- yum -c /etc/yum-internode.conf install php
+- yum -c /etc/yum-internode.conf check-update
+- yum -c /etc/yum-internode.conf update
+
+- how it works: look in /var/cache/yum/
+  - first time download of headers (not for already-installed packages)
+
+Example 2: updates CD
+
+To check what updates need applying and to do so interactively:
+
+mount /mnt/cdrom
+yum -c /mnt/cdrom/yum.conf update
+
+look at:
+- /mnt/cdrom/yum.conf
+- /mnt/cdrom/headers
+
+Example 3: finding RPMs
+
+- yum -c /etc/yum-fresh.conf list
+
+- yum list, yum info
+  - support wildcards eg. yum list postg\*
+- yum search database
+
+Example 4: upgrading to a new release
+
+- set the repository
+- yum upgrade
+  - handles "Conflicts"
+
+Setting up a repository
+
+- put some RPMs in a directory (tree)
+- yum-arch /that/dir
+- make the directory available by ftp, http, or just use it
+  through the filesystem
+- requires no special server software
+
+Other bits:
+
+- Multiple repositories
+  - newest vs. last
+
+- Uses RPM python interface, so is consistent with RPM
+
+- Automated updating with -y:
+  /etc/init.d/yum
+  /etc/cron.daily/yum.cron
+
+- Sharing a cache with NFS or rsync
+
+- What happens when dependencies can't be satisfied
+  yum -c /etc/yum-fresh.conf install php
+
+- yum clean
+
+Example 5: vserver installation
+
+- install a minimal set of RPMs
+- install the rest with yum
+
+Things I've noticed:
+- can be slow
+- can chew up a lot of memory (eg. 100MB)
+- doesn't have a download but don't install mode (yet)
+
+Other documentation:
+  http://www.phy.duke.edu/~rgb/General/yum_HOWTO/yum_HOWTO/yum_HOWTO.html
+  http://www.charlescurley.com/yum.html
+
+Some repositories:
+  http://download.fedora.redhat.com/pub/fedora/linux/core/1/i386/os/
+  http://download.fedora.redhat.com/pub/fedora/linux/core/updates/1/i386/
+  ftp://mirror.internode.on.net/pub/fedora/linux/core/1/i386/os/
+  ftp://mirror.internode.on.net/pub/fedora/linux/updates/1/i386/
+  http://ayo.freshrpms.net/fedora/linux/1/i386/freshrpms/
+  http://ftp.mozilla.org/pub/mozilla.org/mozilla/yum/

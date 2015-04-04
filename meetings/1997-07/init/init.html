@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>Linux and the Init System</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>Linux and the Init System</H1>
+<H2 ALIGN=CENTER>LinuxSA - July 1997 Meeting<BR>
+Matthew Tippett<BR>
+(<A HREF="mailto:mtippett@linuxsa.org.au">mtippett@linuxsa.org.au</A>)</H2>
+
+<H2>Introduction</H2>
+<UL>
+  <LI>Where it all begins - Init  
+  </P>
+  <LI>Services and System Initialisation
+  </P>
+  <LI>The System V Init System
+  </P>
+  <LI>The BSD Init System
+  </P>
+  <LI>SysVinit 2.64 package
+  </P>
+</UL>
+
+<H2>Where it all begins - Init</H2>
+<UL>
+  <LI>The father of all processes
+  <UL>
+    <LI>Spawned from the kernel
+    <LI>init creates all processes
+    <LI>Has process ID 1
+    <LI>Runs processes in /etc/inittab
+  </UL>
+  </P>
+
+  <LI>Run Levels
+  <UL>
+    <LI>Software configuration
+    <LI>A selection of processes running concurrently
+    <LI>Usually set by:
+    <UL>
+      <LI>kernel parameter
+      <LI>initdefault setting in /etc/inittab
+      <LI>running telinit
+    </UL>
+    </FONT>
+  </UL>
+  </P>
+
+  <LI>Predefined run levels
+  <UL>
+    <LI>0 - Halt
+    <LI>1 - Single user mode
+    <LI>2 - Multiuser, without NFS
+    <LI>3 - Full multiuser mode
+    <LI>4 - unused
+    <LI>5 - X11
+    <LI>6 - reboot</LI> 
+    </UL>
+  </UL>
+  </P>
+</UL>
+
+<H2>Services and System Initialisation</H2>
+<UL>
+  <LI>Services
+  <UL>
+    <LI>Usually daemons that can be started and stopped
+    <LI>Don't change the system state
+  </UL></P>
+  <LI>System Initialisation
+  <UL>
+    <LI>Run once only, usually at boot
+    <LI>Change the state of the system
+    <LI>Examples are:
+    <UL>
+      <LI>Register Fixes
+      <LI>Network Configuration
+    </UL>
+  </UL></P>
+  <LI>Both do different things
+  </P>
+  <LI>Both are necessary
+  </P>
+</UL>
+
+<H2>System V Init System</H2>
+<UL>
+  <LI>Service Centric
+  <UL>
+    <LI>Central idea of services
+    <LI>Services stored in /etc/rc.d/init.d
+  </UL>
+  </P>
+  <LI>Organised by Run Level
+  <UL>
+    <LI>Links to services in rc.&lt; run level &gt;.d directories
+  </UL>
+  </P>
+  <LI>Services Start and Stop  
+  <UL>
+    <LI>Scripts accept 'start' and 'stop' as parameter
+    <LI>K??service stops services
+    <LI>S??service starts service
+  </UL>
+  </P>
+  <LI>Control done by single script
+  <UL>
+    <LI>/etc/rc.d/rc
+    <LI>Ordered Execution
+    <LI>?? above is a number
+  </UL>
+  </P>
+  <LI>Initialisation done by /etc/rc.d/rc.*
+</UL>
+
+<H2>BSD Init System</H2>
+<UL>
+  <LI>Initialisation Centric
+  <UL>
+    <LI>/etc/rc.d/rc.*
+    <LI>Scripts are intended to initialise system
+    <LI>Organised by function
+    <UL>
+      <LI>rc.local
+      <LI>rc.serial
+    </UL>
+  </UL>
+  </P>
+  <LI>Run Level Centric
+  <UL>
+    <LI>Organised by run level
+    <UL>
+      <LI>/etc/rc.d/rc.?
+    </UL>
+    <LI>Scripts must stop and start daemons
+  </UL>
+</UL>
+
+<H2>The SysVInit Package</H2>
+<UL>
+  <LI>The De Facto Standard
+  <UL>
+    <LI>Most distributions use this package
+  </UL>
+  </P>
+  <LI>System V Init Style
+  <UL>
+    <LI>Consistent with FSSTND
+    <LI>/etc/inittab
+    <LI>/etc/rc.d/rc?.d/*
+    <LI>/etc/rc.d/init.d/*
+    <LI>/var/lock/subsys
+  </UL>
+  </P>
+  <LI>Available as a Package for Most Distributions
+  <UL>
+    <LI>Debian Package
+    <LI>RPM Package
+    <LI>Available as a tar.gz
+  </UL>
+  </P>
+  <LI>Current Version 2.64
+</UL>
+
+<H2>A Quick Tour</H2>
+
+<H2>Questions</H2>

@@ -1,0 +1,229 @@
+<HTML>
+<HEAD>
+<TITLE>Recompiling your Linux Kernel</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>Recompiling your Linux Kernel</H1>
+<H2 ALIGN=CENTER>LinuxSA - July 1997 Meeting<BR>
+Geoffrey D. Bennett<BR>
+(<A HREF="mailto:geoffrey@linuxsa.org.au">geoffrey@linuxsa.org.au</A>)</H2>
+<BR>
+
+<H2>Introduction</H2>
+<UL>
+  <LI>What is the job of a kernel?</P>
+  <LI>Why recompile your kernel?</P>
+  <LI>Kernel Versions</P>
+  <LI>Requirements</P>
+  <LI>Choosing to build modules</P>
+  <LI>Configuring the kernel</P>
+  <LI>Building the kernel</P>
+  <LI>Installing the kernel</P>
+  <LI>LILO Configuration</P>
+</UL>
+
+<H2>What is the job of a kernel?</H2>
+<UL>
+  <LI>Controls execution of processes (starting, stopping, scheduling)
+  </P>
+  <LI>Arranges memory management
+  </P>
+  <LI>Provides a file system
+  </P>
+  <LI>Provides for a portable interface for programs to communicate
+  with hardware through device drivers
+  </P>
+</UL>
+
+<H2>Why recompile your kernel?</H2>
+<UL>
+  <LI>Want a newer version
+  <UL>
+          <LI>New features
+          <LI>Bug fixes
+          <LI>Testing
+  </UL>
+  </P>
+  <LI>Need to apply patches for non-standard features
+  </P>
+  <LI>Need support for more hardware
+  </P>
+  <LI>Reduce size of kernel (perhaps use modules too)
+  </P>
+  <LI>Learning experience :)
+  </P>
+</UL>
+
+<H2>Kernel Versions</H2>
+<UL>
+  <LI>Version numbers are in the format <TT>x.y.z</TT>
+  </P>
+  <UL>
+    <LI><TT>x</TT> indicates major version number
+    <LI><TT>y</TT> indicates minor version number
+    <LI><TT>z</TT> indicates patchlevel
+  </UL>
+  </P>
+  <LI>Examples:
+  <UL>
+    <LI>1.0.9
+    <LI>1.1.7
+    <LI>1.2.13
+    <LI>1.3.36
+    <LI>2.0.0
+    <LI>2.1.23
+  </UL>
+  </P>
+  <LI>Two current development streams, indicated by the minor version number:
+  <UL>
+    <LI>Even numbers: stable (1.2.13, 2.0.30)
+    <LI>Odd numbers: development (1.1.7, 2.1.23)
+  </UL>
+  </P>
+</UL>
+
+<H2>Requirements</H2>
+<UL>
+  <LI><TT>gcc</TT> 2.6.3 or newer (preferably 2.7.2 or newer)
+  </P>
+  <LI>Kernel source unpacked in <TT>/usr/src/linux</TT>
+  <UL>
+    <LI>From one of many FTP sites, including:
+    <UL>
+      <LI><TT>ftp.cc.monash.edu.au<BR>/pub/linux/kernel</TT>
+      <LI><TT>sunsite.anu.edu.au<BR>/pub/linux/kernel</TT>
+      <LI><TT>ftp.kernel.org<BR>/pub/linux/kernel</TT>
+    </UL>
+    <LI>From Red Hat's <TT>kernel-source</TT> and
+                    <TT>kernel-headers</TT> packages
+  </UL>
+  </P>
+  <LI>Disk space:
+  <UL>
+    <LI>~6MB compressed kernel source
+    <LI>~24MB when uncompressed
+    <LI>~6MB extra to compile
+  </UL>
+</UL>
+
+<H2>Choosing to build modules</H2>
+<UL>
+  <LI>Modules
+  <UL>
+    <LI>Code (eg. device drivers) inserted into the kernel
+    while it is running
+    <LI>Eg. floppy disk driver or printer port driver only
+    needed when accessing those devices
+    <LI>Saves on memory (kernel code is not swappable)
+  </UL>
+  </P>
+  <LI>Nearly all device drivers can be built as modules
+  </P>
+  <LI>Not usually a good idea to build boot-time devices such as a
+  hard disk device driver as a module (however it can be done
+  with initrd)
+  </P>
+  <LI>Sound-card support is better built compiled-in, anything else
+  that can be modularised should be
+  </P>
+</UL>
+
+<H2>Configuring the kernel</H2>
+<UL>
+  <LI><TT>cd /usr/src/linux</TT>
+  </P>
+  <LI>One of:
+  <UL>
+    <LI><TT>make config</TT> (text script)
+    <LI><TT>make menuconfig</TT> (menu driven)
+    <LI><TT>make xconfig</TT> (X menu driven)
+  </UL>
+  </P>
+  <LI>Choosing what to turn on or off:
+  <UL>
+    <LI>Configuration programs include help
+    <LI>Kernel-HOWTO
+  </UL>
+</UL>
+
+<H2>Building the kernel</H2>
+<UL>
+  <LI><TT>make dep</TT> (build dependencies)
+  </P>
+  <LI><TT>make clean</TT> (clear out anything from previous builds)
+  </P>
+  <LI><TT>make boot</TT>
+  <UL>
+    <LI><TT>make zImage</TT> (alternative, is Intel-specific)
+    <LI><TT>make bzImage</TT> (for big kernels)
+  </UL>
+  </P>
+  <LI><TT>make modules</TT> (if any modules were selected)
+  </P>
+</UL>
+
+<H2>Installing the kernel</H2>
+<UL>
+  <LI><TT>cp arch/i386/boot/zImage /boot/pick-a-name</TT>
+  <UL>
+    <LI>The name is arbitrary, but commonly begins with
+    <TT>zImage</TT> or <TT>vmlinuz</TT>
+    <LI>Also common to append version number/build number to keep
+    track of multiple kernels (eg. <TT>vmlinuz-2.0.30-1</TT>)
+  </UL>
+  </P>
+  <LI>Installation of modules:
+  <UL>
+    <LI>Move any old modules in
+    <TT>/lib/modules/kernel-version</TT> out of the way, eg:<BR>
+    <TT>cd /lib/modules</TT><BR>
+    <TT>mv 2.0.30 2.0.30-old</TT>
+    <LI><TT>cd /usr/src/linux</TT><BR><TT>make modules_install</TT>
+  </UL>
+</UL>
+
+<H2>LILO Configuration</H2>
+<UL>
+  <LI>Sample /etc/lilo.conf:
+<PRE>
+boot=/dev/hda
+map=/boot/map
+install=/boot/boot.b
+prompt
+timeout=50
+other=/dev/hda1
+        label=dos
+        table=/dev/hda
+image=/boot/vmlinuz
+        label=linux
+        root=/dev/hda2
+        read-only
+</PRE>
+  </P>
+  <LI>"image=" section can be repeated as required to boot different
+  kernels
+  </P>
+  <LI>You <B>must</B> rerun <TT>/sbin/lilo</TT> when any changes to
+  this file or any kernels are made
+  </P>
+</UL>
+
+<H2>References</H2>
+<UL>
+  <LI>/usr/src/linux/README
+  </P>
+  <LI>Red Hat User's Guide - "Building a Custom Kernel"
+  </P>
+  <LI>Kernel-HOWTO
+  </P>
+</UL>
+
+<H2>Questions</H2>
+<UL>
+</UL>

@@ -1,0 +1,100 @@
+LinuxSA 16/Oct/2001
+Geoffrey D. Bennett <g@netcraft.com.au>
+C-Bus
+
+Introduction
+- What is C-Bus
+- Using it with Linux, Documenting the undocumented
+- Reverse engineering tools
+- Clipsal software
+
+What is C-Bus
+- Normal electrical wiring
+- C-Bus wiring, diagram
+
+- 2 wire bus, which consists of a 4 kHz signal pulse,
+  between which bit's are transmitted, biased to 32 V DC
+  eg.
+
++32.5V        +--+           +::+            +--+
+              |  |           .  .            |  |
+              |  |        Data? .            |  |
+ 30V  ---+  +-+  +------+--+-+--+-------+  +-+  +--
+         |  |           .  .            |  |
+         |  |           .  .            |  |
+ 27.5V   +--+           +::+            +--+
+
+         |<----------- 250 us --------->|
+
+
+- Motorola HC05-B6 microprocessor, 256 byte EEPROM
+
+- Units:
+    Input:
+      - Key 1, 2, 4
+      - PIR
+      - Light level sensor
+    Output:
+      - Relays (various numbers of channels (1-12?))
+      - Dimmers (various numbers of channels (1-12?))
+    Other:
+      - Serial interface
+      - Ethernet interface
+
+- Groups
+  - Connect inputs to outputs
+  - Numbered from 0-255
+
+- Examples
+  Input
+  - Short/Long Press/Release:
+    - On/Off
+    - Dimmer
+    - All off/on
+    - Timer
+  Output
+  - Logic (and/or)
+    - Garage
+    - Night light
+
+Using it with Linux, Documenting the undocumented
+
+- sersniff, customised
+  - dodgy C program
+  - ignore data flowing in one direction
+  - customised output
+- protocol
+  - run Windows programming software
+  - observe similarities:
+
+    \05FF00FAFF00<CR>
+    D8FF0095A9AA56996A15509926010000000000000000000000C3<CR><LF>
+    D8FF5800000000000000000000000000000000000000000000D1<CR><LF>
+    D6FFB000000000000000000000000000000000000000007B<CR><LF>
+
+    \0600002101<CR>890150435F4D494E44322A<CR><LF>
+
+    \0601002101<CR>89014B45593420202020D9<CR><LF>
+
+  - get unit type, version
+  - read eeprom
+  - write eeprom
+  - read ram
+  - set group levels
+  - listen to changes in group levels
+
+  - Linux software
+    - cbusd
+    - c-bus
+    - test-scroll
+
+Reverse engineering tools:
+- perl
+  - pack/unpack_cbus_6_string
+- cbus-sim
+- sprech
+  - lovely Perl program
+  - connects any two either character devices or TCP streams together
+
+Clipsal software:
+- Java

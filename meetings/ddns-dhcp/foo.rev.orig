@@ -1,0 +1,13 @@
+$TTL 86400
+
+@	IN	SOA	foo.com.	root.foo.com.au. (
+			2002021800	; serial
+			10800		; refresh
+			3600		; retry
+			604800		; expire
+			86400 )		; minimum
+
+	IN	NS	test.foo.com.
+
+1	IN	PTR	test.foo.com.
+

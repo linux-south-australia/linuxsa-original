@@ -1,0 +1,50 @@
+<HTML><HEAD><TITLE>How To Get MP3's</TITLE><HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<H2>How To Get MP3's</H2>
+
+<H3><A NAME="cd">From An Audio CD</A><P><A NAME="drives">CD-ROM Drives</A></H3>
+To get music off an audio CD, your CD drive must be capable of sending audio music in a data form through the IDE/SCSI(/something else ?) cable. When you play an audio CD, the data goes through a seperate wire from the drive to the sound card, so being able to play audio CDs does not mean copying music in a data form will work.
+
+<P>Most newer drives are capable of doing this, so this may not be a problem.
+
+<H3><A NAME="software">Software</A></H3>
+Normally, to get a song from a CD to a MP3 file, you will need two pieces of software. One that will 'rip' the song off the CD (normally into a wav file) and one that will encode the data into a MP3. Some software may be able to encode an MP3 'on the fly', however, I have not found one on Linux.
+<P>These peices of software can be found at the same places as to MP3 players, although finding a CD ripper is normally a lot harder (they are sometimes put into strange catagories).
+
+<H3><A NAME="rip">'Ripping' CDs</A></H3>
+With some good software, it's possible to copy exactly what you want off a cd. The program I use is called 'cdparanoia' and it allows you to start and finish copying at any sector on the CD. This means if you have a CD with a bonus song after a 1 minute gap on the last track, it is possible to record these two songs in seperate files. Also, if you would like to record a sound off a CD to put in something else (a game, for example), it's easy to extract exactly what you want, and nothing else.
+
+<P>Cdparanoia also allows you to copy a whole CD into a single file, or each track into a seperate files. Some programs can communicate to a CDDB server, which allows it to get information about the artis and track details about the CD, so the program will name the files according to that information (however, cdparanoia does not support this).
+
+<H3><A name="encode">Encoding</A></H3>
+A 'typical' song extracted (at CD quality) into a wav file will take up over 30 megabytes of hard disk space. Converting this into a MP3 is a simple, but long process. Different encoders encode at different speeds and in some cases the resulting MP3 has a different quality. I use BladeEnc, because it was the first program I tried and the result always sounds good to me.
+
+<P>Normally, encoding a wav into a mp3 is as simple as running the encoder with the wav's filename as the only argument. The encoder often detects the wav file is at CD quality (16-bit) and encodes a mp3 at, or close to, CD quality (128 or 112 kbps at 44kHz), or just defaults to 128kbps. If you would like smaller mp3s, you can encode them at lower bit rates (56kbps, for example) and the filesize will be smaller, and the sound quality may not be very different. This can be done (normally) by passing a 'switch' as an additional argument to the encoder, which sometimes looks something like -b56, for 56kbps. There are often other switches that set other details about the mp3, however, they normally do not effect the sound.
+
+<H3><A NAME="net">From The Internet</A><P><A NAME="band">Band Sites</A></H3>
+Some bands release songs for free download from their official web pages. For example, the <A HREF="http://www.beastieboys.com">Beastie Boys</A> recorded a live concert a few months ago and released three of the songs for free download in MP3 format. I had a look for those songs again (they're now hard to find) and found only 1 song avalible in MP3 (not any of the three I downloaded earlier), but the others are avalible in real audio format.
+
+<P>More often, bands release short segments of their songs (most often in real audio format, but you may find a MP3 if you're lucky). <A HREF="http://www.grinspoon.com.au">Grinspoon</A> used to have 30 second samples of all of their songs avalible, however, now only real audio is avalible (in very bad quality).
+
+<H3><A NAME="mp3com"><A HREF="http://www.mp3.com">www.mp3.com</A></A></H3>
+<A HREF="http://www.mp3.com">mp3.com</A> is possibly the largest source of free mp3's avalible on the internet. Bands who have recorded their songs as mp3s can submit the song all information about the song and the band to mp3.com, and it will be avalible for the world to download. They have all the music catogorized (by genre, artist, geographical location), so you can look for the music of your choice (on the 14th of June, 1999, there was 36 songs avalible from Adelaide bands). Also, other MP3 specific sites may be worth checking for MP3s, but most I have seen only have links to other sites, or search engines, which take you to other sites.
+
+<P>For those who are curious, the names of the Adeliade bands/artists listed are: Cari Eden, Cause for Concern, David McLauchlan, hone, INDULGENCE, Kieran Blak, krystapinzch, Man of Moose, Red Dye #2, and Sir Antsfanny and his fake FENDER.
+
+<H3><A NAME="ubl"><A HREF="http://www.ubl.com">www.ubl.com (Ultimate Band List)</A></A></H3>
+<A HREF="http://www.ubl.com">UBL</A>, while probably being the best place to look for band web sites, do not have much to offer in MP3's (but at least they do offer something). Every time I check what MP3s they have, they only seem to have the same 4 songs. I could not find a link to an archive, so I assume they only offer the 4 songs.
+
+<H3><A NAME="other">More Sites</A></H3>
+There are many sites on the internet with or about MP3s. Unfortunatly, most of these sites are 'pirate' sites that claim to contain mp3s of full songs. Normally all the links are broken and often the site doesn't actually contain anything except banners for the site owner to get money from. However, there are sites out there that contain 'illegal' MP3s. Some sites will try to convince you it's ok to copy them (the bands/ record companies are ripping us off, or say 'you must delete the file within 24 hours if you do not own a legal version of the song), some will simply not say anything on the subject and some will say something similar to 'if you don't own a legal copy, don't download this'.
+
+<P>To make sure you only download legal MP3s, only download from the band's official site, or from a 'major' site, such as <A HREF="http://www.mp3.com">mp3.com</A>.
+
+<H3><A NAME="legal">Another Note About Music Piracy</A></H3>
+Please remember that music piracy only increases the cost of CDs and in the long term does not benefit anyone (including yourself). Sometimes recordings from a concert is not legal, so sites with only live recordings still may not be doing the 'right' thing.
+
+<P>
+[ <A HREF="playing.html">previous</A> ] [ <A HREF="index.html">contents</A> ] [ <A HREF="misc.html">next</A> ]
+
+</BODY></HTML>

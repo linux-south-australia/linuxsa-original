@@ -1,0 +1,83 @@
+rsync
+
+Introduction
+- A File Transfer Protocol
+- Optimised for the case where similar files are already on the
+  receiving end
+- Protocol
+- Usage
+  - Transports
+  - Switches
+- Applications
+- Other things
+
+The rsync Protocol
+- File going from A to B
+- diagram showing how the data is broken up
+- weak fast rolling checksum
+- strong hash (MD4)
+- strong hash on whole file
+
+Transports rsync runs over:
+
+- local
+  rsync src dest
+
+- rsh
+  - rsync user@host:src dest
+  - rsync src user@host:dest
+  - requires a login on the remote machine
+
+- ssh
+  - rsync -e ssh user@host:src dest
+  - rsync -e ssh src user@host:dest
+  - export RSYNC_RSH=ssh
+  - requires a login on the remote machine
+
+- rsync
+  - rsync user@host::src dest
+  - rsync src user@host::src
+  - may or may not require a login (can be anonymous)
+  - rsyncd (run as either daemon or inetd)
+  - /etc/rsyncd.conf:
+
+    [tivo]
+      comment = Tivo Stuff
+      path = /h/g/geoffrey/tivo
+      uid = g
+      read only = no
+      hosts allow = 10.0.0.0/24 127.0.0.1
+
+Common Switches:
+- -a (archive) -- recursive, copy all attributes
+- -v (verbose)
+- -z (compress)
+- --exclude
+- --delete
+- --dry-run
+- --partial
+- --progress
+- -P (equivalent to --partial and --progress)
+
+Applications:
+- FTP and scp replacement
+- backup
+  - to a local disk or over a network
+- mirroring
+  - FTP servers
+  - web servers
+  - databases
+  - files->ISO example
+- some FTP servers offer rsync access to the public (eg.
+  mirror.aarnet.edu.au)
+
+Other optimisations
+- file list transfered with rsync
+- pipelining
+
+Block size discussion
+
+Problems
+
+- compressed files
+- moved files

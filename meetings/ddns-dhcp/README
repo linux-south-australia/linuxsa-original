@@ -1,0 +1,10 @@
+In this directory:
+
+ddns-dhcp.txt: talk notes
+
+dhcpd.conf: sample dhcpd config
+
+foo*: sample zone files
+(the .orig files are before named chewed on them during the demo)
+
+named.conf: sample named config

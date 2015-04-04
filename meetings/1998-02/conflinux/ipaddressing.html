@@ -1,0 +1,123 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>IP Addressing</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>IP Addressing</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>Correct IP Addresses are <STRONG>Critical</STRONG></H2>
+<P>
+On a TCP/IP based internetwork, the IP address is used to uniquely identify each device operating the TCP/IP protocols.
+</P>
+<P>
+If the IP address is not correct, or you use an IP address already used somewhere else on the internetwork, your node will not work. It is critical to get the IP address settings correct to ensure you can communicate.
+</P>
+<H2>IP Address Size and Format</H2>
+<P>
+The IP Address Size and Format is as follows :
+</P>
+<UL>
+	<LI><P><STRONG>32 bits</STRONG> in size.</P></LI>
+	<LI><P>Grouped into <STRONG>8-bit bytes</STRONG> or <STRONG>octets</STRONG>.</P></LI>
+	<LI><P><STRONG>Decimal digits</STRONG>, separated by <STRONG>dots</STRONG>, occuring at the <STRONG>octet boundaries</STRONG> eg. <STRONG>X.X.X.X</STRONG>.</P></LI>
+	<LI><P>Divided into <STRONG>two portions</STRONG> - a <STRONG>network</STRONG> portion and a <STRONG>host</STRONG> portion.</P></LI>
+</UL>
+<H3>Network Portion</H3>
+<P>
+The network portion of the IP address is used to identify the network segment that the Linux box is connected to. In an ethernet network, this segment is the complete 10Base2 network, or the group of 10BaseT nodes connected to the same hub(s).
+</P>
+<P>
+If you have a permanent connection to the Internet, the network portion of the IP address is indirectly allocated to you by the Internet Network Information Center (InterNIC). It is indirectly allocated because your ISP was given the network number by InterNIC, and your ISP allocated it to you.
+</P>
+<H4>Network Classes</H4>
+<P>
+The network portion of the IP address is divided up into 5 different classes or catagories.
+</P>
+<P>
+This network class specifies how many bytes or octets of the IP address is used for the network portion, and how many octets are left for the host portion.
+</P>
+<H5>Class Definitions</H5>
+<P>
+The classes are as follows :
+</P>
+<UL>
+	<LI><P>Class A - The <STRONG>first octet</STRONG> of the IP address is used for the <STRONG>network</STRONG> portion, and the <STRONG>last three octets</STRONG> are used for the <STRONG>host</STRONG> portion.</P></LI>
+	<LI><P>Class B - The <STRONG>first two octets</STRONG> of the IP address are used for the <STRONG>network</STRONG> portion, and the <STRONG>last two octets</STRONG> are used for the <STRONG>host</STRONG> portion.</P></LI>
+	<LI><P>Class C - The <STRONG>first three octets</STRONG> of the IP address are used for the <STRONG>network</STRONG> portion, and the <STRONG>last octet</STRONG> is used for the <STRONG>host</STRONG> portion.</P></LI>
+	<LI><P>Class D - Class D addresses are special addresses used for a special type of IP packet transmitting called <STRONG>Multicasting</STRONG>. You should <STRONG>not</STRONG> use a Class D network number when setting up your network.</P></LI>
+	<LI><P>Class E - This class of network address is <STRONG>reserved</STRONG> for <STRONG>experimental purposes</STRONG> by the <STRONG>Internet Engineering Task Force</STRONG>. You should not use a Class E network address - you could be <STRONG>kicked off the Internet.</STRONG></P></LI>
+</UL>
+<P>
+There are two things to notice about the above class definitons :
+</P>
+<UL>
+	<LI><P>Only <STRONG>Classes A, B,</STRONG> and <STRONG>C</STRONG> are <STRONG>valid</STRONG> for use when giving a host an IP address.</P></LI>
+	<LI><P>The <STRONG>more octets</STRONG> available for the <STRONG>network portion</STRONG> of the IP address, the <STRONG>more networks exist</STRONG>, and the <STRONG>more octets</STRONG> available for the <STRONG>host portion</STRONG> of the IP address, the <STRONG>more hosts per network exist</STRONG>.</P>
+	<P>Within the total IP address space,</P> 
+	<UL>
+		<LI><P>there are only a small number of Class A networks (1 octet), but each class A network can have a huge number of hosts (3 octets),</P></LI>
+		<LI><P>there are more Class B networks (2 octets), but each Class B network has less hosts (2 octets) than a Class A,</P></LI> 
+    <LI><P>and there are a huge number of Class C networks (3 octets), but each Class C network can only have a small number of hosts (1 octet).</P></LI>
+	</UL>
+	</LI>
+</UL>
+<H5>Class Ranges</H5>
+<P>
+You can tell the Class of network address by looking at the first octet of the IP address.
+</P>
+<UL>
+	<LI><P><STRONG>Class A</STRONG> - ranges from <STRONG>1</STRONG> to <STRONG>127</STRONG></P></LI>
+	<LI><P><STRONG>Class B</STRONG> - ranges from <STRONG>128</STRONG> to <STRONG>191</STRONG></P></LI>
+	<LI><P><STRONG>Class C</STRONG> - ranges from <STRONG>192</STRONG> to <STRONG>223</STRONG></P></LI>
+</UL>
+
+<H3>Host Portion</H3>
+<P>
+Once you have your network number specified, you can now allocate the host portion of the IP address.
+</P>
+<P>
+The <STRONG>host portion</STRONG> of the IP address must be <STRONG>uniquely assigned</STRONG> to <STRONG>each host</STRONG> <EM>within</EM> the <STRONG>network segment</STRONG> you are configuring. If you allocate the same IP address to two hosts connected to the same network segment, you will suffer from the "Duplicate IP Address" problem, which will cause intermittent communcation between the involved hosts. 
+</P>
+<P>
+Under normal circumstances, octets in the host portion of the IP address can range from <STRONG>0</STRONG> through to <STRONG>255</STRONG>, with some exceptions. These special exceptions will be discussed later.
+</P>
+<H3>IP Address Ranges</H3>
+<P>Based on the above discussion of the network and host portions of the IP address, the following ranges of IP address are available for Class A, B and C networks :</P>
+<UL>
+	<LI><P><STRONG>Class A</STRONG> - <STRONG>1</STRONG>.<EM>0.0.1</EM> to <STRONG>127</STRONG>.<EM>255.255.254</EM></P></LI>
+	<LI><P><STRONG>Class B</STRONG> - <STRONG>128.0</STRONG>.<EM>0.1</EM> to <STRONG>191.255</STRONG>.<EM>255.254</EM></P></LI>
+	<LI><P><STRONG>Class C</STRONG> - <STRONG>192.0.0</STRONG>.<EM>1</EM> to <STRONG>223.255.255</STRONG>.<EM>254</EM></P></LI>
+</UL>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="linuxipset.html">[Previous Page]</A>
+	|
+	<A HREF="subnetmask.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

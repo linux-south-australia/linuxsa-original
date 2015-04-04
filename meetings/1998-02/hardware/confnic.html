@@ -1,0 +1,113 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Configuring Linux to talk to your network card</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Configuring Linux to talk to your network card</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>Ethernet and Kernel HOWTOs</H2>
+<P>
+The best sources of information for getting Linux to see your network ethernet network card are the :
+</P>
+<UL>
+	<LI><P>Ethernet-HOWTO - <A HREF="http://sunsite.unc.edu/LDP/HOWTO/Ethernet-HOWTO.html">http://sunsite.unc.edu/LDP/HOWTO/Ethernet-HOWTO.html</A></P></LI>
+	<LI><P>Kernel-HOWTO - <A HREF="http://sunsite.unc.edu/LDP/HOWTO/Kernel-HOWTO.html">http://sunsite.unc.edu/LDP/HOWTO/Kernel-HOWTO.html</A></P></LI>
+</UL>
+<P>
+On most Linux distributions, these documents are also kept in the <STRONG>/usr/doc</STRONG> directory.
+</P>
+
+<H2>A Module or in the Kernel ?</H2>
+<P>
+To support a network card under Linux you need to compile a corresponding network card driver. This will be used by the kernel to talk to your network card. 
+</P>
+<P>
+Usually, the drivers for network cards under Linux are supplied in source code form with the Linux kernel source code.
+</P>
+<P>
+Occasionally, for some of the more obscure network cards, or newer drivers for cards such as PCI network cards, the driver source code is not available in the kernel source. In this case, you need to obtain the source code, and follow the directions on how to get the network card driver going. 
+</P>
+<P>
+The question which needs to be considered is "Do I build the network card driver into the kernel or do I create a module for it ?"
+</P>
+<H3>In the Kernel</H3>
+<P>
+Building the network card driver into the kernel is probably the best option for a few reasons :
+</P>
+<UL>
+	<LI><P>The kernel will attempt to detect the network card each time it is loaded. This can make it easier to determine whether Linux has recognised your network card.</P></LI>
+	<LI><P>Modules are usually used to conserve memory for devices / filesystems which are not used very often. Usually you will configure you network card when you boot Linux. The module will be loaded, and stay loaded while you are using Linux; you will not conserve any memory, because the module is loaded all the time.</P></LI>
+</UL>
+<H3>As a Module</H3>
+<P>
+Occasionally you may need to use a module for you network card driver.
+</P>
+<P>
+This usually occurs when you are using a network card whose driver is not supplied within the kernel source code. Using modules is a convenient way for a network card device driver author to develop and distribute a network card driver.
+</P>
+<H2>Autoprobe vs. Manual Configuration</H2>
+<P>
+Another issue is whether the kernel will be able to autodetect the network card or whether you will have to tell the kernel what the hardware settings of the network card are. Some network cards / drivers are able to automatically find the network card, while some can't (eg. NE2000).
+</P>
+<H3>Autoprobe</H3>
+<P>
+Autoprobing works by "probing" various well known IO port addresses that the network card could reside at. Probing involves reading and possibly writing bytes to these IO ports, to see if the selected network card responds. If the selected network card responds, Linux can then use the network card for networking.
+</P>
+<P>
+One problem with autoprobing is that the probes may cause other devices to stop working. As some of the well known IO ports can also be used by other devices, probing these addresses may cause the other devices to cease up, preventing them from working properly. In this occurs, you may want to manually configure the network card driver to use a specific IO port, IRQ and memory address, corresponding to the settings you used when you installed the network card.
+</P>
+<P>
+Also, be aware that autoprobing is not only used by network card drivers. Other device drivers, which are loaded before the network card driver, may also autoprobe the network card, ceasing it up, when may then cause it to not be recognised, when its driver is loaded.
+</P>
+<H3>Manual Configuration</H3>
+<P>
+Manual configuration involves telling either the Linux kernel or the module what the hardware settings of the network card are. These settings are typically the IO port, the Interrupt Request Line (IRQ) and possibly the shared memory address of the card.
+</P>
+<H4>Kernel Command Line</H4>
+<P>
+In the case of a network card driver built into the kernel, you usually add a parameter to the kernel command line such as <KBD>ether=5,0x300</KBD>. This tells the kernel to look for a network card at IRQ 5, IO port 0x300 (hexidecimal). See both the Kernel-HOWTO and the Ethernet-HOWTO for more details on using kernel command line parameters.
+</P>
+<H4>Module parameters</H4>
+<P>
+Module parameters are supplied when the module is loaded. 
+</P>
+<P>
+If you are loading the module manually, using the insmod(8) command, you supply the parameters on the end of the insmod command eg. <KBD>insmod ne2000 io=0x300 irq=5</KBD>. This command would tell the ne2000 module that the ne2000 card is located at IO port 0x300 (hexidecimal) and IRQ 5.
+</P>
+<P>
+Alternatively, if you are using dynamic, on demand module loading (via kerneld), you add parameters in the module.conf file, which specifies what the module parameters are for each module. These parameters are the same format as those used with the insmod(8) command. See the depmod(1) man page for more details on dynamic module loading.</P>
+<P>For more details on modules in general, see the Modules mini-howto, and the file modules.txt in the Documentation subdirectory in the Linux kernel source.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="nictypes.html">[Previous Page]</A>
+	|
+	<A HREF="seenic.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="index.html">[Previous Topic]</A>
+	|
+	<A HREF="../conflinux/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:03 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

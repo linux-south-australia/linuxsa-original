@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Example IP Address / Subnet Mask Configurations</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Example IP Address / Subnet Mask Configurations</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<P>
+The following are some example combinations of Class A, B and C networks, with and without subnetting. All examples are using RFC 1918 Class A, B and C reserved networks.
+</P>
+<P>
+When setting up a network at home, you may wish to use one of the following configurations.
+<P>
+<UL>
+	<LI><P>Class A Address, No Subnets, 16 777 214 hosts</P></LI>
+	<P>
+	<UL>
+		<LI>Network : <STRONG>10</STRONG>.0.0.0</LI>
+		<LI>Subnets : None</LI>
+		<LI>Subnet Mask : 255.0.0.0 (default - 1 octet network, 3 octets host)</LI>
+		<LI>Node Addresses : 10.<EM>0.0.1</EM> to 10.<EM>255.255.254</EM></LI>
+	</UL>
+	</P>
+	<LI><P>Class A Address, 65 534 subnets, 254 hosts per subnet</P></LI>
+	<P>
+	<UL>
+		<LI>Network : <STRONG>10</STRONG>.0.0.0</LI>
+		<LI>Subnets : 10.<STRONG>0.1</STRONG>.0 to 10.<STRONG>255.254</STRONG>.0</LI>
+		<LI>Subnet Mask : 255.255.255.0 (1 octet network, 2 octets subnet, 1 octet host)</LI>
+		<LI>Node Addresses : 10.S.S.<EM>1</EM> to 10.S.S.<EM>254</EM> (S = subnet number)</LI>
+	</UL>
+	</P>
+	<LI><P>Class B Addess, 254 subnets, 254 hosts per subnet</P></LI>
+	<P>
+	<UL>
+		<LI>Network : <STRONG>172.16</STRONG>.0.0</LI>
+		<LI>Subnets : 172.16.<STRONG>1</STRONG>.0 to 172.16.<STRONG>254</STRONG>.0</LI>
+		<LI>Subnet Mask : 255.255.255.0 (2 octets network, 1 octet subnet, 1 octet host)</LI>
+		<LI>Node Addresses : 172.16.S.<EM>1</EM> to 172.16.S.<EM>254</EM> (S = subnet number)</LI>
+	</UL>
+	</P>
+	<LI><P>Class C Address, 6 subnets, 30 nodes per subnet</P></LI>
+	<P>
+	<UL>
+		<LI>Network : <STRONG>192.168.1</STRONG>.0</LI>
+		<LI>Subnets : 192.168.1.<STRONG>32</STRONG>, 192.168.1.<STRONG>64</STRONG>, 192.168.1.<STRONG>96</STRONG>, 192.168.1.<STRONG>128</STRONG>, 192.168.1.<STRONG>160</STRONG>, 192.168.1.<STRONG>192</STRONG></LI>
+		<LI>Subnet Mask : 255.255.255.224 decimal - <CODE>1111 1111.1111 1111.1111 1111.1110 0000</CODE> binary (3 octets network, 3/8ths octet subnet, 5/8ths octet host)
+		<LI>Node Addresses : 192.168.1.<EM>33-62</EM>, 192.168.1.<EM>65-94</EM>, 192.168.1.<EM>97-126</EM>, 192.168.1.<EM>129-158</EM>, 192.168.1.<EM>161-190</EM></LI>
+	</UL>
+	</P>
+</UL>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="specialip.html">[Previous Page]</A>
+	|
+	<A HREF="defgateway.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="../hardware/index.html">[Previous Topic]</A>
+	|
+	<A HREF="../testusing/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:08 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Modules</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>Linux Modules</H1>
+<H2 ALIGN=CENTER>LinuxSA - July 1996 Meeting<BR>
+Matthew Tippett</H2>
+
+<H1>Topics of Discussion</H1>
+
+<UL>
+<LI>What are Modules
+<LI>What is a Module
+<LI>Modules In Linux
+<LI>Using Modules
+<LI>Automating Module Use
+<LI>Module Applications
+</UL>
+
+<H1>What are Modules?</H1>
+
+<UL>
+<LI>Modules are non-linked drivers
+<LI>Uses of Modules
+  <UL>
+  <LI>Allow third party commercial development of drivers
+  <LI>Minimise kernel size
+  <LI>Allow smaller generic kernels
+  </UL>
+</UL>
+
+<H1>What is a Module</H1>
+
+<UL>
+<LI>Contains device specific system routines
+<LI>Fills in non-boot gaps in the kernel
+<LI>Can be loaded and removed dynamically
+</UL>
+
+<H1>Modules In Linux</H1>
+
+<UL>
+<LI>Modules are compiled per Linux release
+<LI>Multiple modules live in
+  <UL>
+  <LI><EM>/lib/modules/&lt;kernel version&gt;/</EM>
+  </UL>
+<LI>Hence only the active version modules will load
+<LI>Accept parameters
+</UL>
+
+<H1>Using Modules</H1>
+
+<UL>
+<LI>Building into kernel
+  <UL>
+  <LI>Make boot only kernel
+  <LI>`make modules' to build modules
+  <LI>`make module-install' to install modules
+  </UL>
+<LI>insmod - Loads a module
+<LI>lsmod - Lists active modules
+<LI>rmmod - removes active modules
+</UL>
+
+<H1>Automating Module Use</H1>
+
+<UL>
+<LI>kerneld - kernel module daemon
+  <UL>
+  <LI>allows run-time loading of modules
+  </UL>
+<LI>automatically loads dependent modules
+<LI>will remove modules after timeout
+<LI>can alias devices
+  <UL>
+  <LI>alias network driver to eth0
+  </UL>
+</UL>
+
+<H1>Module Applications</H1>
+
+<UL>
+<LI>Allow fun modules
+  <UL>
+  <LI>installable console screen savers
+  <LI>replace console beep
+  </UL>
+<LI>Allow conflicting devices to co-exist
+</UL>
+
+<H1>References</H1>
+
+<UL>
+<LI>Linux Kernel Modules
+  <UL>
+  <LI>Matt Welsh, DDJ
+  </UL>
+<LI>Linux kerneld-mini-HOWTO
+<LI>Linux kernel
+<LI>Linux module utilities
+</UL>
+
+<HR>
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

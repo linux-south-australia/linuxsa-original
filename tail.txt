@@ -1,0 +1,11 @@
+<DIV ALIGN=CENTER>
+
+<ADDRESS><FONT SIZE=-1>
+Web page suggestions, criticisms, general info, or submissions to<br>
+the <A HREF="/people/">LinuxSA Webmaster</A>
+(<A HREF="mailto:lloy0076@adam.com.au">webmaster@linuxsa.org.au</A>)
+</FONT></ADDRESS>
+</DIV>
+<P ALIGN=CENTER>
+<FONT SIZE=-1><EM>Last updated: <!--#echo var="LAST_MODIFIED"--></EM></FONT>
+</P>

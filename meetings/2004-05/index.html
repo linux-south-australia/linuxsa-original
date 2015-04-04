@@ -1,0 +1,223 @@
+<HTML>
+<HEAD>
+<TITLE>Milter & SPF</TITLE>
+</HEAD>
+
+<BODY>
+<PRE>
+Milter &amp; SPF
+Geoffrey D. Bennett
+
+Sendmail Milter (Mail fILTER)
+http://www.milter.org/
+
+- An API (protocol + library) to interface with sendmail to read and
+  possibly modify message headers and bodies as they are processed.
+
+- An alternative to:
+
+  - delivering to a program (eg. procmail) (which can only touch
+    locally delivered messages)
+
+  - configuring sendmail to only queue and running through
+    /var/spool/mqueue periodically
+
+  - dual-sendmail setup
+
+  - writing sendmail .cf rules
+
+  - altering sendmail's source code
+
+Interesting points:
+
+- Can reject email based on envelope to/from before accepting the
+  mail.  Personally, I get annoyed when I see bounce messages sitting
+  around that won't be delivered because the original sender is
+  obviously bogus.
+
+- Multiple milters can be installed for one copy of sendmail to use.
+
+- C, Perl, and Python libraries available, and (experimental) C++,
+  PHP, and JAVA.
+
+- Milters run as daemons; communication is usually through a
+  UNIX-domain socket.
+
+- Connect, HELO, MAIL FROM, RCPT TO, DATA callbacks.
+
+- Return values at each step: continue, reject, discard, accept.
+
+- Message changes: add/replace/delete header, add/delete recipient,
+  replace body.
+
+Obvious applications:
+
+- Virus-scanning
+
+- Spam filtering
+
+- Logging
+
+Interesting applications (some implemented at http://www.snert.com/Software/)
+
+- milter-ahead (verify recipient addresses at secondary MX)
+
+- milter-date (validate message dates)
+
+- milter-gris (grey-listing)
+
+- milter-sender (sender address verification)
+
+- per-user filtering before accepting mail (eg. checking quota)
+
+- bouncing too-large or non-subscriber mailing list emails before
+  accepting mail
+
+Demonstrating a Milter written using Sendmail::Milter:
+
+- From http://www.city-fan.org/ftp/contrib/perl-modules/ install
+  perl-Sendmail-Milter
+
+- Write the milter (see &lt;A HREF="test-milter"&gt;this example&lt;/A&gt;).
+
+  - No global variables.
+
+- Edit /etc/mail/sendmail.mc then rebuild sendmail.cf
+
+- Run the milter.
+
+- Restart sendmail.
+
+- Test it.
+
+SPF - Sender Policy Framework
+(formerly Sender Permitted From)
+http://spf.pobox.com/
+also see these Linux Journal articles:
+http://www.linuxjournal.com/article.php?sid=7327
+http://www.linuxjournal.com/article.php?sid=7328
+
+- A way to verify sender domains to help reduce spam, worms, and
+  viruses (or at least make them more accountable).
+
+- Personally, I get annoyed when I receive emails from myself that I
+  didn't write.
+
+- Like "reverse MX" records:
+
+  - MX records say "these mail servers receive mail for these domains"
+
+  - SPF records say "these mail servers send mail for these domains"
+
+- Uses TXT records beginning with "v=spf1".
+
+- Implementation has two parts:
+
+  - Publish SPF records for your domain (means that other mail servers can
+    reject mail that says it's from you but isn't)
+
+  - Adjust your mail server to reject (means that you can reject mail
+    that fails SPF checks).
+
+SPF Record Examples:
+
+- "prefixes" (+ (default), -, ?, ~)
+
+- "mechanisms" (a, ip4, mx, ...)
+
+- dig internode.com.au txt
+
+  internode.com.au. IN TXT "v=spf1 +mx +ip4:192.83.231.0/24 +ip4:203.16.214.0/24 ~all"
+
+- dig adam.com.au txt
+
+  adam.com.au. IN TXT "v=spf1 ip4:203.6.132.64/27 ~all"
+
+- dig aol.com txt
+
+  aol.com. IN TXT "v=spf1 ip4:152.163.225.0/24 ip4:205.188.139.0/24 ip4:205.188.144.0/24 ip4:205.188.156.0/23 ip4:205.188.159.0/24 ip4:64.12.136.0/23 ip4:64.12.138.0/24 ptr:mx.aol.com ?all"
+
+- dig netcraft.com.au txt
+
+  netcraft.com.au. IN TXT "v=spf1 ip4:203.16.230.0/23 ip4:150.101.234.78 -all"
+
+- dig april.netcraft.com.au txt
+
+  april.netcraft.com.au. IN TXT "v=spf1 include:netcraft.com.au"
+
+- dig mawsonlakes.org txt
+
+  mawsonlakes.org IN TXT "v=spf1 a mx ptr -all"
+
+- dig websentric.com txt
+
+  websentric.com IN TXT "websentric.com sends no E-mail.  All E-mail claiming to be from websentric.com is forged."
+  websentric.com IN TXT "v=spf1 -all"
+
+- funkyness with "exists" and macros:
+
+  "v=spf1 exists:%{ir}.%{l1r+-}._spf.%{d} -all"
+
+  The target-name might expand to "1.2.0.192.someuser._spf.example.com".
+
+Forwarding (eg. .forward files, pobox.com, etc.):
+
+- Breaks ("to make an omlette, you need to break some eggs").
+
+- See SRS (Sender Rewriting Scheme).
+
+Roaming/Remote (or otherwise distant to the domain hoster) Users:
+
+- Changes what we've always told users -- "Use your dial-up ISP's MX".
+
+- Now need to use SMTP AUTH and use the mail server of the ISP who
+  hosts your domains.
+
+Installation on RH9/FC1 with sendmail:
+
+From http://www.city-fan.org/ftp/contrib/perl-modules/
+and http://www.city-fan.org/ftp/contrib/mail/ install:
+
+perl-Net-CIDR-Lite
+perl-Sys-Hostname-Long
+perl-Sendmail-Milter
+perl-Net-DNS
+perl-Mail-SPF-Query
+perl-FreezeThaw
+perl-MLDBM
+perl-Mail-SRS
+sendmail-milter-spf
+
+Add these two lines to /etc/mail/sendmail.mc:
+
+define(`confMILTER_MACROS_HELO', confMILTER_MACROS_HELO`, {verify}')dnl
+INPUT_MAIL_FILTER(`spf-milter', `S=local:/var/spf-milter/spf-milter.sock, F=T, T=C:4m;S:4m;R:8m;E:16m')dnl
+
+Rebuild sendmail.cf, start spf-milter, and reload sendmail:
+
+m4 &lt; sendmail.mc &gt; sendmail.cf
+service spf-milter start
+service sendmail reload
+
+Monitor /var/log/maillog
+
+No SPF records:
+
+May 18 17:47:18 april sendmail[11110]: i4I8HFPh011110: from=&lt;clamav-users-admin@lists.sourceforge.net&gt;, size=4410, class=-60, nrcpts=1, msgid=&lt;40A9BD8E.1000403@telkom.co.id&gt;, proto=ESMTP, daemon=MTA, relay=lists.sourceforge.net [66.35.250.206]
+May 18 17:47:18 april sendmail[11110]: i4I8HFPh011110: Milter add: header: Received-SPF: none (april.netcraft.com.au: domain of clamav-users-admin@lists.sourceforge.net does not designate permitted sender hosts)
+May 18 17:47:18 april sendmail[11112]: i4I8HFPh011110: to=&lt;chris@netcraft.com.au&gt;, delay=00:00:01, xdelay=00:00:00, mailer=local, pri=142817, dsn=2.0.0, stat=Sent
+
+SPF accept:
+
+May 18 06:36:29 april sendmail[23890]: i4HL6NfK023890: from=&lt;Fool@foolsubs.com&gt;, size=4602, class=0, nrcpts=1, msgid=&lt;1084827973213-71792-32035682-2222-m@foolsubs.com&gt;, proto=ESMTP, daemon=MTA, relay=mail2.foolsubs.com [69.25.30.112]
+May 18 06:36:29 april sendmail[23890]: i4HL6NfK023890: Milter add: header: Received-SPF: pass (april.netcraft.com.au: domain of fool@foolsubs.com designates 69.25.30.112 as permitted sender)
+May 18 06:36:30 april sendmail[23892]: i4HL6NfK023890: to=g, delay=00:00:04, xdelay=00:00:01, mailer=local, pri=34934, dsn=2.0.0, stat=Sent
+
+SPF reject:
+
+May 18 15:04:30 april sendmail[5283]: i4I5YReF005283: Milter: to=&lt;g@netcraft.com.au&gt;, reject=550 5.7.1 [RCPT TO: &lt;g@netcraft.com.au&gt;] Please see http://spf.pobox.com/why.html?sender=geoffrey@netcraft.com.au&amp;ip=195.56.204.159&receiver=april.netcraft.com.au
+May 18 15:04:30 april sendmail[5283]: i4I5YReF005283: lost input channel from host-204-159.fibernet.bacs-net.hu [195.56.204.159] to MTA after rcpt
+May 18 15:04:30 april sendmail[5283]: i4I5YReF005283: from=&lt;geoffrey@netcraft.com.au&gt;, size=0, class=0, nrcpts=0, proto=SMTP, daemon=MTA, relay=host-204-159.fibernet.bacs-net.hu [195.56.204.159]
+</PRE>
+</BODY>
+</HTML>

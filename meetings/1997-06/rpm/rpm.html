@@ -1,0 +1,350 @@
+<HTML>
+<HEAD>
+<TITLE>RPM - The Red Hat Package Manager</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH=431 HEIGHT=50></P>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<H1 ALIGN=CENTER>RPM - The Red Hat Package Manager</H1>
+<H2 ALIGN=CENTER>LinuxSA - June 1997 Meeting<BR>
+Geoffrey D. Bennett<BR>
+(<A HREF="mailto:geoffrey@netcraft.com.au">geoffrey@netcraft.com.au</A>)</H2>
+
+<H2>Introduction</H2>
+<UL>
+  <LI>What is package management & why do we want it?
+  <LI>RPM Design Goals & a bit of history
+  <LI>How to install, erase, upgrade, query, and verify packages
+</UL>
+
+<H2>What is Package Management & why do we want it?</H2>
+<UL>
+  <LI>Managing Programs
+  <UL>
+          <LI>Executables
+          <LI>Data Files
+          <LI>Configuration Files
+          <LI>Documentation
+  </UL>
+  </P>
+  <LI>Examples of Packages  
+  <UL>
+          <LI>Applications, eg. a word processor or a programming language
+          <LI>A part of the Operating System, eg. an FTP server
+  </UL>
+  </P>
+  <LI>Advantages
+  <UL>
+          <LI>One easily managed "chunk"
+          <LI>Packages are "intelligent"
+  </UL>
+  </P>
+</UL>
+
+<H2>What you can do with Packages</H2>
+<UL>
+  <LI>Package operations:
+  <UL>
+    <LI>Installing packages
+    <LI>Upgrading packages
+    <LI>Removing packages
+  </UL>
+  </P>
+  <LI>Keeping track of packages:
+  <UL>
+    <LI>Finding out what packages are installed
+    <LI>Get information on a specific package
+    <LI>Is a package still installed correctly?
+  </UL>
+  </P>
+</UL>
+
+<H2>RPM Design Goals</H2>
+<UL>
+  <LI>Make it easy to get packages on and off the system</P>
+  <LI>Make it easy to verify a package was installed correctly</P>
+  <LI>Make it easy for the package builder</P>
+  <LI>Make it start with the original source code</P>
+  <LI>Make it work on different computer architectures</P>
+</UL>
+
+<H2>A Bit of History</H2>
+<UL>
+  <LI>RPP
+  <UL>
+    <LI>Used in Red Hat Linux versions before 2.0
+    <LI>Supported one-command installation and uninstallation
+    <LI>Package verification
+    <LI>Powerful querying
+    <LI>Didn't use "pristine sources"
+    <LI>No support for multiple architectures
+  </UL>
+  </P>
+  <LI>PMS
+  <UL>
+    <LI>Developed at the same time as RPP
+    <LI>Used in the BOGUS distribution</LI> 
+    <LI>No package verification
+    <LI>Weak querying
+    <LI>Used "pristine sources"
+    <LI>No support for multiple architectures
+  </UL>
+  </P>
+</UL>
+
+<H2>A Bit of History (cont.)</H2>
+<UL>
+  <LI>PM
+  <UL>
+    <LI>Produced by the developers of PMS under contract to Red Hat Software
+    <LI>Combined the best features of RPP and PMS
+    <LI>Weak database design
+    <LI>No support for multiple architectures
+  </UL>
+  </P>
+  <LI>RPM Version 1
+  <UL>
+    <LI>Produced by Marc Ewing and Erik Troan
+    <LI>Automatic Handling of Configuration Files
+    <LI>Easy to rebuild many packages
+    <LI>Slow and big (written in Perl)
+    <LI>Poor support for multiple architectures
+    <LI>Package file format wasn't extensible
+  </UL>
+  </P>
+</UL>
+
+<H2>A Bit of History (cont.)</H2>
+<UL>
+  <LI>RPM Version 2
+  <UL>
+    <LI>Rewritten in C - much faster and didn't require Perl
+    <LI>New database design improved speed and reliability
+    <LI>rpmlib
+    <LI>Enhanced multiple architecture support
+    <LI>Extensible package file format
+  </UL>
+  </P>
+</UL>
+
+<H2>Installing Packages</H2>
+<UL>
+  <LI><TT>rpm -i file1.rpm ...</TT>
+  <UL>
+    <LI>Performs dependancy checks
+    <LI>Checks for conflicts
+    <LI>Performs any tasks required before the install
+    <LI>Decides what to do with config files
+    <LI>Unpacks files from the package
+    <LI>Performs any tasks required after the install
+    <LI>Keeps track of what it did
+  </UL>
+  </P>
+  <LI><TT>rpm -i eject-1.4-3.i386.rpm</TT>
+  <UL>
+    <LI>Filename is only a convention
+    <LI>Installing via ftp
+    <LI>Verbose: <TT>-v</TT>
+    <LI>Hash marks: <TT>-h</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>Installing Packages (cont.)</H2>
+<UL>
+  <LI>Additional options
+  <UL>
+    <LI>Overwriting packages: <TT>--replacepkgs</TT>
+    <LI>Overwriting files: <TT>--replacefiles</TT>
+    <LI>Overwriting packages and files: <TT>--force</TT>
+    <LI>Ignoring dependencies: <TT>--nodeps</TT>
+    <LI>Don't install documentation: <TT>--excludedocs</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>Erasing Packages</H2>
+<UL>
+  <LI><TT>rpm -e pkg1 ...</TT>
+  <UL>
+    <LI>Checks that no other packages require the one being removed
+    <LI>Performs any tasks required before uninstalling
+    <LI>Check if any config files were changed
+    <LI>Deletes any files belonging to the package
+    <LI>Performs any tasks required after uninstalling
+    <LI>Keeps track of what it did
+  </UL>
+  </P>
+  <LI><TT>rpm -e eject</TT>
+  <UL>
+    <LI>Package name is used, not the filename
+    <LI><TT>--nodeps</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>Upgrading Packages</H2>
+<UL>
+  <LI><TT>rpm -U file1.rpm ...</TT>
+  <UL>
+    <LI>Installs the new version
+    <LI>Erases any older versions if they exist
+  </UL>
+  </P>
+  <LI>Configuration file handling</P>
+  <LI><TT>rpm -U eject-1.2-2.i386.rpm</TT>
+  <UL>
+    <LI>Verbose: <TT>-v</TT>
+    <LI>Hash marks: <TT>-h</TT>
+    <LI>"Upgrade" to an older version: <TT>--oldpackage</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>Querying Packages: <TT>rpm -q</TT></H2>
+<UL>
+  <LI>Example Queries:
+  <UL>
+    <LI>Where did this file come from?
+    <LI>What is in this package I received?
+    <LI>What version of this package do I have installed?
+    <LI>Is there any documentation for this package?
+  </UL>
+  </P>
+  <LI>Parts to a query:
+  <UL>
+    <LI>What packages to query
+    <LI>What information is wanted
+  </UL>
+  </P>
+</UL>
+
+<H2>Selecting Packages</H2>
+<UL>
+  <LI>One installed package:
+  <UL>
+    <LI>The package name/version/label<BR>
+      <TT>rpm -q libc</TT><BR>
+      <TT>rpm -q libc-5.3.12</TT><BR>
+      <TT>rpm -q libc-5.3.12-18</TT>
+    <LI>Case sensitive
+    <LI>No wildcards
+  </UL>
+  </P>
+  <LI>All installed packages:
+  <UL>
+    <LI><TT>rpm -qa</TT>
+    <LI>Use "<TT>less</TT>" or
+      "<TT>grep</TT>"
+  </UL>
+  </P>
+  <LI>Query the package owning a file:
+  <UL>
+    <LI><TT>rpm -qf /bin/ls</TT>
+  </UL>
+</UL>
+
+<H2>Selecting Packages (cont.)</H2>
+<UL>
+  <LI>Query a package file:
+  <UL>
+    <LI><TT>rpm -qp eject-1.4-3.i386.rpm</TT>
+  </UL>
+  </P>
+  <LI>Query the packages that belong to a group:
+  <UL>
+    <LI><TT>rpm -qg Utilities/Text</TT>
+    <LI>Case sensitive
+  </UL>
+  </P>
+</UL>
+
+<H2>Information Selection</H2>
+<UL>
+  <LI>Display package information:
+  <UL>
+    <LI><TT>rpm -qi libc</TT>
+  </UL>
+  </P>
+  <LI>Display files in the package:
+  <UL>
+    <LI><TT>rpm -ql libc</TT>
+    <LI>Verbose: <TT>-v</TT>
+  </UL>
+  </P>
+  <LI>Display a package's configuration or documentation files:
+  <UL>
+    <LI><TT>rpm -qc libc</TT>
+    <LI><TT>rpm -qd libc</TT>
+  </UL>
+  </P>
+  <LI>Custom Queries:
+  <UL>
+    <LI><TT>rpm -qa --queryformat '%{NAME} %{SIZE}\n' | sort -n +1</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>Information Selection (cont.)</H2>
+<UL>
+  <LI>Examples:
+  <UL>
+    <LI>Finding configuration files for a program:<BR>
+      <TT>rpm -qcf /bin/bash</TT>
+    <LI>Finding documentation files for a program:<BR>
+      <TT>rpm -qdf /bin/bash</TT>
+    <LI>Information on an uninstalled package:<BR>
+      <TT>rpm -qpil eject-1.4-3.i386.rpm</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>Verifying Packages</H2>
+<UL>
+  <LI><TT>rpm -V pkg1 ...</TT><BR>
+  Verifies:
+  <UL>
+    <LI>Owner
+    <LI>Group
+    <LI>Mode
+    <LI>MD5 checksum
+    <LI>Size
+    <LI>Major/minor numbers
+    <LI>Symbolic link string
+    <LI>Modification time
+  </UL>
+  </P>
+  <LI>Verifying all packages:
+  <UL>
+    <LI><TT>rpm -Va</TT>
+  </UL>
+  </P>
+  <LI>Verifying the package that owns a file:
+  <UL>
+    <LI><TT>rpm -Vf /bin/bash</TT>
+  </UL>
+  </P>
+  <LI>Verifying against a package file:
+  <UL>
+    <LI><TT>rpm -Vp eject-1.4-3.i386.rpm</TT>
+  </UL>
+  </P>
+</UL>
+
+<H2>References</H2>
+<UL>
+  <LI>Maximum RPM - Taking the Red Hat Package Manager to the Limit<BR>
+  Edward C. Bailey<BR>
+  Published by Red Hat Software, 1997
+  </P>
+  <LI><TT>http://www.rpm.org/</TT>
+  </P>
+  <LI><TT>rpm -qd rpm</TT>&nbsp;&nbsp;&nbsp;&nbsp;:-)
+  </P>
+</UL>
+
+<H2>Questions</H2>

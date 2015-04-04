@@ -1,0 +1,52 @@
+SSH Talk Notes
+Geoffrey D. Bennett <geoffrey@netcraft.com.au>
+Copyright NetCraft Australia 2000
+
+- What is ssh
+  - Second most useful sysadmin tool
+- Why use it
+- Alternatives
+  - ssltelnet
+- How it works (crypto stuff)
+- Licensing
+- SSH 1.2
+  - http://www.ssh.com/
+  - ftp://ftp.aarnet.edu.au/pub/replay/linux/redhat/i386/
+    - ssh, ssh-clients, ssh-server
+- OpenSSH
+  - http://www.openssh.com/
+  - ftp://ftp.aarnet.edu.au/pub/openbsd/OpenSSH/portable/rpm/
+    - openssh, openssh-clients, openssh-server
+    - openssl
+- How to use it
+  - ssh host
+  - ssh user@host
+  - ssh host commandname
+  - scp
+- X
+- Compression (-C)
+- How to configure it
+  - /etc/ssh_config
+    - ForwardAgent
+    - Compression
+  - /etc/sshd_config
+    - Allowing logins as root (PermitRootLogin)
+- Authenticating the server (~/.ssh/known_hosts)
+- Authenticating the client
+  - On the client:
+    - ssh-keygen (~/.ssh/identity.pub)
+  - On the server:
+    - ~/.ssh/authorized_keys
+- SSH Agent
+  - ssh-agent startx
+  - ssh-add
+- Port redirection
+  - local port: -Llocalport:remotehost:remoteport
+  - remote port: -Rremoteport:localhost:localport
+- Windows clients
+  - Putty
+    - http://www.chiark.greenend.org.uk/~sgtatham/putty.html
+    - ftp://ftp.netcraft.com.au/pub/misc/putty/putty.exe
+  - ttssh Teraterm plugin
+    - http://www.zip.com.au/~roca/ttssh.html
+- rsync -e ssh (& RSYNC_RSH=ssh)

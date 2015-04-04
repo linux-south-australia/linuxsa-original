@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - IP Masquerading</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+IP Masquerading</H1>
+<FONT SIZE=1>by <A HREF="mailto:davidn@rebel.net.au">David
+Newall</A>.</FONT>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<H2>What is IP masquerading and when is it of use?</H2>
+
+<P>IP masquerading is a process where one computer acts as an IP
+gateway for a network.&nbsp; All computers on the network send their
+IP packets through the gateway, which replaces the source IP address
+with its own address and then forwards it to the internet.&nbsp;
+Perhaps the source IP port number is also replaced with another port
+number, although that is less interesting.&nbsp; All hosts on the
+internet see the packet as originating from the gateway.</P>
+
+<P>Any host on the Internet which wishes to send a packet back, ie in
+reply, must necessarily address that packet to the gateway.&nbsp;
+Remember that the gateway is the only host seen on the internet.&nbsp;
+The gateway rewrites the destination address, replacing its own
+address with the IP address of the machine which is being masqueraded,
+and forwards that packet on to the local network for delivery.</P>
+
+<P>This procedure sounds simple, and it is.&nbsp; It provides an
+effective means by which you can provide second class internet
+connections for a complete LAN using only one (internet) IP
+address.&nbsp; Note the essential phrase, ``second class internet
+connections''.</P>
+
+<P>IP masquerading cannot provide full internet connections to the
+hosts which hide behind it.&nbsp; The reason for this is that any
+connection can be established outwards, that is a hidden host can
+connect to any service which is "advertised" on the internet, but no
+connection can be established inwards.&nbsp; No host which is hidden
+behind the gateway will ever receive a connection for a port which it
+listens to.&nbsp; This precludes hidden hosts from offering services
+such as Telnet, file transfer, www, mail, news and so on.</P>
+
+<P>The reason why no inward connection will ever be established is
+that the process of listening on a port produces no packet.&nbsp; When
+a program listens it does not annouce that it is listening, it just
+listens.&nbsp; When a host wishes to connect to a service it has no
+way of knowing if that connection can possibly succeed; it simply
+sends a connection packet to the destination IP address.  If there no
+host at that destination address, the host trying to connect
+eventually times out and reports the connection failed.&nbsp; If there
+is a host at that destination address, but it is not listening at that
+port, the destination host returns a connection refused message and
+the host trying to connect immediately reports the connection
+failed.</P>
+
+<P>Remember that the only IP address visible on the internet, with
+respect to a masqueraded LAN, is the gateway's address.&nbsp; Any
+inbound connection must be addressed to the gateway's address.&nbsp;
+With no prior communication between the hidden host and the gateway,
+there is nothing to indicate (to the gateway) how to rewrite the
+destination address for local delivery.</P>
+
+<P>The conclusion of all of this is that if your program works by
+listening at an address (I suspect ICQ does this) so that other hosts
+on the internet can connect to you, that program will be of no use to
+you if your connection is through a masquerading gateway.</P>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

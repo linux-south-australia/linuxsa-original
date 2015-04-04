@@ -1,0 +1,69 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Can Linux see your network card ?</TITLE>
+<LINK REV="made" HREF="marks@senet.com.au">
+</HEAD>
+
+<BODY>
+Getting Linux Connected, using Ethernet and TCP/IP
+<HR>
+<H1>Can Linux see your network card ?</H1>
+<HR>
+
+<!-- Body Text Starts Here -->
+<H2>Ethernet device names</H2>
+<P>
+Before you can determine whether Linux can see your network card, you need to know the device name for the ethernet card. This device name is used to refer to the ethernet network card when configuring the card within Linux.
+</P>
+<P>
+Linux ethernet cards are named with the letters <SAMP>eth</SAMP> followed by a number. The number indicates which ethernet interface you are interested in.
+</P>
+<P>
+With one network card in the Linux box, the interface is named <SAMP>eth0</SAMP>. 
+</P>
+<P>
+Subsequent cards (in the case of having multiple ethernet cards in the Linux box) will be numbered starting at 1 and continuing onwards eg. <SAMP>eth1</SAMP>, <SAMP>eth2</SAMP> etc.
+</P>
+<H2>Is <SAMP>eth0</SAMP> available ?</H2>
+<P>
+The easiest way to determine whether the <SAMP>eth0</SAMP> device is available is to use the <KBD>ifconfig</KBD> command.
+</P>
+<P>
+The <KBD>ifconfig</KBD> command is located in the <SAMP>/sbin</SAMP> subdirectory.
+</P>
+<P>
+Type</P>
+<BLOCKQUOTE><KBD>/sbin/ifconfig eth0</KBD></BLOCKQUOTE>
+</P>
+<P>to see both the TCP/IP and hardware settings of your ethernet card.
+</P>
+<P>
+Two important values you should observe are the <SAMP>Interrupt</SAMP> and <SAMP>Base address</SAMP>. These values correspond to the IRQ and IO Port addresses for the network card. If these values match those set for the network card itself, then Linux is seeing the network card properly.
+</P>
+<!-- Body Text Finishs Here -->
+
+	<HR>
+	<CENTER>
+	<A HREF="confnic.html">[Previous Page]</A>
+	|
+	<A HREF="../conflinux/index.html">[Next Page]</A>
+	|
+	<A HREF="index.html">[Start of Current Topic]</A>
+	|
+	<A HREF="index.html">[Previous Topic]</A>
+	|
+	<A HREF="../conflinux/index.html">[Next Topic]</A>
+	</CENTER>
+
+	<HR>
+	<SMALL><ADDRESS>
+	<P><A HREF="http://www.linuxsa.org.au">LinuxSA</A> - http://www.linuxsa.org.au</P>
+	Prepared by Mark Smith<BR>
+	<A HREF="mailto:marks@senet.com.au">marks@senet.com.au</A></P>
+	<P>Fri Feb 20 13:28:03 CST 1998
+</P>
+	</ADDRESS></SMALL>
+</BODY>
+<HTML>

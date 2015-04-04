@@ -1,0 +1,107 @@
+Beginner's GIT
+Geoffrey D. Bennett <g@netcraft.com.au>
+
+- project (eg. web site) with many files
+- develop, develop
+- backup?
+- tar up automatically each day
+  - overwrite
+  - new each day
+  - rolling
+- development vs. deployment
+- rsync?
+  - fine for one person
+  - no good for more
+
+Using git:
+
+git-config --global user.name "Geoffrey D. Bennett"
+git-config --global user.email g@netcraft.com.au
+git config --global color.pager true
+git config --global color.ui auto
+git config --global diff.renames true
+
+git-init
+edit
+git-add/git-commit or git-gui
+  - index
+(repeat)
+
+- gitk to visualise history
+
+- git-log
+- git-status
+- git-show
+- git-diff --color-words
+
+- repository is in .git
+  - at the root of the working directory tree
+  - storage of blobs (indexed by SHA1 hash)
+  - commits are entirely new trees
+    - not per-file
+    - no version numbers, only SHA1 ID
+  - everybody has a copy of the entire repository
+  - decentralised:
+    - anyone can be a server
+    - anyone can share changes with anyone directly
+    - "micro-commits"
+    - detached operation
+    - no single point of failure
+
+- git clone
+- git fetch
+- git merge
+- git pull = fetch+merge
+
+bare repository: git-clone --bare
+
+git config for bare repository shared by users on the same system:
+
+-----8<-----8<-----8<-----8<-----8<-----
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = true
+        sharedRepository = true
+-----8<-----8<-----8<-----8<-----8<-----
+
+git config for users using that bare repository:
+
+-----8<-----8<-----8<-----8<-----8<-----
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+[remote "origin"]
+        url = /home/somewhere/the-repository
+        fetch = refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        rebase = true
+        merge = refs/heads/master
+-----8<-----8<-----8<-----8<-----8<-----
+
+network config:
+- ssh: g@some-host:somedirectory/
+- git: git://host/path
+- http: http://host/path
+
+man git-config
+
+- git push (only to bare repository)
+
+- git branch branchname
+  git checkout branchname
+  or git checkout -b branchname
+
+- git rebase
+
+Interesting things:
+- renames are not tracked
+- directories are not tracked
+- branches and tags are pointers to commit objects
+  - see .git/refs/heads/* .git/refs/tags/*
+
+- git stash
+- git stash pop

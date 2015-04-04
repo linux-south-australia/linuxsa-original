@@ -1,0 +1,101 @@
+LinuxSA 15/Jan/2002
+Geoffrey D. Bennett <g@netcraft.com.au>
+Virtual Private Servers and Security Contexts
+
+chroot
+
+- run a process with a different root directory
+
+- can help with security, but root can do bad things:
+
+  - read/write to /dev/hda
+
+  - strace other processes
+
+Kernel patch and tools to allow the creation of "virtual servers":
+- http://www.solucorp.qc.ca/miscprj/s_context.hc
+
+The tools:
+
+- chcontext <program>
+
+  Creates a new security context and runs the given process in it.
+
+  Demo: chcontext xterm
+
+  Use --ctx <n> to enter a given context.
+
+  Processes from one security context can't see processes from
+  another.  Context 1 (not 0) can see everything.
+
+shared memory segments can be seen
+
+- chbind --ip <ip_address> <program>
+
+  Runs the given program, and prevents it from binding to any IP
+  address apart from the one given.
+
+  Demo: chbind --ip 10.0.0.2 /etc/rc.d/init.d/httpd restart
+
+  Applies to clients as well:
+
+  Demo: chbind --ip 10.0.0.2 ssh localhost
+
+- reducecap
+
+  Reduces the capability ceiling.
+
+  - What capabilities are used for
+    /usr/include/linux/capability.h
+
+  - cat /proc/self/status
+
+  - Inheritable, Permitted, Effective, Bset (ceiling)
+
+  Demo:
+    reducecap --secure xterm
+
+Putting a vserver together
+
+- vserver name-of-vserver build
+
+  - Creates a vserver based on the current system.
+
+- manually:
+
+  mkdir -p /h/vservers/linuxsa-demo/var/lib/rpm
+  rpm --root /h/vservers/linuxsa-demo --initdb
+  rpm --root /h/vservers/linuxsa-demo -ivh ...
+    filesystem basesystem setup glibc bash mktemp etc etc
+  create necessary devices in /dev (eg. null, zero, full, random)
+  remove unneeded services (eg. network)
+  install vreboot, vhalt
+  vi /etc/vservers/linuxsa-demo.conf
+
+Admin tools for vservers:
+
+- vserver name-of-vserver start/stop/enter
+- vservers start/stop
+- vserver-stat
+- vbuild template new-server
+
+Other things:
+
+- mount --bind
+- performance no different to not using vserver
+
+Uses:
+
+- Virtual Hosting
+- Backups
+- Failover
+- Intrusion Detection
+- Classrooms
+- Firewalls per-application
+
+BSD jail
+- similar, but:
+  - three system calls (chroot(), set_ipv4root(), new_s_context())
+    instead of one (jail())
+  - vserver can put new processes into an existing security context
+  - chcontext and chbind are not privileged commands

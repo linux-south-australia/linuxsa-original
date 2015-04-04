@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<TITLE>Linux Tips - Superblocks</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<P><IMG ALT="LinuxSA" SRC="/images/linuxsabar.jpg" WIDTH="431" HEIGHT="50"></P>
+
+<H1>Linux Tips<BR>
+Superblocks</H1>
+<FONT SIZE=1>by <A HREF="mailto:davidn@rebel.net.au">David
+Newall</A>.</FONT>
+
+<!--#include virtual="/buttonbar.txt"-->
+
+<HR WIDTH="50%">
+
+<P>Some disk blocks are quite boring.&nbsp; Some are marginally
+interesting.&nbsp; A very few are just super.&nbsp; :-)</P>
+
+<P>The original Unix filesystem was composed of four sections: Boot
+blocks, which contain the secondary stage bootstrap loader; a super
+block, which I will describe in a minute; the i-node table, which
+contains i-nodes, and i-nodes are the complete file except for the
+data; and data plus indirect blocks.</P>
+
+<P>I-nodes are, as I said, are the complete file except for the
+data.&nbsp; That is, they describe who owns the file, when it was last
+accessed and modified, what the permissions are for the file, and the
+list of blocks which contain the data.&nbsp; Side note: Unix files
+don't have names.&nbsp; They have (i-node) numbers.&nbsp; Directories
+are files which contain a number of filename, i-node number pairs;
+called links.</P>
+
+<P>Data blocks contain the file data.&nbsp; Since i-nodes are of fixed
+size, obviously there is an upper limit to the number of data blocks
+which can be listed in the inode.&nbsp; When an inode can no longer
+contain the list of data blocks, that list is moved to an indirect
+block, and the i-node is converted to contain a list of indirect
+blocks.&nbsp; When the inode can no longer contain a list of indirect
+blocks, the list is moved to a double-indirect block and the inode
+then contains a list of double-indirect blocks.&nbsp; I notice
+(<TT>/usr/include/linux/sysv_fs.h</TT>) that ``traditional''
+filesystems now allow triple-indirect blocks, which just goes to show
+that even tradition is hard to keep up with.</P>
+
+<P>The super block describes the size of the inode-table and the size
+of the total file system.&nbsp; It also contains a list of some
+recently freed data blocks, which is used to quickly find a free block
+when you want to allocate a new one.&nbsp; Similarly there is a
+(partial) list of free inodes.</P>
+
+<P>I made the point that files don't have names, they have numbers,
+and that directories provide a map between names and numbers.&nbsp; So
+how do you find the root of a filesystem?&nbsp; The answer is that it
+is inode number two.&nbsp; Inode 1 contains a list of bad blocks on
+the disk.</P>
+
+<P>One of the less desirable features of the traditional filesystem is
+that it has only one superblock, and if you lose that you are really
+stuffed.&nbsp; Look: You wouldn't even know where the inode table
+ended and the data table started.&nbsp; As a remedy to that, when the
+BSD Fast File System was designed, it was given backup copies of the
+superblock.&nbsp; So if you lost the main superblock you could mount
+using one of the backup copies (but you had to know where it was (but
+it's not to hard to find it)).</P>
+
+<P>Now don't you agree that from a filesystem perspective, data blocks
+are only marginally interesting, but that first block is just
+super?&nbsp; ;-)</P>
+
+<HR WIDTH="50%">
+
+<!--#include virtual="/tail.txt"-->
+
+</BODY>
+</HTML>

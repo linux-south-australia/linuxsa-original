@@ -1,0 +1,159 @@
+Revision Control Systems for Linux
+Geoffrey D. Bennett
+geoffrey@linuxsa.org.au
+
+- What is revision control?
+
+- How revision control systems such as RCS and CVS can be used to
+  assist with system administration and project management
+
+What is revision control?
+
+- Related to configuration management
+
+- Managing and tracking different versions of files
+
+- Useful whenever you update a file
+
+  - Multiple people working on the same file
+    - Shared directory (conflicts)
+    - Move files around with Email/SneakerNet (multiple versions)
+
+- Concept of a repository
+
+- Going back to previous revisions
+
+- Essential for software development
+
+  - Blaming people
+  - Branches/merges
+
+- Find out more: http://linas.org/linux/cmvc.html
+
+Revision control systems for Linux:
+- RCS
+  - Useful for a single person, small projects
+  - Easy to set up
+  - Not client-server
+
+- CVS
+  - Based on RCS
+  - Client-server-ish
+  - Useful for larger projects
+  - Slightly more work to set up, but far easier to use
+  - Unreserved checkout model
+  - The most popular open-source version control system
+
+- Aegis
+  - Developed in Australia
+  - http://www.canb.auug.org.au/~millerp/aegis/aegis.html
+  - Big & very powerful, but easy to use -- "the essential process can
+    be learned in less than a day"
+
+- Subversion, BitKeeper, Perforce, Cervisia
+  - Other open-source and proprietary version control systems that may
+    be worth looking at
+
+- Katie
+  - Yet another version control system, under development, to be
+    described later
+  - http://www.netcraft.com.au/geoffrey/katie/
+
+RCS
+
+- Setting up:
+  - mkdir RCS
+
+- Checking files in:
+  - ci -u myfile
+    (-u means that we want an "unlocked" (read-only) copy of the file)
+
+- Checking files out:
+  - co -l myfile
+    (-l means that we want a "locked" (read-write) copy of the file)
+
+- Repeat.
+
+- Useful commands:
+
+  - See the log of changes:
+    rlog myfile
+
+  - Checkout a particular version:
+    co -u -r1.2 myfile
+
+  - See the differences between two versions:
+    rcsdiff myfile
+    rcsdiff -r1.2 myfile
+    rcsdiff -r1.2 -r1.3 myfile
+
+CVS
+
+- Setting up
+  - Choose a location for your repository
+  - Set your CVSROOT environment variable:
+    - Plain directory:
+      export CVSROOT=/path/to/cvsroot
+    - Over ssh:
+      export CVSROOT=:ext:username@hostname:/path/to/cvsroot
+      export CVS_RSH=ssh
+    - Anonymous:
+      export CVSROOT=:pserver:anonymous@hostname:/path/to/cvsroot
+  - cvs init
+  - mkdir /path/to/cvsroot/myproject
+
+- Using:
+  cvs checkout myproject
+
+  cd myproject
+  vi myfile
+  cvs add myfile
+  cvs commit myfile
+  vi myfile
+  cvs commit myfile
+  repeat...
+
+- Useful commands:
+  - Retrieve any new files from the repository and see what you've
+    changed:
+    cvs update
+    ? = CVS doesn't know about this file
+    M = You've made changes to this file
+    A = You've added, but not commited the file
+
+  - See the log of changes:
+    cvs log myfile
+
+  - See the differences between versions:
+    cvs diff myfile
+    cvs diff -r1.2 myfile
+    cvs diff -r1.2 -r1.3 myfile
+
+  - Get a particular version:
+    - cvs update -r1.2 myfile
+      and to clear:
+      cvs update -A myfile
+
+  - Tag a tree:
+    cvs tag mytag
+
+  - Checkout based on a tag:
+    cvs checkout -r mytag myproject
+
+  - $Id$
+    volatile static const char *rcsid = "$Id$";
+    ident
+
+Katie
+- Based on ClearCase
+- The repository can be mounted as a filesystem
+- Based on NFS plus extensions
+- Mostly written in Perl, plus some bits of C
+- All version of all files can always be seen through the filesystem
+  (no need for 'katie diff')
+- Directories are versioned
+- Config specs
+- Demonstration
+- Future planned cool features:
+  - A make utility that can automatically figure out dependencies
+  - Sharing of built files between views
